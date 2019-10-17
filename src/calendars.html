@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>encalc</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="menu">
+    <ul>
+      <li><a href="vizit.html">Визитки</a></li>
+      <li><a href="flyers.html">Листовки</a></li>
+      <li><a href="blanks.html">Бланки</a></li>
+      <li><a href="boolets.html">Буклеты и каталоги</a></li>
+      <li><a href="eurobooklets.html">Евробуклеты</a></li>
+      <li><a href="calendars.html">Календари</a></li>
+      <li><a href="notes.html">Блокноты</a></li>
+    </ul>
+  </nav>
+
+  <main id="vizitCardsCalc">
+    
+    <h2>Визитки</h2>
+
+    <div class="section">
+      Тип картона:
+      <select name="" id="cardboardType">
+        <option value="dizcrd">диз. картон</option>
+        <option value="normal">обычный картон</option>
+      </select>
+    </div>
+    
+    <div class="section">
+      Бумага:
+      <select name="" id="visitCards-paper">
+        <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div class="section">
+      Цветность:
+      <select name="" id="visitCards-color">
+        <option value="4+0">4+0</option>
+        <option value="4+4">4+4</option>
+      </select>
+    </div>
+    
+    <div class="section">
+      Тираж:
+      <input v-model="edition" type="number" placeholder=""></input>
+    </div>
+    
+    <div class="section">
+      Постпечатная обработка:
+      <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
+      <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
+    </div>
+
+    <div class="section">
+      <button @click="getTotal">рассчитать</button>
+    </div>
+
+  </main>
+
+  <script src="js/tmp-vizit.js"></script>
+</body>
+</html>
