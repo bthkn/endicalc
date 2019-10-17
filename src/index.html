@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>encalc</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  
+  <nav class="menu">
+    <ul>
+      <li><a href="#">Визитки</a></li>
+      <li><a href="#">Листовки</a></li>
+      <li><a href="#">Бланки</a></li>
+      <li><a href="#">Буклеты и каталоги</a></li>
+      <li><a href="#">Евробуклеты</a></li>
+      <li><a href="#">Календари</a></li>
+      <li><a href="#">Блокноты</a></li>
+    </ul>
+  </nav>
+    
+  <main id="app">
+    <h2>Буклеты и каталоги</h2>
+    <div class="section">
+      Бумага обложки:
+      <select name="" id="bukleti-paper-cover">
+        <option v-for="type in paperTypes" :value="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="section">
+      Бумага блока:
+      <select name="" id="bukleti-paper-block">
+        <option v-for="type in paperTypes" :value="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="section">
+      Формат полосы:
+      <select name="" id="bukleti-paper-format">
+        <option v-for="format in paperFormat" :value="format">{{ format }}</option>
+      </select>
+    </div>
+    <div class="section">
+      Количество полос:
+      <input v-model="linesNumber" type="number" placeholder="кратное 4"></input>
+    </div>
+    <div class="section">
+      Тираж:
+      <input v-model="edition" type="number" placeholder=""></input>
+    </div>
+    <div class="section">
+      Постпечатная обработка:
+      <input type="checkbox" name="lam" v-model="isLam"><label for="lam">ламинация обложки</label>
+      <input type="checkbox" name="corners" v-model="isCorners"><label for="isCorners">скругление углов блока</label>
+      <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
+    </div>
+    <div class="section">
+      <button @click="getTotal">рассчитать</button>
+    </div>
+  </main>
+
+  <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+  <script src="js/index.js"></script>
+</body>
+</html>
