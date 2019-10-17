@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager . endesignCalc --platform=win32 --arch=x64"
+    "build": "electron-packager . endiCalc --platform=win32 --arch=x64"
   },
   "devDependencies": {
     "electron": "^6.0.12",
