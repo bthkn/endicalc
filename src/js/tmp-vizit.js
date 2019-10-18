@@ -1,25 +1,7 @@
-
-// var paperCost = 0 // Стоимость бумаги
-// var printCost = 8 // стоимость печати 100%
-// var edition = 100 // Тираж
-// var kRent = 7.5 // Коэффициент рентабельности по визиткам соответствующего тиража
-// var lamCost = 0 // Стоимость ламинации соответствующего тиража
-// var cornerCost = 0 // стоимость скругления углов
-// var biegenCost = 0 // стоимость биговки соответствующего тиража (при выборе пользователем)
-// var flyerConst = 1 // А3: 1, А4: 2, А5: 4, А6: 8, 210*98: 6, 150*70: 12, 100*70: 18
-// var linesNumber = 52 // Количество полос
-// var coverCost = 6.85 // Стоимость бумаги для обложки
-// var skoba = 2.2 // стоимость скобы
-// var springCost = 0 // стоимость пружины
-// var grommetCost = 0 // стоимость люверса
-// var blockStd = 0 // календарный блок стандарт
-// var block85 = 0 // календарный блок 85*115
-// var begunok = 0 // стоимость бегунка
-
 var app = new Vue({
   el: '#vizitCardsCalc',
   data: {
-    currentProduct: 'Визитки',
+    currentProduct: 'Буклеты и каталоги',
     isLaminated: undefined,
     isCorners: undefined,
     edition: undefined,
@@ -162,21 +144,39 @@ var app = new Vue({
         }
       }
     }
-    
   },
   methods: {
       getTotal() {
-        if (this.currentProduct == 'Визитки') {
+        if (this.currentProduct == 'Буклеты и каталоги') {
 
           var cardboardType = document.getElementById('cardboardType').value
           var paper = document.getElementById('visitCards-paper').value
           var color = document.getElementById('visitCards-color').value
 
+          var editNum
+          if (this.edition < 100) {
+            editNum = 50
+          } else if ((this.edition >= 100) && (this.edition < 200)) {
+            editNum = 100
+          } else if ((this.edition >= 200) && (this.edition < 300)) {
+            editNum = 200
+          } else if ((this.edition >= 300) && (this.edition < 400)) {
+            editNum = 300
+          } else if ((this.edition >= 400) && (this.edition < 500)) {
+            editNum = 400
+          } else if ((this.edition >= 500) && (this.edition < 1000)) {
+            editNum = 500
+          } else if ((this.edition >= 1000) && (this.edition < 2000)) {
+            editNum = 1000
+          } else if (this.edition > 2000) {
+            editNum = 2000
+          }
+
           var paperCost = this.db['paperCosts'][paper]
           var printCost = this.db['printCosts'][color]['100']
-          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][this.edition]
-          var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
-          var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
+          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][editNum]
+          var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
+          var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
           console.log(paperCost, printCost, kRent, lamCost, cornerCost)
 
           var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost

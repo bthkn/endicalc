@@ -20,50 +20,45 @@
     </ul>
   </nav>
 
-  <main id="flyersCalc">
-    
-    <h2>Листовки</h2>
+  <main id="bookletsCalc">
+      <h2>Буклеты и каталоги</h2>
+      <div class="section">
+        Бумага обложки:
+        <select name="" id="booklets-cover">
+          <option v-for="type in paperTypes" :value="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="section">
+        Бумага блока:
+        <select name="" id="booklets-paper">
+          <option v-for="type in paperTypes" :value="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="section">
+        Формат полосы:
+        <select name="" id="booklets-format">
+          <option v-for="format in paperFormat" :value="format">{{ format }}</option>
+        </select>
+      </div>
+      <div class="section">
+        Количество полос:
+        <input v-model="linesNumber" type="number" placeholder="кратное 4"></input>
+      </div>
+      <div class="section">
+        Тираж:
+        <input v-model="edition" type="number" placeholder=""></input>
+      </div>
+      <div class="section">
+        Постпечатная обработка:
+        <input type="checkbox" name="lam" v-model="isLam"><label for="lam">ламинация обложки</label>
+        <input type="checkbox" name="corners" v-model="isCorners"><label for="isCorners">скругление углов блока</label>
+        <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
+      </div>
+      <div class="section">
+        <button @click="getTotal">рассчитать</button>
+      </div>
+    </main>
 
-    <div class="section">
-      Тип картона:
-      <select name="" id="cardboardType">
-        <option value="dizcrd">диз. картон</option>
-        <option value="normal">обычный картон</option>
-      </select>
-    </div>
-    
-    <div class="section">
-      Бумага:
-      <select name="" id="visitCards-paper">
-        <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-      </select>
-    </div>
-
-    <div class="section">
-      Цветность:
-      <select name="" id="visitCards-color">
-        <option value="4+0">4+0</option>
-        <option value="4+4">4+4</option>
-      </select>
-    </div>
-    
-    <div class="section">
-      Тираж:
-      <input v-model="edition" type="number" placeholder=""></input>
-    </div>
-    
-    <div class="section">
-      Постпечатная обработка:
-      <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-      <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
-    </div>
-
-    <div class="section">
-      <button @click="getTotal">рассчитать</button>
-    </div>
-
-  </main>
-
-  <script src="js/tmp-flyers.js"></script>
+  <script src="js/tmp-booklets.js"></script>
 </body>
 </html>

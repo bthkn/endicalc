@@ -1,27 +1,10 @@
-
-// var paperCost = 0 // Стоимость бумаги
-// var printCost = 8 // стоимость печати 100%
-// var edition = 100 // Тираж
-// var kRent = 7.5 // Коэффициент рентабельности по визиткам соответствующего тиража
-// var lamCost = 0 // Стоимость ламинации соответствующего тиража
-// var cornerCost = 0 // стоимость скругления углов
-// var biegenCost = 0 // стоимость биговки соответствующего тиража (при выборе пользователем)
-// var flyerConst = 1 // А3: 1, А4: 2, А5: 4, А6: 8, 210*98: 6, 150*70: 12, 100*70: 18
-// var linesNumber = 52 // Количество полос
-// var coverCost = 6.85 // Стоимость бумаги для обложки
-// var skoba = 2.2 // стоимость скобы
-// var springCost = 0 // стоимость пружины
-// var grommetCost = 0 // стоимость люверса
-// var blockStd = 0 // календарный блок стандарт
-// var block85 = 0 // календарный блок 85*115
-// var begunok = 0 // стоимость бегунка
-
 var app = new Vue({
-  el: '#vizitCardsCalc',
+  el: '#blanksCalc',
   data: {
-    currentProduct: 'Визитки',
+    currentProduct: 'Бланки',
     isLaminated: undefined,
     isCorners: undefined,
+    isBiegen: undefined,
     edition: undefined,
     db: {
       "paperTypes": [ 
@@ -39,11 +22,6 @@ var app = new Vue({
         "Splendorgel 300 гр",
         "TintoRetto 300 гр"
       ],
-      "paperFormat": {
-        "0":"A4",
-        "1":"A5",
-        "2":"A6"
-      },
       "paperCosts": {
         "Офсетная 80 гр": 1.84,
         "Maxigloss 130гр": 2.21,
@@ -114,72 +92,87 @@ var app = new Vue({
         }
       },
       "kRentOf": {
-        "visitCards": {
-          "dizcrd": {
-            "4+0": {
-              "50": 3,
-              "100": 2.9,
-              "200": 2.8,
-              "300": 2.5,
-              "400": 2.2,
-              "500": 2,
-              "1000": 1.8,
-              "2000": 1.75
-            },
-            "4+4": {
-              "50": 3.5,
-              "100": 3.2,
-              "200": 3.2,
-              "300": 3,
-              "400": 2.9,
-              "500": 2.7,
-              "1000": 2.2,
-              "2000": 2
-            }
+        "blanks": {
+          "4+0": {
+            "50": 8,
+            "100": 7.5,
+            "200": 7,
+            "300": 6,
+            "400": 5,
+            "500": 4.5,
+            "1000": 3.2,
+            "5000": 1.8
           },
-          "normal": {
-            "4+0": {
-              "50": 6,
-              "100": 4.45,
-              "200": 3.34,
-              "300": 2.9,
-              "400": 2.9,
-              "500": 2.8,
-              "1000": 2.6,
-              "2000": 2.1
-            },
-            "4+4": {
-              "50": 7,
-              "100": 4.9,
-              "200": 3.9,
-              "300": 3.6,
-              "400": 3.6,
-              "500": 3.5,
-              "1000": 2.9,
-              "2000": 2.1
-            }
+          "4+4": {
+            "50": 7,
+            "100": 6.5,
+            "200": 6,
+            "300": 5,
+            "400": 4,
+            "500": 3.5,
+            "1000": 2.5,
+            "5000": 1.8
+          },
+          "1+0": {
+            "50": 9,
+            "100": 8.5,
+            "200": 8,
+            "300": 7.5,
+            "400": 6.8,
+            "500": 6.5,
+            "1000": 5,
+            "5000": 2.1
+          },
+          "1+1": {
+            "50": 9,
+            "100": 8.5,
+            "200": 8,
+            "300": 7.5,
+            "400": 6.8,
+            "500": 6.5,
+            "1000": 5,
+            "5000": 2.2
           }
         }
       }
     }
-    
   },
   methods: {
       getTotal() {
-        if (this.currentProduct == 'Визитки') {
+        if (this.currentProduct == 'Бланки') {
+          
+          var paper = document.getElementById('blanks-paper').value
+          var color = document.getElementById('blanks-color').value
+          var fill = document.getElementById('blanks-fill').value
 
-          var cardboardType = document.getElementById('cardboardType').value
-          var paper = document.getElementById('visitCards-paper').value
-          var color = document.getElementById('visitCards-color').value
+          var editNum
+          if (this.edition < 100) {
+            editNum = 50
+          } else if ((this.edition >= 100) && (this.edition < 200)) {
+            editNum = 100
+          } else if ((this.edition >= 200) && (this.edition < 300)) {
+            editNum = 200
+          } else if ((this.edition >= 300) && (this.edition < 400)) {
+            editNum = 300
+          } else if ((this.edition >= 400) && (this.edition < 500)) {
+            editNum = 400
+          } else if ((this.edition >= 500) && (this.edition < 1000)) {
+            editNum = 500
+          } else if ((this.edition >= 1000) && (this.edition < 5000)) {
+            editNum = 1000
+          } else if (this.edition >= 5000) {
+            editNum = 5000
+          }
 
           var paperCost = this.db['paperCosts'][paper]
-          var printCost = this.db['printCosts'][color]['100']
-          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][this.edition]
-          var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
-          var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
-          console.log(paperCost, printCost, kRent, lamCost, cornerCost)
+          var printCost = this.db['printCosts'][color][fill]
+          var kRent = this.db['kRentOf']['blanks'][""+color][editNum]
+          var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
+          var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
+          var biegenCost = this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
+          console.log(paperCost, printCost, kRent, lamCost, cornerCost, biegenCost)
 
-          var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
+          var total = ((paperCost + printCost) / 2) * this.edition * kRent + lamCost + cornerCost + biegenCost
           
           alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
         }
