@@ -20,36 +20,19 @@
           <li class="nav-item"><a class="nav-link" href="booklets.html">Буклеты и каталоги</a></li>
           <li class="nav-item"><a class="nav-link" href="eurobooklets.html">Евробуклеты</a></li>
           <li class="nav-item"><a class="nav-link" href="calendars.html">Календари</a></li>
+          <li class="nav-item"><a class="nav-link" href="notes.html">Блокноты</a></li>
           <li class="nav-item active"><a class="nav-link" href="envelope.html">Конверты</a></li>
         </ul>
       </div>
     </nav>
   </div>
 
-  <main id="vizitCardsCalc" class="container-fluid px-0 mt-5 pt-2">
-    
-    <h2>Визитки</h2>
-
-    <div class="section">
-      Тип картона:
-      <select name="" id="cardboardType">
-        <option value="dizcrd">диз. картон</option>
-        <option value="normal">обычный картон</option>
-      </select>
-    </div>
+  <main id="envelopeCalc" class="container-fluid px-0 mt-5 pt-2">
     
     <div class="section">
-      Бумага:
-      <select name="" id="visitCards-paper">
-        <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-      </select>
-    </div>
-
-    <div class="section">
-      Цветность:
-      <select name="" id="visitCards-color">
-        <option value="4+0">4+0</option>
-        <option value="4+4">4+4</option>
+      Формат конверта:
+      <select name="" id="envelope-format">
+        <option v-for="format in db['envelopeFormats']" :value="type">{{ format }}</option>
       </select>
     </div>
     
@@ -59,17 +42,11 @@
     </div>
     
     <div class="section">
-      Постпечатная обработка:
-      <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-      <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
-    </div>
-
-    <div class="section">
       <button @click="getTotal">рассчитать</button>
     </div>
 
   </main>
 
-  <script src="js/tmp-vizit.js"></script>
+  <script src="js/tmp-envelope.js"></script>
 </body>
 </html>
