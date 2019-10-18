@@ -1,10 +1,12 @@
 var app = new Vue({
-  el: '#vizitCardsCalc',
+  el: '#bookletsCalc',
   data: {
-    currentProduct: 'Визитки',
+    currentProduct: 'Буклеты и каталоги',
     isLaminated: undefined,
     isCorners: undefined,
+    isBiegen: undefined,
     edition: undefined,
+    linesNumber: undefined,
     db: {
       "paperTypes": [ 
         "Офсетная 80 гр",
@@ -21,11 +23,7 @@ var app = new Vue({
         "Splendorgel 300 гр",
         "TintoRetto 300 гр"
       ],
-      "paperFormat": {
-        "0":"A4",
-        "1":"A5",
-        "2":"A6"
-      },
+      "paperFormats": ["A4", "A5", "A6"],
       "paperCosts": {
         "Офсетная 80 гр": 1.84,
         "Maxigloss 130гр": 2.21,
@@ -96,49 +94,71 @@ var app = new Vue({
         }
       },
       "kRentOf": {
-        "visitCards": {
-          "dizcrd": {
-            "4+0": {
-              "50": 3,
-              "100": 2.9,
-              "200": 2.8,
-              "300": 2.5,
-              "400": 2.2,
-              "500": 2,
-              "1000": 1.8,
-              "2000": 1.75
+        "booklets": {
+          "4+4": {
+            "<8": {
+              "10": 5.5,
+              "20": 4.6,
+              "30": 4.2,
+              "50": 3.7,
+              "70": 3.5,
+              "100": 3
             },
-            "4+4": {
-              "50": 3.5,
-              "100": 3.2,
-              "200": 3.2,
-              "300": 3,
-              "400": 2.9,
-              "500": 2.7,
-              "1000": 2.2,
-              "2000": 2
-            }
-          },
-          "normal": {
-            "4+0": {
-              "50": 6,
-              "100": 4.45,
-              "200": 3.34,
-              "300": 2.9,
-              "400": 2.9,
-              "500": 2.8,
-              "1000": 2.6,
-              "2000": 2.1
+            "<12": {
+              "10": 4.8,
+              "20": 4,
+              "30": 3.5,
+              "50": 3.1,
+              "70": 2.7,
+              "100": 2.5
             },
-            "4+4": {
-              "50": 7,
-              "100": 4.9,
-              "200": 3.9,
-              "300": 3.6,
-              "400": 3.6,
-              "500": 3.5,
-              "1000": 2.9,
-              "2000": 2.1
+            "<16-24": {
+              "10": 3.8,
+              "20": 3.3,
+              "30": 2.7,
+              "50": 2.3,
+              "70": 2.1,
+              "100": 1.9
+            },
+            "<16-24_mixed": {
+              "10": 3.8,
+              "20": 3.3,
+              "30": 2.7,
+              "50": 2.3,
+              "70": 2.1,
+              "100": 1.9
+            },
+            "<28-32": {
+              "10": 3.5,
+              "20": 2.9,
+              "30": 2.5,
+              "50": 2.1,
+              "70": 1.9,
+              "100": 1.85
+            },
+            "<28-32_mixed": {
+              "10": 3.5,
+              "20": 2.9,
+              "30": 2.5,
+              "50": 2.1,
+              "70": 1.9,
+              "100": 1.85
+            },
+            "<36-40": {
+              "10": 3.2,
+              "20": 2.55,
+              "30": 2.2,
+              "50": 1.9,
+              "70": 1.8,
+              "100": 1.77
+            },
+            "<36-40_mixed": {
+              "10": 3.2,
+              "20": 2.55,
+              "30": 2.2,
+              "50": 1.9,
+              "70": 1.8,
+              "100": 1.77
             }
           }
         }
@@ -147,11 +167,11 @@ var app = new Vue({
   },
   methods: {
       getTotal() {
-        if (this.currentProduct == 'Визитки') {
+        if (this.currentProduct == 'Буклеты и каталоги') {
 
-          var cardboardType = document.getElementById('cardboardType').value
-          var paper = document.getElementById('visitCards-paper').value
-          var color = document.getElementById('visitCards-color').value
+          var cover = document.getElementById('booklets-cover').value
+          var paper = document.getElementById('booklets-paper').value
+          var format = document.getElementById('booklets-format').value
 
           var editNum
           if (this.edition < 100) {
@@ -172,14 +192,42 @@ var app = new Vue({
             editNum = 2000
           }
 
-          var paperCost = this.db['paperCosts'][paper]
-          var printCost = this.db['printCosts'][color]['100']
-          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][editNum]
+          var paperCost = (this.linesNumber <= 4) ? this.db['paperCosts'][paper] : 0
+          var coverCost = this.db['paperCosts'][cover]
+          var printCost = this.db['printCosts']["4+4"]['100']
+
+          var lines
+          if (this.linesNumber <= 8 ) {
+            lines = "<8"
+          } else if (this.linesNumber < 12 ) {
+            lines = "<12"
+          } else if ((this.linesNumber > 16) && (this.linesNumber < 24)) {
+            lines = "<16-24"
+          } else if ((this.linesNumber > 28) && (this.linesNumber < 32)) {
+            lines = "<28-32"
+          } else if ((this.linesNumber > 36) && (this.linesNumber < 40)) {
+            lines = "<36-40"
+          } else if (this.linesNumber > 40) {
+            lines = "<36-40"
+          }
+
+          if ((paper != cover) && (lines != "<8")) { lines += "_mixed" }
+
+          console.log(this.linesNumber, lines)
+
+          var kRent = this.db['kRentOf']['booklets']["4+4"][lines][editNum]
           var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
           var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
-          console.log(paperCost, printCost, kRent, lamCost, cornerCost)
-
-          var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
+          var skoba = (this.linesNumber <= 4) ? 2.2 : 0
+          
+          var total
+          if (format == "A4") {
+            total = ((this.linesNumber / 4) * paperCost + 1 * coverCost  + (this.linesNumber / 4) * printCost + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+          } else if (format == "A5") {
+            total = ((this.linesNumber / 4) * paperCost/2 + 1 * coverCost/2 + ((this.linesNumber / 4) * printCost) / 2 + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+          } else if (format == "A6") {
+            total = ((this.linesNumber / 4) * paperCost/2 + 1 * coverCost/4 + ((this.linesNumber / 4) * printCost) / 4 + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+          }
           
           alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
         }

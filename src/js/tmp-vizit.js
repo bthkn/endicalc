@@ -1,7 +1,7 @@
 var app = new Vue({
   el: '#vizitCardsCalc',
   data: {
-    currentProduct: 'Буклеты и каталоги',
+    currentProduct: 'Визитки',
     isLaminated: undefined,
     isCorners: undefined,
     edition: undefined,
@@ -147,7 +147,7 @@ var app = new Vue({
   },
   methods: {
       getTotal() {
-        if (this.currentProduct == 'Буклеты и каталоги') {
+        if (this.currentProduct == 'Визитки') {
 
           var cardboardType = document.getElementById('cardboardType').value
           var paper = document.getElementById('visitCards-paper').value

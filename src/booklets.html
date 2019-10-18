@@ -25,19 +25,19 @@
       <div class="section">
         Бумага обложки:
         <select name="" id="booklets-cover">
-          <option v-for="type in paperTypes" :value="type">{{ type }}</option>
+          <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
         </select>
       </div>
       <div class="section">
         Бумага блока:
         <select name="" id="booklets-paper">
-          <option v-for="type in paperTypes" :value="type">{{ type }}</option>
+          <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
         </select>
       </div>
       <div class="section">
         Формат полосы:
         <select name="" id="booklets-format">
-          <option v-for="format in paperFormat" :value="format">{{ format }}</option>
+          <option v-for="format in db['paperFormats']" :value="format">{{ format }}</option>
         </select>
       </div>
       <div class="section">
@@ -50,8 +50,8 @@
       </div>
       <div class="section">
         Постпечатная обработка:
-        <input type="checkbox" name="lam" v-model="isLam"><label for="lam">ламинация обложки</label>
-        <input type="checkbox" name="corners" v-model="isCorners"><label for="isCorners">скругление углов блока</label>
+        <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
+        <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
         <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
       </div>
       <div class="section">
