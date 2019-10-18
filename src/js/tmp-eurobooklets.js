@@ -1,27 +1,10 @@
-
-// var paperCost = 0 // Стоимость бумаги
-// var printCost = 8 // стоимость печати 100%
-// var edition = 100 // Тираж
-// var kRent = 7.5 // Коэффициент рентабельности по визиткам соответствующего тиража
-// var lamCost = 0 // Стоимость ламинации соответствующего тиража
-// var cornerCost = 0 // стоимость скругления углов
-// var biegenCost = 0 // стоимость биговки соответствующего тиража (при выборе пользователем)
-// var flyerConst = 1 // А3: 1, А4: 2, А5: 4, А6: 8, 210*98: 6, 150*70: 12, 100*70: 18
-// var linesNumber = 52 // Количество полос
-// var coverCost = 6.85 // Стоимость бумаги для обложки
-// var skoba = 2.2 // стоимость скобы
-// var springCost = 0 // стоимость пружины
-// var grommetCost = 0 // стоимость люверса
-// var blockStd = 0 // календарный блок стандарт
-// var block85 = 0 // календарный блок 85*115
-// var begunok = 0 // стоимость бегунка
-
 var app = new Vue({
-  el: '#vizitCardsCalc',
+  el: '#eurobookletsCalc',
   data: {
-    currentProduct: 'Визитки',
+    currentProduct: 'Евробуклеты',
     isLaminated: undefined,
     isCorners: undefined,
+    isBiegen: undefined,
     edition: undefined,
     db: {
       "paperTypes": [ 
@@ -114,49 +97,159 @@ var app = new Vue({
         }
       },
       "kRentOf": {
-        "visitCards": {
-          "dizcrd": {
+        "flyers" : {
+          "A3": {
             "4+0": {
-              "50": 3,
-              "100": 2.9,
-              "200": 2.8,
-              "300": 2.5,
-              "400": 2.2,
-              "500": 2,
-              "1000": 1.8,
-              "2000": 1.75
+              "50": 3.2,
+              "100": 2.6,
+              "200": 2.3,
+              "300": 2.1,
+              "400": 1.95,
+              "500": 1.95,
+              "1000": 1.95,
+              "1000-20%": 2.3
             },
             "4+4": {
-              "50": 3.5,
-              "100": 3.2,
-              "200": 3.2,
-              "300": 3,
-              "400": 2.9,
-              "500": 2.7,
-              "1000": 2.2,
-              "2000": 2
+              "50": 2.9,
+              "100": 2.4,
+              "200": 2.25,
+              "300": 2,
+              "400": 1.9,
+              "500": 1.9,
+              "1000": 1.9,
+              "1000-20%": 2.2
             }
           },
-          "normal": {
+          "A4": {
             "4+0": {
-              "50": 6,
-              "100": 4.45,
-              "200": 3.34,
-              "300": 2.9,
-              "400": 2.9,
-              "500": 2.8,
-              "1000": 2.6,
-              "2000": 2.1
+              "50": 3.5,
+              "100": 3,
+              "200": 2.6,
+              "300": 2.3,
+              "400": 2.2,
+              "500": 2.2,
+              "1000": 2.1,
+              "1000-20%": 2.8
             },
             "4+4": {
-              "50": 7,
-              "100": 4.9,
-              "200": 3.9,
-              "300": 3.6,
+              "50": 3.2,
+              "100": 2.7,
+              "200": 2.3,
+              "300": 2.1,
+              "400": 2,
+              "500": 1.9,
+              "1000": 1.9,
+              "1000-20%": 2.7
+            }
+          },
+          "A5": {
+            "4+0": {
+              "50": 4.8,
+              "100": 3.5,
+              "200": 3,
+              "300": 2.8,
+              "400": 2.6,
+              "500": 2.5,
+              "1000": 2.5,
+              "1000-20%": 3.25
+            },
+            "4+4": {
+              "50": 4,
+              "100": 3,
+              "200": 2.8,
+              "300": 2.5,
+              "400": 2.35,
+              "500": 2.2,
+              "1000": 2.2,
+              "1000-20%": 4
+            }
+          },
+          "A6": {
+            "4+0": {
+              "50": 5.2,
+              "100": 4,
+              "200": 3,
+              "300": 2.7,
+              "400": 2.5,
+              "500": 2.3,
+              "1000": 2,
+              "1000-20%": 5.4
+            },
+            "4+4": {
+              "50": 5.5,
+              "100": 3.2,
+              "200": 3,
+              "300": 2.5,
+              "400": 2.5,
+              "500": 2.4,
+              "1000": 2.3,
+              "1000-20%": 4
+            }
+          },
+          "210x98": {
+            "4+0": {
+              "50": 4.8,
+              "100": 3.5,
+              "200": 2.5,
+              "300": 2.3,
+              "400": 2.2,
+              "500": 2.2,
+              "1000": 2.2,
+              "1000-20%": 4.2
+            },
+            "4+4": {
+              "50": 4.5,
+              "100": 3,
+              "200": 2.8,
+              "300": 2.5,
+              "400": 2.3,
+              "500": 2.1,
+              "1000": 2,
+              "1000-20%": 3.5
+            }
+          },
+          "150x70": {
+            "4+0": {
+              "50": 11,
+              "100": 7,
+              "200": 4.8,
+              "300": 3.9,
               "400": 3.6,
-              "500": 3.5,
-              "1000": 2.9,
-              "2000": 2.1
+              "500": 3.3,
+              "1000": 2.8,
+              "1000-20%": 5
+            },
+            "4+4": {
+              "50": 6.5,
+              "100": 5.5,
+              "200": 3.6,
+              "300": 3.5,
+              "400": 3.3,
+              "500": 3,
+              "1000": 2.8,
+              "1000-20%": 5
+            }
+          },
+          "100x70": {
+            "4+0": {
+              "50": 11.5,
+              "100": 9,
+              "200": 5.5,
+              "300": 4.5,
+              "400": 4.1,
+              "500": 3.6,
+              "1000": 3.1,
+              "1000-20%": 6.5
+            },
+            "4+4": {
+              "50": 9,
+              "100": 5.3,
+              "200": 4,
+              "300": 3.2,
+              "400": 3.1,
+              "500": 2.9,
+              "1000": 2.5,
+              "1000-20%": 5
             }
           }
         }
@@ -166,22 +259,39 @@ var app = new Vue({
   },
   methods: {
       getTotal() {
-        if (this.currentProduct == 'Визитки') {
+        if (this.currentProduct == 'Евробуклеты') {
 
-          var cardboardType = document.getElementById('cardboardType').value
-          var paper = document.getElementById('visitCards-paper').value
-          var color = document.getElementById('visitCards-color').value
+          var paper = document.getElementById('eurobooklets-paper').value
+          var color = document.getElementById('eurobooklets-color').value
+
+          var editNum
+          if (this.edition < 100) {
+            editNum = 50
+          } else if ((this.edition >= 100) && (this.edition < 200)) {
+            editNum = 100
+          } else if ((this.edition >= 200) && (this.edition < 300)) {
+            editNum = 200
+          } else if ((this.edition >= 300) && (this.edition < 400)) {
+            editNum = 300
+          } else if ((this.edition >= 400) && (this.edition < 500)) {
+            editNum = 400
+          } else if ((this.edition >= 500) && (this.edition < 1000)) {
+            editNum = 500
+          } else if (this.edition >= 1000) {
+            editNum = 1000
+          }
 
           var paperCost = this.db['paperCosts'][paper]
           var printCost = this.db['printCosts'][color]['100']
-          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][this.edition]
+          var kRent = this.db['kRentOf']['flyers']["A4"][""+color][editNum]
           var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
           var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
+          var biegenCost = this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
           console.log(paperCost, printCost, kRent, lamCost, cornerCost)
 
-          var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
-          
-          alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
+          var total = ((paperCost + printCost) / 2) * this.edition * kRent + (lamCost / 2) + cornerCost + biegenCost
+
+          alert('товар: Евробуклеты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
         }
       }
   }

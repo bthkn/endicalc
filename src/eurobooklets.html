@@ -2,46 +2,44 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>encalc</title>
+  <title>Евробуклеты - endiCalc</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- <script src="js/vue.min.js"></script> -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <nav class="menu">
-    <ul>
-      <li><a href="vizit.html">Визитки</a></li>
-      <li><a href="flyers.html">Листовки</a></li>
-      <li><a href="blanks.html">Бланки</a></li>
-      <li><a href="boolets.html">Буклеты и каталоги</a></li>
-      <li><a href="eurobooklets.html">Евробуклеты</a></li>
-      <li><a href="calendars.html">Календари</a></li>
-      <li><a href="notes.html">Блокноты</a></li>
-    </ul>
-  </nav>
+  <div class="container-fluid px-0">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+      <div class="row w-100 mx-0">
+        <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around;">
+          <li class="nav-item"><a class="nav-link" href="vizit.html">Визитки</a></li>
+          <li class="nav-item"><a class="nav-link" href="flyers.html">Листовки</a></li>
+          <li class="nav-item active"><a class="nav-link" href="blanks.html">Бланки</a></li>
+          <li class="nav-item"><a class="nav-link" href="boolets.html">Буклеты и каталоги</a></li>
+          <li class="nav-item"><a class="nav-link" href="eurobooklets.html">Евробуклеты</a></li>
+          <li class="nav-item"><a class="nav-link" href="calendars.html">Календари</a></li>
+          <li class="nav-item"><a class="nav-link" href="notes.html">Конверты</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
-  <main id="vizitCardsCalc">
+  <main id="eurobookletsCalc" class="container-fluid px-0 mt-5 pt-2">
     
     <h2>Визитки</h2>
-
-    <div class="section">
-      Тип картона:
-      <select name="" id="cardboardType">
-        <option value="dizcrd">диз. картон</option>
-        <option value="normal">обычный картон</option>
-      </select>
-    </div>
     
     <div class="section">
       Бумага:
-      <select name="" id="visitCards-paper">
+      <select name="" id="eurobooklets-paper">
         <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
       </select>
     </div>
 
     <div class="section">
       Цветность:
-      <select name="" id="visitCards-color">
+      <select name="" id="eurobooklets-color">
         <option value="4+0">4+0</option>
         <option value="4+4">4+4</option>
       </select>
@@ -56,6 +54,7 @@
       Постпечатная обработка:
       <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
       <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
+      <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
     </div>
 
     <div class="section">
@@ -64,6 +63,6 @@
 
   </main>
 
-  <script src="js/tmp-vizit.js"></script>
+  <script src="js/tmp-eurobooklets.js"></script>
 </body>
 </html>
