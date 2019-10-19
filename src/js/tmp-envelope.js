@@ -133,7 +133,7 @@ var app = new Vue({
 
           var total = (envelopeCost + printCost) * this.edition * kRent
           
-          alert('товар: Конверты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
+          alert('товар: Конверты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
         }
       }
   }

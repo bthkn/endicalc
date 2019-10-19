@@ -20,9 +20,9 @@ function createWindow () {
     // icon: '/favicon.ico'
   }) 
  
-  win.loadFile('src/index.html')
+  win.loadFile('src/vizit.html') // 'src/index.html'
 
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
   
   win.on('closed', () => {
     win = null

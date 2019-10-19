@@ -291,7 +291,7 @@ var app = new Vue({
 
           var total = ((paperCost + printCost) / 2) * this.edition * kRent + (lamCost / 2) + cornerCost + biegenCost
 
-          alert('товар: Евробуклеты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
+          alert('товар: Евробуклеты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
         }
       }
   }

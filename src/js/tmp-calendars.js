@@ -1,25 +1,21 @@
-
-// var paperCost = 0 // Стоимость бумаги
-// var printCost = 8 // стоимость печати 100%
-// var edition = 100 // Тираж
-// var kRent = 7.5 // Коэффициент рентабельности по визиткам соответствующего тиража
-// var lamCost = 0 // Стоимость ламинации соответствующего тиража
-// var cornerCost = 0 // стоимость скругления углов
-// var biegenCost = 0 // стоимость биговки соответствующего тиража (при выборе пользователем)
-// var flyerConst = 1 // А3: 1, А4: 2, А5: 4, А6: 8, 210*98: 6, 150*70: 12, 100*70: 18
-// var linesNumber = 52 // Количество полос
-// var coverCost = 6.85 // Стоимость бумаги для обложки
-// var skoba = 2.2 // стоимость скобы
+// var cardboardCost // стоимость картона
+// var printCost = this.db['printCosts']["4+0"]['100']
 // var springCost = 0 // стоимость пружины
 // var grommetCost = 0 // стоимость люверса
 // var blockStd = 0 // календарный блок стандарт
 // var block85 = 0 // календарный блок 85*115
+// var skoba = 2.2 // стоимость скобы
 // var begunok = 0 // стоимость бегунка
+// var edition = 100 // тираж
+// var kRent = 1.77 // коэффициент рентабельности
+
+// var total6 = ((cardboardTabNum * cardboardCost) + printCost + (springCost * springTabNum)  + (grommetCost * grommetTabNum) + blockStd + block85 + skoba + begunok) * edition * kRent
+// console.log('Календари = ' + total6)
 
 var app = new Vue({
   el: '#vizitCardsCalc',
   data: {
-    currentProduct: 'Визитки',
+    currentProduct: 'Календари',
     isLaminated: undefined,
     isCorners: undefined,
     edition: undefined,
@@ -166,7 +162,7 @@ var app = new Vue({
   },
   methods: {
       getTotal() {
-        if (this.currentProduct == 'Визитки') {
+        if (this.currentProduct == 'Календари') {
 
           var cardboardType = document.getElementById('cardboardType').value
           var paper = document.getElementById('visitCards-paper').value
@@ -181,7 +177,7 @@ var app = new Vue({
 
           var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
           
-          alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
+          alert('товар: Календари\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
         }
       }
   }
