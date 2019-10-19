@@ -30,37 +30,56 @@
   <main id="flyersCalc" class="container-fluid px-0">
     
     <div class="row mx-2">
-      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Бумага:
-          <select name="" id="flyers-paper">
-            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-          </select>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="flyers-paper">Бумага:</label>
+            <select class="form-control form-control-sm" name="" id="flyers-paper">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select>
+          </div>
         </div></div>
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Цветность:
-          <select name="" id="flyers-color">
-            <option value="4+0">4+0</option>
-            <option value="4+4">4+4</option>
-          </select>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            Цветность:
+            <select class="form-control form-control-sm" name="" id="flyers-color">
+              <option value="4+0">4+0</option>
+              <option value="4+4">4+4</option>
+            </select>
+          </div>
         </div></div>
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Формат:
-          <select name="" id="flyers-format">
-            <option v-for="format in db['paperFormats']" :value="format">{{ format }}</option>
-          </select>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            Формат:
+            <select class="form-control form-control-sm" name="" id="flyers-format">
+              <option v-for="format in db['paperFormats']" :value="format">{{ format }}</option>
+            </select>
+          </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Тираж:
-          <input v-model="edition" type="number" placeholder=""></input>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            Тираж:
+            <input class="form-control form-control-sm" v-model="edition" type="number" placeholder=""></input>
+          </div>
         </div></div>
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Постпечатная обработка:
-          <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-          <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
-          <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            Постпечатная обработка:
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="lam" v-model="isLaminated">
+              <label class="form-check-label" for="lam">ламинация обложки</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="corners" v-model="isCorners">
+              <label class="form-check-label" for="corners">скругление углов блока</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="biegen" v-model="isBiegen">
+              <label class="form-check-label" for="biegen">биговка</label>
+            </div>
+          </div>
         </div></div>
       </div>
     </div>

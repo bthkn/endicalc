@@ -92,6 +92,11 @@ var app = new Vue({
             "1000": 3.4
           }
         }
+      },
+      "envelopeCost": {
+        "Е65": 0.82,
+        "С5": 0.99,
+        "С4": 2.36
       }
     }
     
@@ -101,10 +106,30 @@ var app = new Vue({
         if (this.currentProduct == 'Конверты') {
           
           var format = document.getElementById('envelope-format').value
+          var fill = document.getElementById('envelope-fill').value
+
+          var editNum
+          if (this.edition < 30) {
+            editNum = 10
+          } else if ((this.edition >= 30) && (this.edition < 50)) {
+            editNum = 30
+          } else if ((this.edition >= 50) && (this.edition < 100)) {
+            editNum = 50
+          } else if ((this.edition >= 100) && (this.edition < 200)) {
+            editNum = 100
+          } else if ((this.edition >= 200) && (this.edition < 300)) {
+            editNum = 200
+          } else if ((this.edition >= 300) && (this.edition < 500)) {
+            editNum = 300
+          } else if ((this.edition >= 500) && (this.edition < 1000)) {
+            editNum = 500
+          } else if (this.edition >= 1000) {
+            editNum = 1000
+          }
 
           var envelopeCost = this.db['envelopeCost'][format]
-          var printCost = 1 // стоимость печати при 20% или при 100% 4+0 формата А3
-          var kRent = this.db['kRentOf']['envelope'][format]
+          var printCost = this.db['printCosts']["4+0"][fill] // стоимость печати при 20% или при 100% 4+0 формата А3
+          var kRent = this.db['kRentOf']['envelope'][format][editNum]
 
           var total = (envelopeCost + printCost) * this.edition * kRent
           

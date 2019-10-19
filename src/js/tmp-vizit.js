@@ -181,7 +181,7 @@ var app = new Vue({
 
           var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
           
-          alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
+          alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
         }
       }
   }

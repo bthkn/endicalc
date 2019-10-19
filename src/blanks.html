@@ -30,40 +30,59 @@
   <main id="blanksCalc" class="container-fluid px-0">
 
     <div class="row mx-2">
-      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Бумага (формат <b>A4</b>):
-          <select name="" id="blanks-paper">
-            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-          </select>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="blanks-paper">Бумага (формат <b>A4</b>):</label>
+            <select class="form-control form-control-sm" name="" id="blanks-paper">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select>
+          </div>
         </div></div>
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Заливка:
-          <select name="" id="blanks-fill">
-            <option value="100">100%</option>
-            <option value="20">20%</option>
-          </select>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="blanks-fill">Заливка:</label>
+            <select class="form-control form-control-sm" name="" id="blanks-fill">
+              <option value="100">100%</option>
+              <option value="20">20%</option>
+            </select>
+          </div>
         </div></div>
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Цветность:
-          <select name="" id="blanks-color">
-            <option value="4+0">4+0</option>
-            <option value="4+4">4+4</option>
-            <option value="4+0">1+0</option>
-            <option value="4+4">1+1</option>
-          </select>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="blanks-color">Цветность:</label>
+            <select class="form-control form-control-sm" name="" id="blanks-color">
+              <option value="4+0">4+0</option>
+              <option value="4+4">4+4</option>
+              <option value="4+0">1+0</option>
+              <option value="4+4">1+1</option>
+            </select>
+          </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Тираж:
-          <input v-model="edition" type="number" placeholder=""></input>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="edition">Тираж:</label>
+            <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
+          </div>
         </div></div>
-        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
-          Постпечатная обработка:
-          <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-          <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
-          <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            Постпечатная обработка:
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="lam" v-model="isLaminated">
+              <label class="form-check-label" for="lam">ламинация обложки</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="corners" v-model="isCorners">
+              <label class="form-check-label" for="corners">скругление углов блока</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="biegen" v-model="isBiegen">
+              <label class="form-check-label" for="biegen">биговка</label>
+            </div>
+          </div>
         </div></div>
       </div>
     </div>

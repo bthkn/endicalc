@@ -27,46 +27,80 @@
     </nav>
   </div>
 
-  <main id="calendarsCalc" class="container-fluid px-0 mt-5 pt-2">
-    
-    <div class="section">
-      Тип картона:
-      <select name="" id="cardboardType">
-        <option value="dizcrd">диз. картон</option>
-        <option value="normal">обычный картон</option>
-      </select>
-    </div>
-    
-    <div class="section">
-      Бумага:
-      <select name="" id="visitCards-paper">
-        <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-      </select>
-    </div>
+  <main id="calendarsCalc" class="container-fluid px-0">
 
-    <div class="section">
-      Цветность:
-      <select name="" id="visitCards-color">
-        <option value="4+0">4+0</option>
-        <option value="4+4">4+4</option>
-      </select>
+    <div class="row mx-2">
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <!-- <label for="cardboardType">Тип картона:</label>
+            <select class="form-control form-control-sm" name="" id="cardboardType">
+              <option value="dizcrd">диз. картон</option>
+              <option value="normal">обычный картон</option>
+            </select> -->
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <!-- <label for="visitCards-paper">Бумага:</label>
+            <select class="form-control form-control-sm" name="" id="visitCards-paper">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select> -->
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <!-- <label for="visitCards-color">Цветность:</label>
+            <select class="form-control form-control-sm" name="" id="visitCards-color">
+              <option value="4+0">4+0</option>
+              <option value="4+4">4+4</option>
+            </select> -->
+          </div>
+        </div></div>
+      </div>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+          <label for="edition">Тираж:</label>
+          <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+          Постпечатная обработка:
+          <div class="form-check">
+            <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
+            <label class="form-check-label" for="lam">ламинация обложки</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="corners" name="corners" v-model="isCorners" class="form-check-input">
+            <label class="form-check-label" for="corners">скругление углов блока</label></div>
+          </div>
+        </div></div>
+      </div>
     </div>
-    
-    <div class="section">
-      Тираж:
-      <input v-model="edition" type="number" placeholder=""></input>
+    <div class="row mx-2">
+      <div class="col mx-2 mt-2">
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-if="edition != undefined"
+        >
+          рассчитать
+        </button>
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-else
+          disabled
+        >
+          рассчитать
+        </button>
+      </div>
     </div>
-    
-    <div class="section">
-      Постпечатная обработка:
-      <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-      <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
-    </div>
-
-    <div class="section">
-      <button @click="getTotal">рассчитать</button>
-    </div>
-
+  
   </main>
 
   <script src="js/tmp-calendars.js"></script>
