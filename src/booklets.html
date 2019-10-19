@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>encalc</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <!-- <script src="js/vue.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+  <script src="js/vue.min.js"></script>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -29,7 +29,7 @@
 
   <main id="bookletsCalc" class="container-fluid px-0">
     
-    <!-- <div class="row mx-2">
+    <div class="row mx-2">
       <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
         <div class="row mx-1 my-2"><div class="col mx-0 my-0">
           Бумага обложки:
@@ -88,49 +88,8 @@
           рассчитать
         </button>
       </div>
-    </div> -->
-
-
-
-
-
-
-      
-    <div class="section">
-        Бумага обложки:
-        <select name="" id="booklets-cover">
-          <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-        </select>
-      </div>
-      <div class="section">
-        Бумага блока:
-        <select name="" id="booklets-paper">
-          <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-        </select>
-      </div>
-      <div class="section">
-        Формат полосы:
-        <select name="" id="booklets-format">
-          <option v-for="format in db['paperFormats']" :value="format">{{ format }}</option>
-        </select>
-      </div>
-      <div class="section">
-          Количество полос:
-          <input v-model="linesNumber" type="number" step="4" placeholder="кратное 4"></input>
-      </div>
-      <div class="section">
-          Тираж:
-          <input v-model="edition" type="number" placeholder=""></input>
-      </div>
-      <div class="section">
-        Постпечатная обработка:
-        <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-        <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
-        <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
-      </div>
-      <div class="section">
-        <button @click="getTotal">рассчитать</button>
     </div>
+
   </main>
 
   <script src="js/tmp-booklets.js"></script>

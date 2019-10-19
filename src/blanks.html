@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>encalc</title>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <!-- <script src="js/vue.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+  <script src="js/vue.min.js"></script>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -28,52 +28,68 @@
   </div>
   
   <main id="blanksCalc" class="container-fluid px-0">
+
+    <div class="row mx-2">
+      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Бумага (формат <b>A4</b>):
+          <select name="" id="blanks-paper">
+            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+          </select>
+        </div></div>
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Заливка:
+          <select name="" id="blanks-fill">
+            <option value="100">100%</option>
+            <option value="20">20%</option>
+          </select>
+        </div></div>
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Цветность:
+          <select name="" id="blanks-color">
+            <option value="4+0">4+0</option>
+            <option value="4+4">4+4</option>
+            <option value="4+0">1+0</option>
+            <option value="4+4">1+1</option>
+          </select>
+        </div></div>
+      </div>
+      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Тираж:
+          <input v-model="edition" type="number" placeholder=""></input>
+        </div></div>
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Постпечатная обработка:
+          <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
+          <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
+          <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="row mx-2">
+      <div class="col mx-2 mt-2">
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-if="edition != undefined"
+        >
+          рассчитать
+        </button>
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-else
+          disabled
+        >
+          рассчитать
+        </button>
+      </div>
+    </div>
     
-    <div class="section">
-      Бумага:
-      <select name="" id="blanks-paper">
-        <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-      </select>
-    </div>
-
-    <div class="section">
-      Заливка:
-      <select name="" id="blanks-fill">
-        <option value="100">100%</option>
-        <option value="20">20%</option>
-      </select>
-    </div>
-
-    <div class="section">
-      Цветность:
-      <select name="" id="blanks-color">
-        <option value="4+0">4+0</option>
-        <option value="4+4">4+4</option>
-        <option value="4+0">1+0</option>
-        <option value="4+4">1+1</option>
-      </select>
-    </div>
-
-    <div class="section">
-      Формат: <b>A4</b>
-    </div>
-
-    <div class="section">
-      Тираж:
-      <input v-model="edition" type="number" placeholder=""></input>
-    </div>
-    
-    <div class="section">
-      Постпечатная обработка:
-      <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-      <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
-      <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
-    </div>
-
-    <div class="section">
-      <button @click="getTotal">рассчитать</button>
-    </div>
-
   </main>
   
   <script src="js/tmp-blanks.js"></script>

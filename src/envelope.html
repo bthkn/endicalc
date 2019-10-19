@@ -27,22 +27,77 @@
     </nav>
   </div>
 
-  <main id="envelopeCalc" class="container-fluid px-0 mt-5 pt-2">
-    
-    <div class="section">
-      Формат конверта:
-      <select name="" id="envelope-format">
-        <option v-for="format in db['envelopeFormats']" :value="type">{{ format }}</option>
-      </select>
+  <main id="envelopeCalc" class="container-fluid px-0">
+
+    <div class="row mx-2">
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+          <label for="cardboardType">Формат конверта:</label>
+          <select class="form-control form-control-sm" name="" id="envelope-format">
+            <option v-for="format in db['envelopeFormats']" :value="format">{{ format }}</option>
+          </select>
+          </div>
+        </div></div>
+        <!-- <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+          <label for="visitCards-paper">Бумага:</label>
+          <select class="form-control form-control-sm" name="" id="visitCards-paper">
+            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+          </select>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+          <label for="visitCards-color">Цветность:</label>
+          <select class="form-control form-control-sm" name="" id="visitCards-color">
+            <option value="4+0">4+0</option>
+            <option value="4+4">4+4</option>
+          </select>
+          </div>
+        </div></div> -->
+      </div>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+          <label for="edition">Тираж:</label>
+          <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+          Постпечатная обработка:
+          <div class="form-check">
+            <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
+            <label class="form-check-label" for="lam">ламинация обложки</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="corners" name="corners" v-model="isCorners" class="form-check-input">
+            <label class="form-check-label" for="corners">скругление углов блока</label></div>
+          </div>
+        </div></div>
+      </div>
     </div>
-    
-    <div class="section">
-      Тираж:
-      <input v-model="edition" type="number" placeholder=""></input>
-    </div>
-    
-    <div class="section">
-      <button @click="getTotal">рассчитать</button>
+    <div class="row mx-2">
+      <div class="col mx-2 mt-2">
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-if="edition != undefined"
+        >
+          рассчитать
+        </button>
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-else
+          disabled
+        >
+          рассчитать
+        </button>
+      </div>
     </div>
 
   </main>
