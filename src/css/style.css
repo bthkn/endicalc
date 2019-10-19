@@ -2,6 +2,14 @@
   margin: 3px 0;
 }
 
+body {
+  background-color: #f7f7f7;
+  padding-top: 64px;
+}
+
+.card {
+  border: none!important;
+}
 /* .navbar a {
   padding: .5rem 1rem;
   width: auto;

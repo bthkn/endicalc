@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+  
   <div class="container-fluid px-0">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
       <div class="row w-100 mx-0">
         <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around;">
           <li class="nav-item active"><a class="nav-link" href="vizit.html">Визитки</a></li>
@@ -27,10 +27,10 @@
     </nav>
   </div>
 
-  <main id="vizitCardsCalc" class="container-fluid px-0 mt-5 pt-2">
+  <main id="vizitCardsCalc" class="container-fluid px-0">
     
     <div class="row mx-2">
-      <div class="col card mx-2 mt-2">
+      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
         <div class="row mx-1 my-2"><div class="col mx-0 my-0">
           Тип картона:
           <select name="" id="cardboardType">
@@ -52,7 +52,7 @@
           </select>
         </div></div>
       </div>
-      <div class="col card mx-2 mt-2">
+      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
         <div class="row mx-1 my-2"><div class="col mx-0 my-0">
           Тираж:
           <input v-model="edition" type="number" placeholder=""></input>

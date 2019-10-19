@@ -2,9 +2,8 @@ var app = new Vue({
   el: '#notesCalc',
   data: {
     currentProduct: 'Блокноты',
+    blockPages: undefined,
     isLaminated: undefined,
-    isCorners: undefined,
-    isBiegen: undefined,
     edition: undefined,
     db: {
       "paperTypes": [ 
@@ -97,49 +96,47 @@ var app = new Vue({
         }
       },
       "kRentOf": {
-        "visitCards": {
-          "dizcrd": {
-            "4+0": {
-              "50": 3,
-              "100": 2.9,
-              "200": 2.8,
-              "300": 2.5,
-              "400": 2.2,
-              "500": 2,
-              "1000": 1.8,
-              "2000": 1.75
+        "notes": {
+          "А4": {
+            "0+0": {
+              "100": 2.1,
+              "200": 1.95,
+              "300": 1.85,
+              "400": 1.7
             },
-            "4+4": {
-              "50": 3.5,
-              "100": 3.2,
-              "200": 3.2,
-              "300": 3,
-              "400": 2.9,
-              "500": 2.7,
-              "1000": 2.2,
-              "2000": 2
+            "1+0": {
+              "100": 2,
+              "200": 1.69,
+              "300": 1.6,
+              "400": 1.5
             }
           },
-          "normal": {
-            "4+0": {
-              "50": 6,
-              "100": 4.45,
-              "200": 3.34,
-              "300": 2.9,
-              "400": 2.9,
-              "500": 2.8,
-              "1000": 2.6,
-              "2000": 2.1
+          "А5": {
+            "0+0": {
+              "100": 3.1,
+              "200": 2.75,
+              "300": 2.6,
+              "400": 2.3
             },
-            "4+4": {
-              "50": 7,
-              "100": 4.9,
-              "200": 3.9,
-              "300": 3.6,
-              "400": 3.6,
-              "500": 3.5,
-              "1000": 2.9,
-              "2000": 2.1
+            "1+0": {
+              "100": 3.1,
+              "200": 2.4,
+              "300": 2.2,
+              "400": 2
+            }
+          },
+          "А6": {
+            "0+0": {
+              "100": 3.7,
+              "200": 3.3,
+              "300": 3.2,
+              "400": 2.85
+            },
+            "1+0": {
+              "100": 3.7,
+              "200": 3,
+              "300": 2.7,
+              "400": 2.5
             }
           }
         }
@@ -151,20 +148,44 @@ var app = new Vue({
       getTotal() {
         if (this.currentProduct == 'Блокноты') {
 
-          var cardboardType = document.getElementById('cardboardType').value
-          var paper = document.getElementById('visitCards-paper').value
-          var color = document.getElementById('visitCards-color').value
 
-          var paperCost = this.db['paperCosts'][paper]
-          var printCost = this.db['printCosts'][color]['100']
-          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][this.edition]
-          var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
-          var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
-          console.log(paperCost, printCost, kRent, lamCost, cornerCost)
+          var blockFill = document.getElementById('notes-block-fill').value
+          var blockColor = document.getElementById('notes-block-color').value
+          var coverFill = document.getElementById('notes-cover-fill').value
+          var cover = document.getElementById('notes-cover').value
+          var paper = document.getElementById('notes-paper').value
+          var format = document.getElementById('notes-format').value
 
-          var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
+          var editNum
+          if (this.edition < 200) {
+            editNum = 100
+          } else if ((this.edition >= 200) && (this.edition < 300)) {
+            editNum = 200
+          } else if ((this.edition >= 300) && (this.edition < 400)) {
+            editNum = 300
+          } else if (this.edition >= 400) {
+            editNum = 400
+          }
+
+          var blockCost = this.db['paperCosts'][paper]
+          var coverCost = this.db['paperCosts'][cover]
+          var printCost_cover = this.db['printCosts']["4+0"][coverFill]
+          var printCost_block = this.db['printCosts'][blockColor][blockFill]
+          var springCost = this.db['springCost'] // 2.5
+
+          var kRent = this.db['kRentOf']['notes'][format][editNum]
+          var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
           
-          alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
+          var total
+          if (format == "A4") {
+            total = (1 * coverCost + (this.blockPages * blockCost / 2) + (0,5 * printCost_cover) + (this.blockPages * (printCost_block / 2)) + (1 * springCost)) * this.edition * kRent + lamCost
+          } else if (format == "A5") {
+            total = ((this.linesNumber / 4) * paperCost/2 + 1 * coverCost/2 + ((this.linesNumber / 4) * printCost) / 2 + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+          } else if (format == "A6") {
+            total = ((this.linesNumber / 4) * paperCost/2 + 1 * coverCost/4 + ((this.linesNumber / 4) * printCost) / 4 + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+          }
+          
+          alert('товар: Блокноты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+'\u20BD руб/шт)')
         }
       }
   }

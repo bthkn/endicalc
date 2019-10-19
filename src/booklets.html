@@ -11,7 +11,7 @@
 <body>
 
   <div class="container-fluid px-0">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
       <div class="row w-100 mx-0">
         <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around;">
           <li class="nav-item"><a class="nav-link" href="vizit.html">Визитки</a></li>
@@ -27,7 +27,74 @@
     </nav>
   </div>
 
-  <main id="bookletsCalc" class="container-fluid px-0 mt-5 pt-2">
+  <main id="bookletsCalc" class="container-fluid px-0">
+    
+    <!-- <div class="row mx-2">
+      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Бумага обложки:
+          <select name="" id="booklets-cover">
+            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+          </select>
+        </div></div>
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Бумага блока:
+          <select name="" id="booklets-paper">
+            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+          </select>
+        </div></div>
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Формат полосы:
+          <select name="" id="booklets-format">
+            <option v-for="format in db['paperFormats']" :value="format">{{ format }}</option>
+          </select>
+        </div></div>
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Количество полос:
+          <input v-model="linesNumber" type="number" step="4" placeholder="кратное 4"></input>
+        </div></div>
+      </div>
+      <div class="col card shadow-sm px-1 py-2 mx-2 mt-2">
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Тираж:
+          <input v-model="edition" type="number" placeholder=""></input>
+        </div></div>
+        <div class="row mx-1 my-2"><div class="col mx-0 my-0">
+          Постпечатная обработка:
+          <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
+          <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
+          <input type="checkbox" name="biegen" v-model="isBiegen"><label for="biegen">биговка</label>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="row mx-2">
+      <div class="col mx-2 mt-2">
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-if="edition != undefined"
+        >
+          рассчитать
+        </button>
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-else
+          disabled
+        >
+          рассчитать
+        </button>
+      </div>
+    </div> -->
+
+
+
+
+
+
       
     <div class="section">
         Бумага обложки:
@@ -48,12 +115,12 @@
         </select>
       </div>
       <div class="section">
-        Количество полос:
-        <input v-model="linesNumber" type="number" placeholder="кратное 4"></input>
+          Количество полос:
+          <input v-model="linesNumber" type="number" step="4" placeholder="кратное 4"></input>
       </div>
       <div class="section">
-        Тираж:
-        <input v-model="edition" type="number" placeholder=""></input>
+          Тираж:
+          <input v-model="edition" type="number" placeholder=""></input>
       </div>
       <div class="section">
         Постпечатная обработка:
@@ -63,8 +130,8 @@
       </div>
       <div class="section">
         <button @click="getTotal">рассчитать</button>
-      </div>
-    </main>
+    </div>
+  </main>
 
   <script src="js/tmp-booklets.js"></script>
 </body>

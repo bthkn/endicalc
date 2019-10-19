@@ -192,7 +192,7 @@ var app = new Vue({
             editNum = 2000
           }
 
-          var paperCost = (this.linesNumber <= 4) ? this.db['paperCosts'][paper] : 0
+          var paperCost = (this.linesNumber >= 4) ? this.db['paperCosts'][paper] : 0
           var coverCost = this.db['paperCosts'][cover]
           var printCost = this.db['printCosts']["4+4"]['100']
 
@@ -218,11 +218,12 @@ var app = new Vue({
           var kRent = this.db['kRentOf']['booklets']["4+4"][lines][editNum]
           var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
           var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
-          var skoba = (this.linesNumber <= 4) ? 2.2 : 0
+          var skoba = (this.linesNumber >= 4) ? 2.2 : 0
           
           var total
           if (format == "A4") {
             total = ((this.linesNumber / 4) * paperCost + 1 * coverCost  + (this.linesNumber / 4) * printCost + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+            console.log(paperCost, coverCost, this.linesNumber, printCost, skoba, this.edition, kRent, lamCost, cornerCost)
           } else if (format == "A5") {
             total = ((this.linesNumber / 4) * paperCost/2 + 1 * coverCost/2 + ((this.linesNumber / 4) * printCost) / 2 + skoba * 2) * this.edition * kRent + lamCost + cornerCost
           } else if (format == "A6") {

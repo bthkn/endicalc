@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>encalc</title>
+  <title>endicalc</title>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <!-- <script src="js/vue.min.js"></script> -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -27,7 +27,22 @@
     </nav>
   </div>
     
-  <main id="app" class="container-fluid px-0 mt-5 pt-2"></main>
+  <main id="app" class="container-fluid px-0 mt-5 pt-2">
+    Node:
+    <code><script>
+      document.write(process.versions.node)
+    </script></code>
+    <br>
+    Chrome:
+    <code><script>
+        document.write(process.versions.chrome)
+    </script></code>
+    <br>
+    Electron:
+    <code><script>
+      document.write(process.versions.electron)
+    </script></code>
+  </main>
   <script src="js/index.js"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 <body>
 
   <div class="container-fluid px-0">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
       <div class="row w-100 mx-0">
         <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around;">
           <li class="nav-item"><a class="nav-link" href="vizit.html">Визитки</a></li>
@@ -28,36 +28,54 @@
   </div>
 
   <main id="notesCalc" class="container-fluid px-0 mt-5 pt-2">
-
-    Входные данные:
-    Вид бумаги для картона
-    Формат блокнота (А4, А5, А6)
-    Количество листов блока
-    Вид бумаги для блока
-    Цветность печати блока (20% / 100% запечатки, количество цветов 0+0, 1+0, 2+0)
-    Цветность печати обложки (20% / 100% запечатки, только 4+0)
     
     <div class="section">
-      Тип картона:
-      <select name="" id="cardboardType">
-        <option value="dizcrd">диз. картон</option>
-        <option value="normal">обычный картон</option>
-      </select>
-    </div>
-    
-    <div class="section">
-      Бумага:
-      <select name="" id="visitCards-paper">
+      Вид бумаги для картона:
+      <select name="" id="notes-cover">
         <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
       </select>
     </div>
 
     <div class="section">
-      Цветность:
-      <select name="" id="visitCards-color">
-        <option value="4+0">4+0</option>
-        <option value="4+4">4+4</option>
+      Вид бумаги для блока:
+      <select name="" id="notes-paper">
+        <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
       </select>
+    </div>
+
+    <div class="section">
+      Формат блокнота:
+      <select name="" id="notes-format">
+        <option value="А4">А4</option>
+        <option value="А5">А5</option>
+        <option value="А6">А6</option>
+      </select>
+    </div>
+
+    <div class="section">
+      Цветность печати блока:
+      <select name="" id="notes-block-fill">
+        <option value="20">20%</option>
+        <option value="100">100%</option>
+      </select>
+      <select name="" id="notes-block-color">
+        <option value="1+0">0+0</option>
+        <option value="0+0">1+0</option>
+        <option value="0+0">2+0</option>
+      </select>
+    </div>
+
+    <div class="section">
+      Цветность печати обложки (только 4+0):
+      <select name="" id="notes-cover-fill">
+        <option value="20">20%</option>
+        <option value="100">100%</option>
+      </select>
+    </div>
+
+    <div class="section">
+      Количество листов блока:
+      <input v-model="blockPages" type="number" placeholder=""></input>
     </div>
     
     <div class="section">
@@ -68,7 +86,6 @@
     <div class="section">
       Постпечатная обработка:
       <input type="checkbox" name="lam" v-model="isLaminated"><label for="lam">ламинация обложки</label>
-      <input type="checkbox" name="corners" v-model="isCorners"><label for="corners">скругление углов блока</label>
     </div>
 
     <div class="section">
