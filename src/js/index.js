@@ -16,6 +16,7 @@ var navBar = new Vue({
 var app = new Vue({
   el: '#app',
   data: {
+    total: undefined,
     currentProduct: 'Визитки',
     isLaminated: undefined,
     isCorners: undefined,
@@ -142,7 +143,7 @@ var app = new Vue({
             },
             "4+4": {
               "50": 3.5,
-              "100": 3.2,
+              "100": 3.3,
               "200": 3.2,
               "300": 3,
               "400": 2.9,
@@ -228,7 +229,7 @@ var app = new Vue({
               "400": 2.6,
               "500": 2.5,
               "1000": 2.5,
-              "1000-20%": 3.25
+              "1000-20%": 3.5
             },
             "4+4": {
               "50": 4,
@@ -474,46 +475,22 @@ var app = new Vue({
         },
         "notes": {
           "А4": {
-            "0+0": {
-              "100": 2.1,
-              "200": 1.95,
-              "300": 1.85,
-              "400": 1.7
-            },
-            "1+0": {
-              "100": 2,
-              "200": 1.69,
-              "300": 1.6,
-              "400": 1.5
-            }
+            "100": 2,
+            "200": 1.69,
+            "300": 1.6,
+            "400": 1.5
           },
           "А5": {
-            "0+0": {
-              "100": 3.1,
-              "200": 2.75,
-              "300": 2.6,
-              "400": 2.3
-            },
-            "1+0": {
-              "100": 3.1,
-              "200": 2.4,
-              "300": 2.2,
-              "400": 2
-            }
+            "100": 3.1,
+            "200": 2.4,
+            "300": 2.2,
+            "400": 2
           },
           "А6": {
-            "0+0": {
-              "100": 3.7,
-              "200": 3.3,
-              "300": 3.2,
-              "400": 2.85
-            },
-            "1+0": {
-              "100": 3.7,
-              "200": 3,
-              "300": 2.7,
-              "400": 2.5
-            }
+            "100": 3.7,
+            "200": 3,
+            "300": 2.7,
+            "400": 2.5
           }
         },
         "calendars": {
@@ -1002,20 +979,21 @@ var app = new Vue({
         var printCost_block = this.db['printCosts'][blockColor][blockFill] // this.db['printCosts'][blockColor][blockFill]
         var springCost = this.db['springCost'] // 2.5
 
-        var kRent = this.db['kRentOf']['notes'][format][blockColor][editNum] // this.db['kRentOf']['notes'][format][blockColor][editNum] 
+        var kRent = this.db['kRentOf']['notes'][format][editNum] // this.db['kRentOf']['notes'][format][blockColor][editNum] 
         var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
         
         console.log(coverCost, this.blockPages, blockCost, printCost_cover, this.blockPages, printCost_block, springCost, this.edition, kRent, lamCost)
 
         var total
         if (format == "A4") {
-          total = (1*coverCost + (this.blockPages * blockCost/2) + (0.5*printCost_cover) + (this.blockPages * (printCost_block/2)) + (1*springCost)) * this.edition * kRent + lamCost
+          total = (1*coverCost + (parseFloat(this.blockPages) * blockCost/2) + (0.5*printCost_cover) + (parseFloat(this.blockPages) * (printCost_block/2)) + (1*springCost)) * parseFloat(this.edition) * kRent + lamCost
         } else if (format == "A5") {
           total = (0.5*coverCost + (this.blockPages * blockCost/4) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/4)) + (0.5*springCost)) * this.edition * kRent + lamCost
         } else if (format == "A6") {
           total = (0.25*coverCost + (this.blockPages * blockCost/8) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/8)) + (0.25*springCost)) * this.edition * kRent + lamCost
         }
-        console.log(format)
+        console.log((1*coverCost + (parseFloat(this.blockPages) * blockCost/2) + (0.5*printCost_cover) + (parseFloat(this.blockPages) * (printCost_block/2)) + (1*springCost)) * parseFloat(this.edition) * kRent + lamCost)
+        console.log(total)
         
         output.innerHTML += '<li class="list-group-item"><b>Вид бумаги для картона:</b> '+cover+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Вид бумаги для блока:</b> '+paper+'</li>'
@@ -1024,7 +1002,8 @@ var app = new Vue({
         output.innerHTML += '<li class="list-group-item"><b>Цветность печати обложки:</b> '+coverFill+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Количество листов блока:</b> '+this.blockPages+'</li>'
 
-        // alert('товар: Блокноты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
+        var t = ( (1*coverCost + (parseFloat(this.blockPages) * blockCost/2) + (0.5*printCost_cover) + (parseFloat(this.blockPages) * (printCost_block/2)) + (1*springCost)) * parseFloat(this.edition) * kRent + lamCost )
+        alert('товар: Блокноты\nВид бумаги для картона: '+cover+'\nВид бумаги для блока: '+paper+'\nФормат блокнота: '+format+'\nЦветность печати блока: '+blockFill+'\nЦветность печати обложки: '+coverFill+'\nКоличество листов блока: '+this.blockPages+'\nКол-во: '+this.edition+'\nСтоимость: '+t.toFixed(2)+' ('+(t/this.edition).toFixed(2)+' \u20BD/шт)')
 
       } else if (this.currentProduct == 'Конверты') {
           
@@ -1063,7 +1042,7 @@ var app = new Vue({
       }
 
       output.innerHTML += '<li class="list-group-item"><b>Тираж:</b> '+this.edition+'</li>'
-      output.innerHTML += '<li class="list-group-item"><b>Цена тиража:</b> '+total.toFixed(2)+'руб ('+(total/this.edition).toFixed(2)+'руб/шт)</li>'
+      output.innerHTML += '<li class="list-group-item"><b>Цена тиража:</b> '+total.toFixed(2)+'руб ('+(this.total/this.edition).toFixed(2)+'руб/шт)</li>'
       
       this.triggerCart()
     },
