@@ -20,6 +20,72 @@ body {
   display: flex;
 } */
 
+.form-control:focus {
+  border-color: #ff6600;
+  box-shadow: 0 0 0 0.15rem rgba(255, 102, 0, 0.2);
+}
+
+.btn-outline-endi:hover {
+  color: #fff;
+  background-color: #ff6600;
+  border-color: #ff6600;
+}
+.btn-outline-endi {
+  color: #ff6600;
+  border-color: #ff6600;
+}
+.btn-outline-endi:disabled {
+  color: #ff6600;
+  background-color: transparent;
+}
+input[type=checkbox]:focus, input[type=radio]:focus {
+  outline: #ff6600 auto 1px;
+}
+.btn-outline-endi.focus, .btn-outline-endi:focus {
+  box-shadow: 0 0 0 0.15rem rgba(255, 102, 0, 0.2);
+}
+
+/*  */
+#fade {
+  background: rgba(0,0,0,0.4);
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9000;
+}
+#fade.show {
+  display: block;
+}
+.modal {
+  max-width: unset;
+  min-width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+}
+.modal.show {
+  display: block;
+}
+.cartModal {
+  margin-left: 5%;
+  margin-right: 5%;
+  max-width: none;
+  /* margin-top: 5%;
+  margin-bottom: 5%; */
+}
+/*  */
+
 .nav-item.active .nav-link {
   color: #ff6600!important;
 }

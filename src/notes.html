@@ -29,139 +29,139 @@
 
   <main id="notesCalc" class="container-fluid px-0">
 
-      <div class="row mx-2">
-        <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="notes-cover">Вид бумаги для картона:</label>
-              <select class="form-control form-control-sm" name="" id="notes-cover">
-                <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+    <div class="row mx-2">
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="notes-cover">Вид бумаги для картона:</label>
+            <select class="form-control form-control-sm" name="" id="notes-cover">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="notes-paper">Вид бумаги для блока:</label>
+            <select class="form-control form-control-sm" name="" id="notes-paper">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="notes-format">Формат блокнота:</label>
+            <select class="form-control form-control-sm" name="" id="notes-format">
+              <option value="А4">А4</option>
+              <option value="А5">А5</option>
+              <option value="А6">А6</option>
+            </select>
+          </div>
+        </div></div>
+      </div>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="notes-block-fill">Цветность печати блока:</label>
+            <div class="row mx-1">
+              <div class="col mx-0 my-0">
+              <select class="form-control form-control-sm w-100" name="" id="notes-block-fill">
+                <option value="20">20%</option>
+                <option value="100">100%</option>
               </select>
-            </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="notes-paper">Вид бумаги для блока:</label>
-              <select class="form-control form-control-sm" name="" id="notes-paper">
-                <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+              </div>
+              <div class="col mx-0 my-0">
+              <select class="form-control form-control-sm w-100" name="" id="notes-block-color">
+                <option value="1+0">0+0</option>
+                <option value="0+0">1+0</option>
+                <option value="0+0">2+0</option>
               </select>
+              </div>
             </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="notes-format">Формат блокнота:</label>
-              <select class="form-control form-control-sm" name="" id="notes-format">
-                <option value="А4">А4</option>
-                <option value="А5">А5</option>
-                <option value="А6">А6</option>
-              </select>
-            </div>
-          </div></div>
-        </div>
-        <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="notes-block-fill">Цветность печати блока:</label>
-              <div class="row mx-1">
-                <div class="col mx-0 my-0">
-                <select class="form-control form-control-sm w-100" name="" id="notes-block-fill">
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="notes-cover-fill">Цветность печати обложки:</label>
+            <div class="row mx-1">
+              <div class="col mx-0 my-0">
+                <select class="form-control form-control-sm" name="" id="notes-cover-fill">
                   <option value="20">20%</option>
                   <option value="100">100%</option>
                 </select>
-                </div>
-                <div class="col mx-0 my-0">
-                <select class="form-control form-control-sm w-100" name="" id="notes-block-color">
-                  <option value="1+0">0+0</option>
-                  <option value="0+0">1+0</option>
-                  <option value="0+0">2+0</option>
-                </select>
-                </div>
+              </div>
+              <div class="col mx-0 my-0">
+                <input class="form-control form-control-sm" type="text" value="4+0" disabled></input>
               </div>
             </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="notes-cover-fill">Цветность печати обложки:</label>
-              <div class="row mx-1">
-                <div class="col mx-0 my-0">
-                  <select class="form-control form-control-sm" name="" id="notes-cover-fill">
-                    <option value="20">20%</option>
-                    <option value="100">100%</option>
-                  </select>
-                </div>
-                <div class="col mx-0 my-0">
-                  <input class="form-control form-control-sm" type="text" value="4+0" disabled></input>
-                </div>
-              </div>
-            </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="blockPages">Количество листов блока:</label>
-              <input class="form-control form-control-sm" v-model="blockPages" id="blockPages" type="number" placeholder=""></input>
-            </div>
-          </div></div>
-        </div>
-        <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="edition">Тираж:</label>
-              <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
-            </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              Постпечатная обработка:
-              <div class="form-check">
-                <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
-                <label class="form-check-label" for="lam">ламинация обложки</label>
-              </div>
-            </div>
-          </div></div>
-          <!-- <div class="row mx-2">
-            <div class="col mx-2 mt-2">
-              <button
-                type="button disabled"
-                class="btn btn-outline-primary d-flex ml-auto"
-                @click="getTotal"
-                v-if="edition != undefined"
-              >
-                рассчитать
-              </button>
-              <button
-                type="button disabled"
-                class="btn btn-outline-primary d-flex ml-auto"
-                @click="getTotal"
-                v-else
-                disabled
-              >
-                рассчитать
-              </button>
-            </div>
-          </div> -->
-        </div>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="blockPages">Количество листов блока:</label>
+            <input class="form-control form-control-sm" v-model="blockPages" id="blockPages" type="number" placeholder=""></input>
+          </div>
+        </div></div>
       </div>
-      <div class="row mx-2">
-        <div class="col mx-2 mt-2">
-          <button
-            type="button disabled"
-            class="btn btn-outline-primary d-flex mx-auto"
-            @click="getTotal"
-            v-if="edition != undefined"
-          >
-            рассчитать
-          </button>
-          <button
-            type="button disabled"
-            class="btn btn-outline-primary d-flex mx-auto"
-            @click="getTotal"
-            v-else
-            disabled
-          >
-            рассчитать
-          </button>
-        </div>
+      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="edition">Тираж:</label>
+            <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            Постпечатная обработка:
+            <div class="form-check">
+              <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
+              <label class="form-check-label" for="lam">ламинация обложки</label>
+            </div>
+          </div>
+        </div></div>
+        <!-- <div class="row mx-2">
+          <div class="col mx-2 mt-2">
+            <button
+              type="button disabled"
+              class="btn btn-outline-primary d-flex ml-auto"
+              @click="getTotal"
+              v-if="edition != undefined"
+            >
+              рассчитать
+            </button>
+            <button
+              type="button disabled"
+              class="btn btn-outline-primary d-flex ml-auto"
+              @click="getTotal"
+              v-else
+              disabled
+            >
+              рассчитать
+            </button>
+          </div>
+        </div> -->
       </div>
+    </div>
+    <div class="row mx-2">
+      <div class="col mx-2 mt-4">
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-if="edition != undefined"
+        >
+          рассчитать
+        </button>
+        <button
+          type="button disabled"
+          class="btn btn-outline-primary d-flex mx-auto"
+          @click="getTotal"
+          v-else
+          disabled
+        >
+          рассчитать
+        </button>
+      </div>
+    </div>
     
   </main>
 

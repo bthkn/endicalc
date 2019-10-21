@@ -13,6 +13,8 @@ function createWindow () {
     resizable: false,
     maximizable: false,
     autoHideMenuBar: true,
+    backgroundColor: '#f7f7f7',
+    // frame: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: true
@@ -20,7 +22,7 @@ function createWindow () {
     // icon: '/favicon.ico'
   }) 
  
-  win.loadFile('src/vizit.html') // 'src/index.html'
+  win.loadFile('src/index.html') // 'src/vizit.html'
 
   // win.webContents.openDevTools()
   

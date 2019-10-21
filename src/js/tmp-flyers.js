@@ -264,7 +264,6 @@ var app = new Vue({
   },
   methods: {
     getTotal() {
-      console.log(this.db['printCosts'][document.getElementById('flyers-color').value])
       if (this.currentProduct == 'Листовки') {
         
         var paper = document.getElementById('flyers-paper').value

@@ -146,43 +146,56 @@ var app = new Vue({
     }
   },
   methods: {
-      getTotal() {
-        if (this.currentProduct == 'Визитки') {
+    getTotal() {
+      if (this.currentProduct == 'Визитки') {
 
-          var cardboardType = document.getElementById('cardboardType').value
-          var paper = document.getElementById('visitCards-paper').value
-          var color = document.getElementById('visitCards-color').value
+        var cardboardType = document.getElementById('cardboardType').value
+        var paper = document.getElementById('visitCards-paper').value
+        var color = document.getElementById('visitCards-color').value
 
-          var editNum
-          if (this.edition < 100) {
-            editNum = 50
-          } else if ((this.edition >= 100) && (this.edition < 200)) {
-            editNum = 100
-          } else if ((this.edition >= 200) && (this.edition < 300)) {
-            editNum = 200
-          } else if ((this.edition >= 300) && (this.edition < 400)) {
-            editNum = 300
-          } else if ((this.edition >= 400) && (this.edition < 500)) {
-            editNum = 400
-          } else if ((this.edition >= 500) && (this.edition < 1000)) {
-            editNum = 500
-          } else if ((this.edition >= 1000) && (this.edition < 2000)) {
-            editNum = 1000
-          } else if (this.edition > 2000) {
-            editNum = 2000
-          }
-
-          var paperCost = this.db['paperCosts'][paper]
-          var printCost = this.db['printCosts'][color]['100']
-          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][editNum]
-          var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
-          var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
-          console.log(paperCost, printCost, kRent, lamCost, cornerCost)
-
-          var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
-          
-          alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
+        var editNum
+        if (this.edition < 100) {
+          editNum = 50
+        } else if ((this.edition >= 100) && (this.edition < 200)) {
+          editNum = 100
+        } else if ((this.edition >= 200) && (this.edition < 300)) {
+          editNum = 200
+        } else if ((this.edition >= 300) && (this.edition < 400)) {
+          editNum = 300
+        } else if ((this.edition >= 400) && (this.edition < 500)) {
+          editNum = 400
+        } else if ((this.edition >= 500) && (this.edition < 1000)) {
+          editNum = 500
+        } else if ((this.edition >= 1000) && (this.edition < 2000)) {
+          editNum = 1000
+        } else if (this.edition > 2000) {
+          editNum = 2000
         }
+
+        var paperCost = this.db['paperCosts'][paper]
+        var printCost = this.db['printCosts'][color]['100']
+        var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][editNum]
+        var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
+        var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
+        console.log(paperCost, printCost, kRent, lamCost, cornerCost)
+
+        var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
+        
+        alert('товар: Визитки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
       }
+      this.triggerCart()
+    },
+    triggerCart: function () {
+      var modal = document.getElementById("checkoutModal");
+      modal.classList.forEach(cls => {
+        if (cls == "show") {
+          modal.classList.remove("show")
+          document.getElementById("fade").classList.remove("show")
+        } else {
+          modal.classList.add("show")
+          document.getElementById("fade").classList.add("show")
+        }
+      });
+    }
   }
 })

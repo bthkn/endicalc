@@ -27,25 +27,34 @@
     </nav>
   </div>
 
-  <!-- <div id="modal fade" class="modal modal-lg" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+  <div id="fade"></div>
+  <div id="checkoutModal" class="modal modal-lg" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 64%;">
+        <div class="modal-content" style="border: none">
           <div class="modal-header">
-            <h5 class="modal-title">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title"><!-- title --></h5>
+            <button type="button" class="close" @click="triggerCart">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p>Modal body text goes here.</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Товар: Визитки</li>
+              <li class="list-group-item">Тип картона: ???</li>
+              <li class="list-group-item">Бумага: ???</li>
+              <li class="list-group-item">Цветность: ???</li>
+              <li class="list-group-item">Тираж: {{edition}}</li>
+              <li class="list-group-item">Постпечатная обработка: ???</li>
+              <li class="list-group-item">Цена тиража: ???руб (???руб/шт)</li>
+            </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="triggerCart">Экспорт</button>
+            <button type="button" class="btn btn-primary" @click="triggerCart">Готово</button>
           </div>
         </div>
       </div>
-  </div> -->
+  </div>
 
   <main id="vizitCardsCalc" class="container-fluid px-0">
     
@@ -53,54 +62,55 @@
       <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
-          <label for="cardboardType">Тип картона:</label>
-          <select class="form-control form-control-sm" name="" id="cardboardType">
-            <option value="dizcrd">диз. картон</option>
-            <option value="normal">обычный картон</option>
-          </select>
+            <label for="cardboardType">Тип картона:</label>
+            <select class="form-control form-control-sm" name="" id="cardboardType">
+              <option value="dizcrd">диз. картон</option>
+              <option value="normal">обычный картон</option>
+            </select>
           </div>
         </div></div>
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
-          <label for="visitCards-paper">Бумага:</label>
-          <select class="form-control form-control-sm" name="" id="visitCards-paper">
-            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-          </select>
+            <label for="visitCards-paper">Бумага:</label>
+            <select class="form-control form-control-sm" name="" id="visitCards-paper">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select>
           </div>
         </div></div>
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
-          <label for="visitCards-color">Цветность:</label>
-          <select class="form-control form-control-sm" name="" id="visitCards-color">
-            <option value="4+0">4+0</option>
-            <option value="4+4">4+4</option>
-          </select>
+            <label for="visitCards-color">Цветность:</label>
+            <select class="form-control form-control-sm" name="" id="visitCards-color">
+              <option value="4+0">4+0</option>
+              <option value="4+4">4+4</option>
+            </select>
           </div>
         </div></div>
       </div>
       <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
-          <label for="edition">Тираж:</label>
-          <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
+            <label for="edition">Тираж:</label>
+            <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
           </div>
         </div></div>
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
-          Постпечатная обработка:
-          <div class="form-check">
-            <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
-            <label class="form-check-label" for="lam">ламинация обложки</label>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" id="corners" name="corners" v-model="isCorners" class="form-check-input">
-            <label class="form-check-label" for="corners">скругление углов блока</label></div>
+            Постпечатная обработка:
+            <div class="form-check">
+              <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
+              <label class="form-check-label" for="lam">ламинация обложки</label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="corners" name="corners" v-model="isCorners" class="form-check-input">
+              <label class="form-check-label" for="corners">скругление углов блока</label>
+            </div>
           </div>
         </div></div>
       </div>
     </div>
-    <div class="row mx-2">
-      <div class="col mx-2 mt-2">
+    <div class="row mx-2" style="min-height: max-content">
+      <div class="col mx-2 mt-4">
         <button
           type="button"
           class="btn btn-outline-primary d-flex mx-auto"

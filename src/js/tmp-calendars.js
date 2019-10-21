@@ -13,7 +13,7 @@
 // console.log('Календари = ' + total6)
 
 var app = new Vue({
-  el: '#vizitCardsCalc',
+  el: '#calendarsCalc',
   data: {
     currentProduct: 'Календари',
     isLaminated: undefined,
@@ -35,11 +35,6 @@ var app = new Vue({
         "Splendorgel 300 гр",
         "TintoRetto 300 гр"
       ],
-      "paperFormat": {
-        "0":"A4",
-        "1":"A5",
-        "2":"A6"
-      },
       "paperCosts": {
         "Офсетная 80 гр": 1.84,
         "Maxigloss 130гр": 2.21,
@@ -110,51 +105,135 @@ var app = new Vue({
         }
       },
       "kRentOf": {
-        "visitCards": {
-          "dizcrd": {
+        "calendars": {
+          "basic": {
             "4+0": {
-              "50": 3,
-              "100": 2.9,
-              "200": 2.8,
-              "300": 2.5,
-              "400": 2.2,
-              "500": 2,
-              "1000": 1.8,
-              "2000": 1.75
-            },
-            "4+4": {
-              "50": 3.5,
-              "100": 3.2,
-              "200": 3.2,
-              "300": 3,
-              "400": 2.9,
-              "500": 2.7,
-              "1000": 2.2,
-              "2000": 2
+              "5": 7,
+              "50": 4,
+              "100": 3.7,
+              "200": 3.15,
+              "300": 2.71,
+              "500": 2.34,
+              "700": 2.2,
+              "1000": 2,
+              "2000": 1.9,
+              "3000": 1.8
             }
           },
-          "normal": {
+          "diy": {
             "4+0": {
-              "50": 6,
-              "100": 4.45,
-              "200": 3.34,
-              "300": 2.9,
-              "400": 2.9,
-              "500": 2.8,
-              "1000": 2.6,
-              "2000": 2.1
-            },
-            "4+4": {
-              "50": 7,
-              "100": 4.9,
-              "200": 3.9,
+              "5": 7,
+              "50": 4,
+              "100": 4,
+              "200": 3.5,
+              "300": 3,
+              "500": 2.85,
+              "700": 2.7,
+              "1000": 2.65,
+              "2000": 2.6,
+              "3000": 2.5
+            }
+          },
+          "vertical": {
+            "4+0": {
+              "5": 7,
+              "50": 5.8,
+              "100": 4.15,
+              "200": 4,
               "300": 3.6,
-              "400": 3.6,
-              "500": 3.5,
-              "1000": 2.9,
-              "2000": 2.1
+              "500": 3.25,
+              "700": 3.2,
+              "1000": 3.2,
+              "2000": 3.2,
+              "3000": 3.2
+            }
+          },
+          "horizontal": {
+            "4+0": {
+              "5": 7,
+              "50": 6,
+              "100": 5.9,
+              "200": 5.8,
+              "300": 5.2,
+              "500": 4,
+              "700": 3.9,
+              "1000": 3.9,
+              "2000": 3.9,
+              "3000": 3.9 
             }
           }
+        }
+      },
+      "calendars": {
+        "Домик самосборный": {
+          "картон": 0.5,
+          "печать": 0.5,
+          "пружина": 0,
+          "люверс": 0,
+          "блок_стандарт": 0,
+          "блок_85x115": 0,
+          "скоба": 2,
+          "бегунок": 0
+        },
+        "Домик с блоками вертикальный": {
+          "картон": 0.35,
+          "печать": 0.35,
+          "пружина": 0.3,
+          "люверс": 0,
+          "блок_стандарт": 0,
+          "блок_85x115": 1,
+          "скоба": 0,
+          "бегунок": 0
+        },
+        "Домик с блоками горизонтальный": {
+          "картон": 0.5,
+          "печать": 0.5,
+          "пружина": 0.3,
+          "люверс": 0,
+          "блок_стандарт": 0,
+          "блок_85x115": 1,
+          "скоба": 0,
+          "бегунок": 0
+        },
+        "Моно стандарт": {
+          "картон": 2,
+          "печать": 2,
+          "пружина": 1,
+          "люверс": 1,
+          "блок_стандарт": 0.3,
+          "блок_85x115": 0,
+          "скоба": 0,
+          "бегунок": 1
+        },
+        "ТРИО economy": {
+          "картон": 2,
+          "печать": 1,
+          "пружина": 3,
+          "люверс": 1,
+          "блок_стандарт": 1,
+          "блок_85x115": 0,
+          "скоба": 0,
+          "бегунок": 1
+        },
+        "Трио big size": {
+          "картон": 4,
+          "печать": 2,
+          "пружина": 4.5,
+          "люверс": 1,
+          "блок_стандарт": 1,
+          "блок_85x115": 0,
+          "скоба": 0,
+          "бегунок": 1
+        },
+        "Трио standart": {
+          "картон": 2,
+          "печать": 1.25,
+          "пружина": 3,
+          "люверс": 1,
+          "блок_стандарт": 1,
+          "блок_85x115": 0,
+          "скоба": 0,
+          "бегунок": 1
         }
       }
     }
@@ -163,17 +242,16 @@ var app = new Vue({
   methods: {
       getTotal() {
         if (this.currentProduct == 'Календари') {
-
+          // calendars
           var cardboardType = document.getElementById('cardboardType').value
           var paper = document.getElementById('visitCards-paper').value
           var color = document.getElementById('visitCards-color').value
 
-          var paperCost = this.db['paperCosts'][paper]
-          var printCost = this.db['printCosts'][color]['100']
-          var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][this.edition]
-          var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
-          var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
-          console.log(paperCost, printCost, kRent, lamCost, cornerCost)
+          // var paperCost = this.db['paperCosts'][paper]
+          var printCost = this.db['printCosts']["4+0"]['100'] //
+          // var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][this.edition]
+          // var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
+          // var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
 
           var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
           

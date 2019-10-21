@@ -173,16 +173,16 @@ var app = new Vue({
           var printCost_block = this.db['printCosts'][blockColor][blockFill]
           var springCost = this.db['springCost'] // 2.5
 
-          var kRent = this.db['kRentOf']['notes'][format][editNum]
+          var kRent = this.db['kRentOf']['notes'][format][blockColor][editNum]
           var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
           
           var total
           if (format == "A4") {
             total = (1 * coverCost + (this.blockPages * blockCost / 2) + (0,5 * printCost_cover) + (this.blockPages * (printCost_block / 2)) + (1 * springCost)) * this.edition * kRent + lamCost
           } else if (format == "A5") {
-            total = ((this.linesNumber / 4) * paperCost/2 + 1 * coverCost/2 + ((this.linesNumber / 4) * printCost) / 2 + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+            total = 0
           } else if (format == "A6") {
-            total = ((this.linesNumber / 4) * paperCost/2 + 1 * coverCost/4 + ((this.linesNumber / 4) * printCost) / 4 + skoba * 2) * this.edition * kRent + lamCost + cornerCost
+            total = 0
           }
           
           alert('товар: Блокноты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')

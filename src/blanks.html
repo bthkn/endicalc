@@ -33,7 +33,7 @@
       <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
-            <label for="blanks-paper">Бумага (формат <b>A4</b>):</label>
+            <label for="blanks-paper">Бумага <span class="badge badge-secondary">формат A4</span>:</label>
             <select class="form-control form-control-sm" name="" id="blanks-paper">
               <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
             </select>
@@ -88,7 +88,7 @@
     </div>
 
     <div class="row mx-2">
-      <div class="col mx-2 mt-2">
+      <div class="col mx-2 mt-4">
         <button
           type="button disabled"
           class="btn btn-outline-primary d-flex mx-auto"
