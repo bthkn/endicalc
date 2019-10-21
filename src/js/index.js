@@ -1001,7 +1001,7 @@ var app = new Vue({
         var printCost_block = this.db['printCosts'][blockColor][blockFill] // this.db['printCosts'][blockColor][blockFill]
         var springCost = this.db['springCost'] // 2.5
 
-        var kRent = this.db['kRentOf']['notes'][format]["1+0"][editNum] // this.db['kRentOf']['notes'][format][blockColor][editNum] 
+        var kRent = this.db['kRentOf']['notes'][format][blockColor][editNum] // this.db['kRentOf']['notes'][format][blockColor][editNum] 
         var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
         
         console.log(coverCost, this.blockPages, blockCost, printCost_cover, this.blockPages, printCost_block, springCost, this.edition, kRent, lamCost)
