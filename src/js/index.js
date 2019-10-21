@@ -980,6 +980,7 @@ var app = new Vue({
         var blockFill = document.getElementById('notes-block-fill').value
         var blockColor = document.getElementById('notes-block-color').value
         var coverFill = document.getElementById('notes-cover-fill').value
+        var coverColor = document.getElementById('notes-cover-color').value
         var cover = document.getElementById('notes-cover').value
         var paper = document.getElementById('notes-paper').value
         var format = document.getElementById('notes-format').value
@@ -997,7 +998,7 @@ var app = new Vue({
 
         var blockCost = this.db['paperCosts'][paper]
         var coverCost = this.db['paperCosts'][cover]
-        var printCost_cover = this.db['printCosts']["4+0"][coverFill]
+        var printCost_cover = this.db['printCosts'][coverColor][coverFill]
         var printCost_block = this.db['printCosts'][blockColor][blockFill] // this.db['printCosts'][blockColor][blockFill]
         var springCost = this.db['springCost'] // 2.5
 
