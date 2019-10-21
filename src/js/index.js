@@ -998,7 +998,7 @@ var app = new Vue({
         var blockCost = this.db['paperCosts'][paper]
         var coverCost = this.db['paperCosts'][cover]
         var printCost_cover = this.db['printCosts']["4+0"][coverFill]
-        var printCost_block = this.db['printCosts']["4+0"][blockFill] // this.db['printCosts'][blockColor][blockFill]
+        var printCost_block = this.db['printCosts'][blockColor][blockFill] // this.db['printCosts'][blockColor][blockFill]
         var springCost = this.db['springCost'] // 2.5
 
         var kRent = this.db['kRentOf']['notes'][format]["1+0"][editNum] // this.db['kRentOf']['notes'][format][blockColor][editNum] 
