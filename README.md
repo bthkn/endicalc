@@ -1,6 +1,6 @@
 # endicalc
-[![current version](https://img.shields.io/github/package-json/v/bthkn/endicalc)]
-[![electron version](https://img.shields.io/github/package-json/dependency-version/bthkn/endicalc/dev/electron)]
+![current version](https://img.shields.io/github/package-json/v/bthkn/endicalc)
+![electron version](https://img.shields.io/github/package-json/dependency-version/bthkn/endicalc/dev/electron)
 
 ```bash
 # Clone this repository
