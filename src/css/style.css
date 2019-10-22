@@ -20,6 +20,14 @@ body {
   display: flex;
 } */
 
+div.options {
+  height: calc(100vh - 150px)
+}
+
+nav.navbar {
+  user-select: none;
+}
+
 .form-control:focus {
   border-color: #ff6600;
   box-shadow: 0 0 0 0.15rem rgba(255, 102, 0, 0.2);
