@@ -439,6 +439,16 @@ var app = new Vue({
             "500": 6.5,
             "1000": 5,
             "5000": 2.2
+          },
+          "4+1": {
+            "50": 7,
+            "100": 6.5,
+            "200": 6,
+            "300": 5,
+            "400": 4,
+            "500": 3.5,
+            "1000": 2.5,
+            "5000": 1.8
           }
         },
         "envelope": {
@@ -666,7 +676,7 @@ var app = new Vue({
 
       if (this.currentProduct == 'Визитки') {
 
-        var cardboardType = document.getElementById('cardboardType').value
+        var cardboardType // = document.getElementById('cardboardType').value
         var paper = document.getElementById('visitCards-paper').value
         var color = document.getElementById('visitCards-color').value
 
@@ -687,6 +697,12 @@ var app = new Vue({
           editNum = 1000
         } else if (this.edition > 2000) {
           editNum = 2000
+        }
+
+        if (paper == this.db["paperTypes"][3]) {
+          cardboardType = 'normal'
+        } else {
+          cardboardType = 'dizcrd'
         }
 
         var paperCost = this.db['paperCosts'][paper]
@@ -816,13 +832,13 @@ var app = new Vue({
         var lines
         if (this.linesNumber <= 8 ) {
           lines = "<8"
-        } else if (this.linesNumber < 12 ) {
+        } else if (this.linesNumber <= 12 ) {
           lines = "<12"
-        } else if ((this.linesNumber > 16) && (this.linesNumber < 24)) {
+        } else if ((this.linesNumber >= 16) && (this.linesNumber <= 24)) {
           lines = "<16-24"
-        } else if ((this.linesNumber > 28) && (this.linesNumber < 32)) {
+        } else if ((this.linesNumber >= 28) && (this.linesNumber <= 32)) {
           lines = "<28-32"
-        } else if ((this.linesNumber > 36) && (this.linesNumber < 40)) {
+        } else if ((this.linesNumber >= 36) && (this.linesNumber <= 40)) {
           lines = "<36-40"
         } else if (this.linesNumber > 40) {
           lines = "<36-40"
@@ -1042,7 +1058,7 @@ var app = new Vue({
       }
 
       output.innerHTML += '<li class="list-group-item"><b>Тираж:</b> '+this.edition+'</li>'
-      output.innerHTML += '<li class="list-group-item"><b>Цена тиража:</b> '+total.toFixed(2)+'руб ('+(this.total/this.edition).toFixed(2)+'руб/шт)</li>'
+      output.innerHTML += '<li class="list-group-item"><b>Цена тиража:</b> '+(total * 1.05).toFixed(2)+'руб ('+((total * 1.05)/this.edition).toFixed(2)+'руб/шт)</li>'
       
       this.triggerCart()
     },
