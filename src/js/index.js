@@ -806,6 +806,8 @@ var app = new Vue({
         var paper = document.getElementById('booklets-paper').value
         var format = document.getElementById('booklets-format').value
 
+        console.log(cover, paper, format)
+
         var editNum
         if (this.edition < 100) {
           editNum = 50
@@ -829,6 +831,8 @@ var app = new Vue({
         var coverCost = this.db['paperCosts'][cover]
         var printCost = this.db['printCosts']["4+4"]['100']
 
+        console.log(editNum, paperCost, coverCost, printCost)
+
         var lines
         if (this.linesNumber <= 8 ) {
           lines = "<8"
@@ -843,7 +847,6 @@ var app = new Vue({
         } else if (this.linesNumber > 40) {
           lines = "<36-40"
         }
-
         if ((paper != cover) && (lines != "<8")) { lines += "_mixed" }
 
         console.log(this.linesNumber, lines)
@@ -853,6 +856,8 @@ var app = new Vue({
         var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
         var skoba = (this.linesNumber >= 4) ? 2.2 : 0
         
+        console.log(kRent, lamCost, cornerCost, skoba)
+
         var total
         if (format == "A4") {
           total = ((this.linesNumber / 4) * paperCost + 1 * coverCost  + (this.linesNumber / 4) * printCost + skoba * 2) * this.edition * kRent + lamCost + cornerCost
