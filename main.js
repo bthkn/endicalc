@@ -14,12 +14,12 @@ function createWindow () {
     maximizable: false,
     autoHideMenuBar: true,
     backgroundColor: '#f7f7f7',
-    // frame: false,
+    frame: false,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: true
     },
-    // icon: '/favicon.ico'
+    icon: 'src/img/icon.png'
   }) 
  
   win.loadFile('src/index.html') // 'src/vizit.html'

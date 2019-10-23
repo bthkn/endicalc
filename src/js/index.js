@@ -1,4 +1,4 @@
-// const axios = require('axios').default
+const axios = require('axios').default
 
 var navBar = new Vue({
   el: '#navBar',
@@ -671,8 +671,8 @@ var app = new Vue({
     getTotal() {
 
       output = document.getElementById('outputList')
-      output.innerHTML = ''
-      output.innerHTML += '<li class="list-group-item"><b>Товар:</b> '+this.currentProduct+'</li>'
+
+      output.innerHTML = '<li class="list-group-item"><b>Товар:</b> '+this.currentProduct+'</li>'
 
       if (this.currentProduct == 'Визитки') {
 
@@ -1073,7 +1073,7 @@ var app = new Vue({
       this.triggerCart()
     },
     triggerCart: function () {
-      var modal = document.getElementById("checkoutModal");
+      var modal = document.getElementById("checkoutModal")
       modal.classList.forEach(cls => {
         if (cls == "show") {
           modal.classList.remove("show")
@@ -1082,17 +1082,18 @@ var app = new Vue({
           modal.classList.add("show")
           document.getElementById("fade").classList.add("show")
         }
-      });
+      })
     }
   },
   computed: {},
   beforeMount() {
-      // axios.get('data.json')
-      //     .then((response) => {
-      //         document.write(JSON.parse(response))
-      //     })
-      //     .catch((error) => {
-      //         alert('axios:\n'+error)
-      //     });
+    axios.get('../data.json') 
+      .then((response) => {
+        alert(response)
+        document.write(JSON.parse(response))
+      })
+      .catch((error) => {
+        alert('axios:\n'+error)
+      });
   }
 })

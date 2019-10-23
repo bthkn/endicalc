@@ -7,6 +7,97 @@ body {
   padding-top: 64px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+.app-titlebar {
+  width: 100%;
+  height: 24px;
+  /* user-select: none; */
+  /* -webkit-app-region: drag; */
+  background-color: #343a40;
+  display: flex;
+  border-bottom: 1px solid #232323;
+}
+
+.app-titlebar-caption {
+  -webkit-app-region: drag;
+  font-size: 14px;
+  color: #c0c0c1;
+  text-align: center;
+  width: -webkit-fill-available;
+  padding: 0 0 0 44px;
+}
+
+.app-titlebar-button button {
+  width: 44px;
+  height: 24px;
+  padding: 0 8px;
+  /* background-color: transparent; */
+  border: none;
+  color: #ffffff;
+}
+
+/* .app-titlebar-button button:hover {
+  cursor: default;
+  width: 44px;
+  height: 24px;
+  padding: 0 8px;
+  border: none;
+  color: #ffffff;
+} */
+
+.app-titlebar-button button img {
+  width: 22px;
+  max-height: 22px;
+  padding: 0px 0px 5px 0;
+  margin: 0;
+}
+
+.app-titlebar-button.sts button {
+  background-color: transparent;
+}
+.app-titlebar-button.sts button:hover {
+  background-color: #5c6670;
+}
+
+.app-titlebar-button.min button {
+  background-color: transparent;
+}
+.app-titlebar-button.min:hover button {
+  background-color: #5c6670;
+}
+
+.app-titlebar-button.cls button {
+  background-color: transparent;
+}
+.app-titlebar-button.cls:hover button {
+  background-color: #ff3333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .card {
   border: none!important;
 }
