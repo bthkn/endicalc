@@ -564,6 +564,10 @@
   },
   "springCost": 2.5,
   "grommetCost": 0.3,
+  "block_std": 25,
+  "block_85": 7.6,
+  "skoba": 2.2,
+  "begunok": 3,
   "calendars": {
     "Домик самосборный": {
       "картон": 0.5,

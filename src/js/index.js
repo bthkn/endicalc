@@ -456,7 +456,7 @@ var app = new Vue({
         "envelope": {
           "Е65": {
             "10": 15,
-            "30": 0.3,
+            "30": 10.3,
             "50": 8.5,
             "100": 6.6,
             "200": 6,
@@ -466,7 +466,7 @@ var app = new Vue({
           },
           "С5": {
             "10": 15,
-            "30": 0.3,
+            "30": 10.3,
             "50": 8.5,
             "100": 6.6,
             "200": 6,
@@ -561,6 +561,17 @@ var app = new Vue({
               "2000": 3.9,
               "3000": 3.9 
             }
+          },
+          "perekidnoy": {
+            "4+0": {
+              "5": 5,
+              "50": 3.8,
+              "100": 3.5,
+              "200": 2.9,
+              "300": 2.3,
+              "500": 1.9,
+              "700": 1.7
+            }
           }
         }
       },
@@ -581,6 +592,10 @@ var app = new Vue({
       },
       "springCost": 2.5,
       "grommetCost": 0.3,
+      "block_std": 25,
+      "block_85": 7.6,
+      "skoba": 2.2,
+      "begunok": 3,
       "calendars": {
         "Домик самосборный": {
           "картон": 0.5,
@@ -950,15 +965,15 @@ var app = new Vue({
         var grommetCost = this.db['grommetCost'] // стоимость люверса
 
         var blockStd = this.db['calendars'][type]["блок_стандарт"] // календарный блок стандарт
-        var blockStdCost = 7.6
+        var blockStdCost = this.db['block_std']
         var block85 = this.db['calendars'][type]["блок_85x115"] // календарный блок 85*115
-        var block85Cost = 7.6
+        var block85Cost = this.db['block_85']
         
         var skobaTabNum = this.db['calendars'][type]["скоба"]
-        var skoba = 2.2 // стоимость скобы
+        var skoba = this.db['skoba'] // стоимость скобы
 
         var begunokTabNum = this.db['calendars'][type]["бегунок"]
-        var begunok = 3 // стоимость бегунка
+        var begunok = this.db['begunok'] // стоимость бегунка
 
         var kRent
         if (type == ("Моно стандарт" || "ТРИО economy" || "Трио big size"|| "Трио standart")) {
@@ -1009,26 +1024,20 @@ var app = new Vue({
         console.log(coverCost, this.blockPages, blockCost, printCost_cover, this.blockPages, printCost_block, springCost, this.edition, kRent, lamCost)
 
         var total
-        if (format == "A4") {
-          var total = (1*coverCost + (this.blockPages * blockCost/2) + (0.5*printCost_cover) + (this.blockPages * (printCost_block/2)) + (1*springCost)) * this.edition * kRent + lamCost
-          alert(`итог: ${total.toFixed(2)} (с наценкой: ${(total * 1.05).toFixed(2)})`)
-        } else if (format == "A5") {
-          var total = (0.5*coverCost + (this.blockPages * blockCost/4) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/4)) + (0.5*springCost)) * this.edition * kRent + lamCost
-        } else if (format == "A6") {
-          var total = (0.25*coverCost + (this.blockPages * blockCost/8) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/8)) + (0.25*springCost)) * this.edition * kRent + lamCost
+        if (format == "А4") {
+          total = (1*coverCost + (this.blockPages * (blockCost/2)) + (0.5*printCost_cover) + (this.blockPages * (printCost_block/2)) + (1*springCost)) * this.edition * kRent + lamCost
+        } else if (format == "А5") {
+          total = (0.5*coverCost + (this.blockPages * (blockCost/4)) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/4)) + (0.5*springCost)) * this.edition * kRent + lamCost
+        } else if (format == "А6") {
+          total = (0.25*coverCost + (this.blockPages * (blockCost/8)) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/8)) + (0.25*springCost)) * this.edition * kRent + lamCost
         }
-        console.log((1*coverCost + (parseFloat(this.blockPages) * blockCost/2) + (0.5*printCost_cover) + (parseFloat(this.blockPages) * (printCost_block/2)) + (1*springCost)) * parseFloat(this.edition) * kRent + lamCost)
-        console.log((1*coverCost + (this.blockPages * blockCost/2) + (0.5*printCost_cover) + (this.blockPages * (printCost_block/2)) + (1*springCost)) * this.edition * kRent + lamCost)
-        
+
         output.innerHTML += '<li class="list-group-item"><b>Вид бумаги для картона:</b> '+cover+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Вид бумаги для блока:</b> '+paper+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Формат блокнота:</b> '+format+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Цветность печати блока:</b> '+blockFill+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Цветность печати обложки:</b> '+coverFill+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Количество листов блока:</b> '+this.blockPages+'</li>'
-
-        var t = ( (1*coverCost + (parseFloat(this.blockPages) * blockCost/2) + (0.5*printCost_cover) + (parseFloat(this.blockPages) * (printCost_block/2)) + (1*springCost)) * parseFloat(this.edition) * kRent + lamCost )
-        // alert(`товар: Блокноты\nВид бумаги для картона: ${cover}\nВид бумаги для блока: ${paper}\nФормат блокнота: ${format}\nЦветность печати блока: ${blockFill}\nЦветность печати обложки: ${coverFill}\nКоличество листов блока: ${this.blockPages}\nКол-во: ${this.edition}\nСтоимость: ${t.toFixed(2)} (${(t/this.edition).toFixed(2)} \u20BD/шт)`)
 
       } else if (this.currentProduct == 'Конверты') {
           
@@ -1066,6 +1075,7 @@ var app = new Vue({
         // alert('товар: Конверты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
       }
 
+      
       output.innerHTML += `<li class="list-group-item"><b>Тираж:</b> ${this.edition}</li>`
       output.innerHTML += `<li class="list-group-item"><b>Цена тиража:</b> ${(total * 1.05).toFixed(2)}руб (${((total * 1.05)/this.edition).toFixed(2)}руб/шт)</li>`
       
