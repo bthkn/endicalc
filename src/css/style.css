@@ -2,23 +2,27 @@
   margin: 3px 0;
 }
 
+html {
+  border: 1px solid #d0d0d0;
+  border-top: none;
+}
+
 body {
   background-color: #f7f7f7;
   padding-top: 64px;
 }
 
 
+li.nav-item.active {
+  border-bottom: 2px solid #ff6600;
+}
+li.nav-item {
+  border-bottom: 2px solid transparent;
+}
 
-
-
-
-
-
-
-
-
-
-
+button:focus {
+  outline: none;
+}
 
 .app-titlebar {
   width: 100%;
@@ -36,7 +40,7 @@ body {
   color: #c0c0c1;
   text-align: center;
   width: -webkit-fill-available;
-  padding: 0 0 0 44px;
+  padding: 0 0 0 88px; /*0 0 0 44*/
 }
 
 .app-titlebar-button button {
@@ -112,7 +116,8 @@ body {
 } */
 
 div.options {
-  height: calc(100vh - 150px)
+  /* height: calc(100vh - 150px); */
+  height: calc(100vh - 143px); /* redesign */
 }
 
 nav.navbar {

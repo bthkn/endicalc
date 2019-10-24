@@ -1,4 +1,6 @@
-const axios = require('axios').default
+const { remote } = require('electron')
+// const axios = require('axios').default
+
 
 var navBar = new Vue({
   el: '#navBar',
@@ -897,7 +899,7 @@ var app = new Vue({
         var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
         var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
         var biegenCost = this.db['additional']['biegen'][editNum] // this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
-        console.log(paperCost, printCost, kRent, lamCost, cornerCost)
+        console.log(paperCost, printCost, kRent, lamCost, cornerCost, biegenCost)
 
         var total = ((paperCost + printCost) / 2) * this.edition * kRent + (lamCost / 2) + cornerCost + biegenCost
         //     [(Стоимостьбумаги + стоимостьпечати) / 2] * Тираж * Крент + ламинация / 2 + скруг + биговка
@@ -935,22 +937,22 @@ var app = new Vue({
           editNum = 3000
         }
 
-        var cardboardTabNum = this.db['calendars'][type]["печать"]
-
+        var printTabNum = this.db['calendars'][type]["печать"]
         var printCost = this.db['printCosts']["4+0"]['100']
 
         var cardboardTabNum = this.db['calendars'][type]["картон"]
         var cardboardCost = this.db['paperCosts'][cardboard]
 
         var springTabNum = this.db['calendars'][type]["пружина"]
-        var springCost = this.db['springCost'] // стоимость пружины 2.5
+        var springCost = this.db['springCost']
 
         var grommetTabNum = this.db['calendars'][type]["люверс"]
         var grommetCost = this.db['grommetCost'] // стоимость люверса
 
         var blockStd = this.db['calendars'][type]["блок_стандарт"] // календарный блок стандарт
+        var blockStdCost = 7.6
         var block85 = this.db['calendars'][type]["блок_85x115"] // календарный блок 85*115
-        var block = 7.6
+        var block85Cost = 7.6
         
         var skobaTabNum = this.db['calendars'][type]["скоба"]
         var skoba = 2.2 // стоимость скобы
@@ -969,9 +971,8 @@ var app = new Vue({
           kRent = this.db['kRentOf']["calendars"]["horizontal"]["4+0"][editNum]
         }
 
-        var total = ((cardboardTabNum * cardboardCost) + (cardboardTabNum*printCost) + (springCost * springTabNum)  + (grommetCost * grommetTabNum) + blockStd*block + block85*block + skobaTabNum*skoba + begunokTabNum*begunok) * this.edition * kRent
+        var total = ((cardboardTabNum * cardboardCost) + (printTabNum * printCost) + (springTabNum * springCost)  + (grommetTabNum * grommetCost) + (blockStd * blockStdCost) + (block85 * block85Cost) + (skobaTabNum * skoba) + (begunokTabNum * begunok)) * this.edition * kRent
 
-        // console.log(cardboardTabNum,cardboardCost,cardboardTabNum,printCost,springCost,springTabNum,grommetCost,grommetTabNum,blockStd,block,block85,block,skobaTabNum,skoba,begunokTabNum,begunok,this.edition,kRent)
         output.innerHTML += '<li class="list-group-item"><b>Формат:</b> '+type+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Картон:</b> '+cardboard+'</li>'
 
@@ -1087,13 +1088,20 @@ var app = new Vue({
   },
   computed: {},
   beforeMount() {
-    axios.get('../data.json') 
-      .then((response) => {
-        alert(response)
-        document.write(JSON.parse(response))
-      })
-      .catch((error) => {
-        alert('axios:\n'+error)
-      });
+    document.getElementById('titlebar-btn-min').onclick = () => {
+      remote.BrowserWindow.getFocusedWindow().minimize()
+    }
+    document.getElementById('titlebar-btn-cls').onclick = () => {
+      remote.app.quit()
+    }
+    // axios.get('data.json') 
+    //   .then((response) => {
+    //     alert(response)
+    //     document.write(JSON.parse(response))
+    //   })
+    //   .catch((error) => {
+    //     alert('axios:\n'+error)
+    //     console.log(error)
+    //   });
   }
 })

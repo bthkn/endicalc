@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, globalShortcut } = require('electron')
 
 
 let win // important
@@ -15,7 +15,9 @@ function createWindow () {
     autoHideMenuBar: true,
     backgroundColor: '#f7f7f7',
     frame: false,
+    thickFrame: false,
     webPreferences: {
+      // devTools: false,
       nodeIntegration: true,
       allowRunningInsecureContent: true
     },
@@ -25,6 +27,10 @@ function createWindow () {
   win.loadFile('src/index.html') // 'src/vizit.html'
 
   // win.webContents.openDevTools()
+
+  win.once('ready-to-show', () => {
+    win.show()
+  })
   
   win.on('closed', () => {
     win = null
@@ -32,7 +38,12 @@ function createWindow () {
 }
 
 
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  globalShortcut.register('CommandOrControl+V', () => {
+    win.loadFile('src/ver.html')
+  })
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

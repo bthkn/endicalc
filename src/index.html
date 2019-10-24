@@ -11,10 +11,31 @@
 <body>
 
   <div id="navBar" class="container-fluid px-0">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm" style="padding: 0!important;">
       <div class="row w-100 mx-0">
-        <!-- <div class="w-100 mx-0" style="width: 100%; height: 44px; -webkit-user-select: none; -webkit-app-region: drag; background-color: aquamarine;"></div> -->
-        <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around;">
+        
+        <div class="w-100 mx-0 app-titlebar">
+          <!-- <div class="app-titlebar-button sts">
+            <button onclick="alert('minimize')">
+              <img src="../src/img/menu.svg" alt="x">
+            </button>
+          </div> -->
+          <div class="app-titlebar-caption">
+            enDesign Calculator
+          </div>
+          <div class="app-titlebar-button min">
+            <button id="titlebar-btn-min">
+              <img src="../src/img/minus.svg" alt="x">
+            </button>
+          </div>
+          <div class="app-titlebar-button cls">
+            <button id="titlebar-btn-cls">
+              <img src="../src/img/x.svg" alt="x">
+            </button>
+          </div>
+        </div>
+        
+        <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around; user-select: none;">
           <li id="nav_Визитки" class="nav-item active">
             <a class="nav-link" href="#" @click="setProduct('Визитки')">Визитки</a>
           </li>
@@ -45,18 +66,9 @@
   </div>
     
   <main id="app" class="container-fluid px-0">
-
+    <!-- calcs views -->
     <div v-if="currentProduct == 'Визитки'" id="vizitCardsCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
-        <!-- <div class="row mx-1"><div class="col mx-0 my-0">
-          <div class="form-group">
-            <label for="cardboardType">Тип картона:</label>
-            <select class="form-control form-control-sm" name="" id="cardboardType">
-              <option value="dizcrd">диз. картон</option>
-              <option value="normal">обычный картон</option>
-            </select>
-          </div>
-        </div></div> -->
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="visitCards-paper">Бумага:</label>
@@ -75,7 +87,7 @@
           </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="edition">Тираж:</label>
@@ -98,7 +110,7 @@
       </div>
     </div>
     <div v-if="currentProduct == 'Листовки'" id="flyersCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="flyers-paper">Бумага:</label>
@@ -125,7 +137,7 @@
           </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="edition">Тираж:</label>
@@ -152,7 +164,7 @@
       </div>
     </div>
     <div v-if="currentProduct == 'Бланки'" id="blanksCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="blanks-paper">Бумага <span class="badge badge-secondary">формат A4</span>:</label>
@@ -183,7 +195,7 @@
           </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="edition">Тираж:</label>
@@ -210,41 +222,41 @@
       </div>
     </div>
     <div v-if="currentProduct == 'Буклеты и каталоги'" id="bookletsCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="booklets-cover">Бумага обложки:</label>
-              <select class="form-control form-control-sm" name="" id="booklets-cover">
-                <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-              </select>
-            </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="booklets-paper">Бумага блока:</label>
-              <select class="form-control form-control-sm" name="" id="booklets-paper">
-                <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-              </select>
-            </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="booklets-format">Формат полосы:</label>
-              <select class="form-control form-control-sm" name="" id="booklets-format">
-                <option value="A4">A4</option>
-                <option value="A5">A5</option>
-                <option value="A6">A6</option>
-              </select>
-            </div>
-          </div></div>
-          <div class="row mx-1"><div class="col mx-0 my-0">
-            <div class="form-group">
-              <label for="linesNumber">Количество полос:</label>
-              <input class="form-control form-control-sm" id="linesNumber" v-model="linesNumber" type="number" step="4" placeholder="кратное 4"></input>
-            </div>
-          </div></div>
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="booklets-cover">Бумага обложки:</label>
+            <select class="form-control form-control-sm" name="" id="booklets-cover">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="booklets-paper">Бумага блока:</label>
+            <select class="form-control form-control-sm" name="" id="booklets-paper">
+              <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
+            </select>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="booklets-format">Формат полосы:</label>
+            <select class="form-control form-control-sm" name="" id="booklets-format">
+              <option value="A4">A4</option>
+              <option value="A5">A5</option>
+              <option value="A6">A6</option>
+            </select>
+          </div>
+        </div></div>
+        <div class="row mx-1"><div class="col mx-0 my-0">
+          <div class="form-group">
+            <label for="linesNumber">Количество полос:</label>
+            <input class="form-control form-control-sm" id="linesNumber" v-model="linesNumber" type="number" step="4" placeholder="кратное 4"></input>
+          </div>
+        </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="edition">Тираж:</label>
@@ -271,7 +283,7 @@
       </div>
     </div>
     <div v-if="currentProduct == 'Евробуклеты'" id="eurobookletsCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="eurobooklets-paper">Бумага:</label>
@@ -290,7 +302,7 @@
           </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="edition">Тираж:</label>
@@ -317,7 +329,7 @@
       </div>
     </div>
     <div v-if="currentProduct == 'Календари'" id="calendarssCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="calendars-type">Календарь:</label>
@@ -335,7 +347,7 @@
           </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="edition">Тираж:</label>
@@ -345,7 +357,7 @@
       </div>
     </div>
     <div v-if="currentProduct == 'Блокноты'" id="notesCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="notes-cover">Вид бумаги для картона:</label>
@@ -373,7 +385,7 @@
           </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 mx-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="notes-block-fill">Цветность печати блока:</label>
@@ -406,7 +418,6 @@
                 </select>
               </div>
               <div class="col mx-0 my-0">
-                <!-- <input class="form-control form-control-sm" type="text" value="4+0" disabled></input> -->
                 <select class="form-control form-control-sm w-100" name="" id="notes-cover-color">
                   <option value="4+0">4+0</option>
                   <option value="4+4">4+4</option>
@@ -424,7 +435,7 @@
           </div>
         </div></div>
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
             <label for="edition">Тираж:</label>
@@ -440,31 +451,10 @@
             </div>
           </div>
         </div></div>
-        <!-- <div class="row mx-2">
-          <div class="col mx-2 mt-2">
-            <button
-              type="button disabled"
-              class="btn btn-outline-primary d-flex ml-auto"
-              @click="getTotal"
-              v-if="edition != undefined"
-            >
-              рассчитать
-            </button>
-            <button
-              type="button disabled"
-              class="btn btn-outline-primary d-flex ml-auto"
-              @click="getTotal"
-              v-else
-              disabled
-            >
-              рассчитать
-            </button>
-          </div>
-        </div> -->
       </div>
     </div>
     <div v-if="currentProduct == 'Конверты'" id="envelopeCalc" class="row options mx-2">
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
           <label for="cardboardType">Формат конверта:</label>
@@ -482,25 +472,8 @@
             </select>
           </div>
         </div></div>
-        <!-- <div class="row mx-1"><div class="col mx-0 my-0">
-          <div class="form-group">
-          <label for="visitCards-paper">Бумага:</label>
-          <select class="form-control form-control-sm" name="" id="visitCards-paper">
-            <option v-for="type in db['paperTypes']" :value="type">{{ type }}</option>
-          </select>
-          </div>
-        </div></div>
-        <div class="row mx-1"><div class="col mx-0 my-0">
-          <div class="form-group">
-          <label for="visitCards-color">Цветность:</label>
-          <select class="form-control form-control-sm" name="" id="visitCards-color">
-            <option value="4+0">4+0</option>
-            <option value="4+4">4+4</option>
-          </select>
-          </div>
-        </div></div> -->
       </div>
-      <div class="col card shadow-sm px-1 py-4 mx-2 mt-2">
+      <div class="col card shadow-sm px-1 ml-2 py-4 mt-3">
         <div class="row mx-1"><div class="col mx-0 my-0">
           <div class="form-group">
           <label for="edition">Тираж:</label>
@@ -521,29 +494,19 @@
         </div></div>
       </div>
     </div>
-
+    <!-- button(s) -->
     <div class="row mx-2">
-      <div class="col mx-2 my-4">
+      <div class="col card shadow-sm px-3 py-2 mt-3 mb-2">
         <button
-          type="button disabled"
-          class="btn btn-outline-primary d-flex mx-auto"
+          type="button"
+          class="btn btn-outline-primary d-flex ml-auto"
           @click="getTotal"
-          v-if="edition != undefined"
-        >
-          рассчитать
-        </button>
-        <button
-          type="button disabled"
-          class="btn btn-outline-primary d-flex mx-auto"
-          @click="getTotal"
-          v-else
-          disabled
         >
           рассчитать
         </button>
       </div>
     </div>
-
+    <!-- modal & bg fade -->
     <div id="fade"></div>
     <div id="checkoutModal" class="modal modal-lg" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 64%;">
@@ -566,6 +529,7 @@
       </div>
     </div>
     </div>
+
   </main>
 
   <script src="js/index.js"></script>
