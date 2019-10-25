@@ -1,4 +1,4 @@
-# ![endicalc](https://github.com/bthkn/endicalc/raw/master/src/img/icon.png) enDesign Calculator
+# ![endicalc](https://github.com/bthkn/bthkn.github.io/raw/master/m/img/calc-icon.png) enDesign Calculator
 
 ![current version](https://img.shields.io/github/package-json/v/bthkn/endicalc)
 ![electron version](https://img.shields.io/github/package-json/dependency-version/bthkn/endicalc/dev/electron)
