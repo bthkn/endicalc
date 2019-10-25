@@ -820,22 +820,18 @@ var app = new Vue({
         console.log(cover, paper, format)
 
         var editNum
-        if (this.edition < 100) {
+        if (this.edition < 20) {
+          editNum = 10
+        } else if ((this.edition >= 20) && (this.edition < 30)) {
+          editNum = 20
+        } else if ((this.edition >= 30) && (this.edition < 50)) {
+          editNum = 30
+        } else if ((this.edition >= 50) && (this.edition < 70)) {
           editNum = 50
-        } else if ((this.edition >= 100) && (this.edition < 200)) {
+        } else if ((this.edition >= 70) && (this.edition < 100)) {
+          editNum = 70
+        } else if (this.edition >= 100) {
           editNum = 100
-        } else if ((this.edition >= 200) && (this.edition < 300)) {
-          editNum = 200
-        } else if ((this.edition >= 300) && (this.edition < 400)) {
-          editNum = 300
-        } else if ((this.edition >= 400) && (this.edition < 500)) {
-          editNum = 400
-        } else if ((this.edition >= 500) && (this.edition < 1000)) {
-          editNum = 500
-        } else if ((this.edition >= 1000) && (this.edition < 2000)) {
-          editNum = 1000
-        } else if (this.edition > 2000) {
-          editNum = 2000
         }
 
         var paperCost = (this.linesNumber >= 4) ? this.db['paperCosts'][paper] : 0
@@ -976,7 +972,7 @@ var app = new Vue({
         var begunok = this.db['begunok'] // стоимость бегунка
 
         var kRent
-        if (type == ("Моно стандарт" || "ТРИО economy" || "Трио big size"|| "Трио standart")) {
+        if (type == "Моно стандарт" || "ТРИО economy" || "Трио big size"|| "Трио standart") {
           kRent = this.db['kRentOf']["calendars"]["basic"]["4+0"][editNum]
         } else if (type == "Домик самосборный") {
           kRent = this.db['kRentOf']["calendars"]["diy"]["4+0"][editNum]
@@ -986,6 +982,7 @@ var app = new Vue({
           kRent = this.db['kRentOf']["calendars"]["horizontal"]["4+0"][editNum]
         }
 
+        console.log(`cardboardTabNum ${cardboardTabNum}, cardboardCost ${cardboardCost}, printTabNum ${printTabNum}, printCost ${printCost}, springTabNum ${springTabNum}, springCost ${springCost}, grommetTabNum ${grommetTabNum}, grommetCost ${grommetCost}, blockStd ${blockStd}, blockStdCost ${blockStdCost}, block85 ${block85}, block85Cost ${block85Cost}, skobaTabNum ${skobaTabNum}, skoba ${skoba}, begunokTabNum ${begunokTabNum}, begunok ${begunok}, this.edition ${this.edition}, kRent ${kRent}`)
         var total = ((cardboardTabNum * cardboardCost) + (printTabNum * printCost) + (springTabNum * springCost)  + (grommetTabNum * grommetCost) + (blockStd * blockStdCost) + (block85 * block85Cost) + (skobaTabNum * skoba) + (begunokTabNum * begunok)) * this.edition * kRent
 
         output.innerHTML += '<li class="list-group-item"><b>Формат:</b> '+type+'</li>'

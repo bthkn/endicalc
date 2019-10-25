@@ -17,16 +17,16 @@ function createWindow () {
     frame: false,
     thickFrame: false,
     webPreferences: {
-      devTools: false,
+      // devTools: false,
       nodeIntegration: true,
       allowRunningInsecureContent: true
     },
     icon: 'src/img/icon.png'
   }) 
  
-  win.loadFile('src/index.html') // 'src/vizit.html'
+  win.loadFile('src/index.html')
 
-  // win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
   win.once('ready-to-show', () => {
     win.show()
