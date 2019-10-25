@@ -10,6 +10,13 @@ var navBar = new Vue({
       document.getElementById('nav_'+app.currentProduct).classList.remove("active")
       app.currentProduct = pr
       document.getElementById('nav_'+pr).classList.add("active")
+      app.data.total = undefined
+      app.data.isLaminated = undefined
+      app.data.isCorners = undefined
+      app.data.isBiegen = undefined
+      app.data.edition = undefined
+      app.data.linesNumber = undefined
+      app.data.blockPages = undefined
     }
   }
 })
@@ -972,7 +979,7 @@ var app = new Vue({
         var begunok = this.db['begunok'] // стоимость бегунка
 
         var kRent
-        if (type == "Моно стандарт" || "ТРИО economy" || "Трио big size"|| "Трио standart") {
+        if (type == "Моно стандарт"/*|| "ТРИО economy" || "Трио big size"|| "Трио standart"*/) {
           kRent = this.db['kRentOf']["calendars"]["basic"]["4+0"][editNum]
         } else if (type == "Домик самосборный") {
           kRent = this.db['kRentOf']["calendars"]["diy"]["4+0"][editNum]
