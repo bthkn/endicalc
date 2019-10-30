@@ -35,7 +35,7 @@
           </div>
         </div>
         
-        <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around; user-select: none;">
+        <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around; user-select: none; border-top: 1px solid #232323;">
           <li id="nav_Визитки" class="nav-item active">
             <a class="nav-link" href="#" @click="setProduct('Визитки')">Визитки</a>
           </li>
@@ -66,6 +66,7 @@
   </div>
     
   <main id="app" class="container-fluid px-0">
+
     <!-- calcs views -->
     <div v-if="currentProduct == 'Визитки'" id="vizitCardsCalc" class="row options mx-2">
       <div class="col card shadow-sm px-1 mr-2 py-4 mt-3">
@@ -494,18 +495,30 @@
         </div></div>
       </div>
     </div>
+
     <!-- button(s) -->
     <div class="row mx-2">
       <div class="col card shadow-sm px-3 py-2 mt-3 mb-2">
-        <button
-          type="button"
-          class="btn btn-outline-primary d-flex ml-auto"
-          @click="getTotal"
-        >
-          рассчитать
-        </button>
+        <div class="row px-2">
+          <button
+            type="button"
+            class="btn btn-outline-secondary d-inline ml-auto mr-2"
+            @click="resetFields"
+          >
+            очистить поля
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary d-inline"
+            @click="getTotal"
+            :disabled="(edition == undefined) ? true : false"
+          >
+            рассчитать
+          </button>
+        </div>
       </div>
     </div>
+
     <!-- modal & bg fade -->
     <div id="fade"></div>
     <div id="checkoutModal" class="modal modal-lg" tabindex="-1" role="dialog">
@@ -523,7 +536,7 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="triggerCart" disabled>Экспорт</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="exportToFile">Экспорт</button>
           <button type="button" class="btn btn-primary" @click="triggerCart">Готово</button>
         </div>
       </div>

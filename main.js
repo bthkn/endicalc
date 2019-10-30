@@ -7,7 +7,7 @@ let win // important
 function createWindow () {
 
   win = new BrowserWindow({
-    width: 1020,
+    width: 1000,
     height: 580,
     center: true,
     resizable: false,
@@ -17,7 +17,7 @@ function createWindow () {
     frame: false,
     thickFrame: false,
     webPreferences: {
-      devTools: false,
+      // devTools: false,
       nodeIntegration: true,
       allowRunningInsecureContent: true
     },

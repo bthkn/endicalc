@@ -10,13 +10,13 @@ var navBar = new Vue({
       document.getElementById('nav_'+app.currentProduct).classList.remove("active")
       app.currentProduct = pr
       document.getElementById('nav_'+pr).classList.add("active")
-      app.data.total = undefined
-      app.data.isLaminated = undefined
-      app.data.isCorners = undefined
-      app.data.isBiegen = undefined
-      app.data.edition = undefined
-      app.data.linesNumber = undefined
-      app.data.blockPages = undefined
+      app.total = undefined
+      app.isLaminated = undefined
+      app.isCorners = undefined
+      app.isBiegen = undefined
+      app.edition = undefined
+      app.linesNumber = undefined
+      app.blockPages = undefined
     }
   }
 })
@@ -821,6 +821,7 @@ var app = new Vue({
         var paper = document.getElementById('booklets-paper').value
         var format = document.getElementById('booklets-format').value
 
+
         console.log(cover, paper, format)
 
         var editNum
@@ -843,6 +844,15 @@ var app = new Vue({
         var printCost = this.db['printCosts']["4+4"]['100']
 
         console.log(editNum, paperCost, coverCost, printCost)
+
+        if (this.linesNumber%4 != 0) {
+          remote.dialog.showMessageBox({
+            type: "warning",
+            title: 'Неверное значение поля',
+            message: 'Введите количество полос кратное 4'
+          })
+          return
+        }
 
         var lines
         if (this.linesNumber <= 8 ) {
@@ -1095,6 +1105,29 @@ var app = new Vue({
           document.getElementById("fade").classList.add("show")
         }
       })
+    },
+    resetFields() {
+      app.total = undefined
+      app.isLaminated = undefined
+      app.isCorners = undefined
+      app.isBiegen = undefined
+      app.edition = undefined
+      app.linesNumber = undefined
+      app.blockPages = undefined
+    },
+    exportToFile() {
+      var fs = require('fs')
+      remote.dialog.showSaveDialog({
+        defaultPath: "export.txt"
+      }).then((p) => {
+        if (!p.canceled) {
+          const data = new Uint8Array(Buffer.from(document.getElementById('outputList').innerText));
+          fs.writeFile(p.filePath, data, (err) => {
+            if (err) throw err;
+            new Notification('enDesign Calculator', { body: 'Файл сохранен' })
+          });
+        }
+      });
     }
   },
   computed: {},

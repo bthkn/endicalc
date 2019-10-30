@@ -14,10 +14,13 @@ body {
 
 
 li.nav-item.active {
-  border-bottom: 2px solid #ff6600;
+  border-bottom: 2px solid #ff6600 !important;
 }
 li.nav-item {
   border-bottom: 2px solid transparent;
+}
+li.nav-item:hover {
+  border-bottom: 2px solid rgba(255,255,255,.75);
 }
 
 button:focus {
@@ -31,7 +34,6 @@ button:focus {
   /* -webkit-app-region: drag; */
   background-color: #343a40;
   display: flex;
-  border-bottom: 1px solid #232323;
 }
 
 .app-titlebar-caption {
