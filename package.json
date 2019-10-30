@@ -1,6 +1,6 @@
 {
   "name": "endicalc",
-  "version": "1.0.3",
+  "version": "1.1.1-beta",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
