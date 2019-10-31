@@ -1162,21 +1162,35 @@ var app = new Vue({
         defaultPath: "export.txt"
       }).then((p) => {
         if (!p.canceled) {
-          const data = new Uint8Array(Buffer.from(document.getElementById('outputList').innerText));
+          const data = new Uint8Array(Buffer.from(document.getElementById('outputList').innerText))
           fs.writeFile(p.filePath, data, (err) => {
-            if (err) throw err;
+            if (err) throw err
             new Notification('enDesign Calculator', { body: 'Файл сохранен' })
-          });
+          })
         }
-      });
+      })
     },
     saveOrder() {
-      var paper = this.db["paperTypes"].indexOf(document.getElementById('blanks-paper').value)
+      var fs = require('fs')
 
-      var out = { "p": paper, "e": this.edition }
-      console.log(JSON.stringify(out))
+      var paper = this.db["paperTypes"].indexOf(document.getElementById('blanks-paper').value)
+      
+      var out = { "p": paper, "e": parseInt(this.edition) }
+      
+      remote.dialog.showSaveDialog({
+        defaultPath: `order-${new Date().toLocaleDateString()}.json`
+      }).then((p) => {
+        if (!p.canceled) {
+          const data = new Uint8Array(Buffer.from(JSON.stringify(out, null, '\t')))
+          fs.writeFile(p.filePath, data, (err) => {
+            if (err) throw err
+            new Notification('enDesign Calculator', { body: 'Файл сохранен' })
+          })
+        }
+      })
     },
     loadOrder(order) {
+      var fs = require('fs')
       document.getElementById('nav_'+app.currentProduct).classList.remove('active')
       this.currentProduct = order
       document.getElementById('nav_'+app.currentProduct).classList.add('active')
