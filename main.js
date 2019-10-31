@@ -3,7 +3,6 @@ const { app, BrowserWindow, globalShortcut } = require('electron')
 
 let win // important
 
-
 function createWindow () {
 
   win = new BrowserWindow({
@@ -36,7 +35,6 @@ function createWindow () {
     win = null
   })
 }
-
 
 app.on('ready', () => {
   createWindow()

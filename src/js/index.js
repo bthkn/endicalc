@@ -1,5 +1,8 @@
-const { remote } = require('electron')
+const { BrowserWindow, remote } = require('electron')
+const { Menu, MenuItem } = remote
 // const axios = require('axios').default
+
+
 var rubSign = '\&#8381;' // 'руб'
 
 
@@ -1124,7 +1127,6 @@ var app = new Vue({
         }
 
       }
-
       
       output.innerHTML += `<li class="list-group-item"><b>Тираж:</b> ${this.edition}</li>`
       output.innerHTML += `<li class="list-group-item"><b>Цена тиража:</b> ${(total * 1.05).toFixed(2)} ${rubSign} (${((total * 1.05)/this.edition).toFixed(2)} ${rubSign}/шт)</li>`
@@ -1167,6 +1169,26 @@ var app = new Vue({
           });
         }
       });
+    },
+    saveOrder() {
+      var paper = this.db["paperTypes"].indexOf(document.getElementById('blanks-paper').value)
+
+      var out = { "p": paper, "e": this.edition }
+      console.log(JSON.stringify(out))
+    },
+    loadOrder(order) {
+      document.getElementById('nav_'+app.currentProduct).classList.remove('active')
+      this.currentProduct = order
+      document.getElementById('nav_'+app.currentProduct).classList.add('active')
+
+      setTimeout(() => {
+        document.getElementById('blanks-paper').value = "Delight gloss в упак C2S Art Board мел.картон 2 ст. 310"
+        document.getElementById('blanks-fill').value = "20"
+        document.getElementById('blanks-color').value = "4+4"
+        this.edition = 100
+        this.isLaminated = true
+      }, 100)
+      
     }
   },
   computed: {},
@@ -1177,14 +1199,27 @@ var app = new Vue({
     document.getElementById('titlebar-btn-cls').onclick = () => {
       remote.app.quit()
     }
-    // axios.get('data.json') 
-    //   .then((response) => {
-    //     alert(response)
-    //     document.write(JSON.parse(response))
-    //   })
-    //   .catch((error) => {
-    //     alert('axios:\n'+error)
-    //     console.log(error)
-    //   });
+    document.getElementById('titlebar-btn-mnu').onclick = () => {
+      const menu = new Menu()
+      menu.append(new MenuItem({
+        label: 'Открыть заказ',
+        click() {
+          app.loadOrder("Бланки")
+        }
+      }))
+      // menu.append(new MenuItem({ type: 'separator' }))
+      // menu.append(new MenuItem({
+      //   label: 'Настройки',
+      //   click() {
+      //     console.log('item 1 clicked')
+      //   }
+      // }))
+      menu.popup({ window: remote.getCurrentWindow(), x: 0, y: 28, })
+    }
+    var fs = require('fs')
+    fs.readFile('src/data.json', (err, data) => {
+      if (err) throw err;
+      console.log(data);
+    });
   }
 })

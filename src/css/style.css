@@ -87,12 +87,16 @@ button:focus {
 }
 
 
-
-
-
-
-
-
+.modal-body::-webkit-scrollbar {
+  width: 4px;
+  background-color: #efefef;
+}
+.modal-body::-webkit-scrollbar-button {
+  display: none;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.45);
+}
 
 
 

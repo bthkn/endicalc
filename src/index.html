@@ -15,8 +15,8 @@
       <div class="row w-100 mx-0">
         <div class="w-100 mx-0 app-titlebar">
           <div class="app-titlebar-button mnu">
-            <button id="titlebar-btn-mnu"onclick="alert('minimize')">
-              <img src="../src/img/menu.svg" alt="x">
+            <button id="titlebar-btn-mnu">
+              <img src="../src/img/menu.svg" alt="*">
             </button>
           </div>
           <div class="app-titlebar-caption">
@@ -24,7 +24,7 @@
           </div>
           <div class="app-titlebar-button min">
             <button id="titlebar-btn-min">
-              <img src="../src/img/minus.svg" alt="x">
+              <img src="../src/img/minus.svg" alt="-">
             </button>
           </div>
           <div class="app-titlebar-button cls">
@@ -522,7 +522,8 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="exportToFile">Экспорт</button>
+          <button type="button" class="btn btn-secondary" @click="saveOrder">Сохранить заказ</button>
+          <button type="button" class="btn btn-secondary mr-auto" @click="exportToFile">Экспорт</button>
           <button type="button" class="btn btn-primary" @click="triggerCart">Готово</button>
         </div>
       </div>
