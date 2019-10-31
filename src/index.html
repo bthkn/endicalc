@@ -13,13 +13,12 @@
   <div id="navBar" class="container-fluid px-0">
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm" style="padding: 0!important;">
       <div class="row w-100 mx-0">
-        
         <div class="w-100 mx-0 app-titlebar">
-          <!-- <div class="app-titlebar-button sts">
-            <button onclick="alert('minimize')">
+          <div class="app-titlebar-button mnu">
+            <button id="titlebar-btn-mnu"onclick="alert('minimize')">
               <img src="../src/img/menu.svg" alt="x">
             </button>
-          </div> -->
+          </div>
           <div class="app-titlebar-caption">
             enDesign Calculator
           </div>
@@ -34,7 +33,6 @@
             </button>
           </div>
         </div>
-        
         <ul class="navbar-nav w-100 mx-0" style="justify-content: space-around; user-select: none; border-top: 1px solid #232323;">
           <li id="nav_Визитки" class="nav-item active">
             <a class="nav-link" href="#" @click="setProduct('Визитки')">Визитки</a>
@@ -100,11 +98,11 @@
             Постпечатная обработка:
             <div class="form-check">
               <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
-              <label class="form-check-label" for="lam">ламинация обложки</label>
+              <label class="form-check-label" for="lam">ламинация</label>
             </div>
             <div class="form-check">
               <input type="checkbox" id="corners" name="corners" v-model="isCorners" class="form-check-input">
-              <label class="form-check-label" for="corners">скругление углов блока</label>
+              <label class="form-check-label" for="corners">скругление углов</label>
             </div>
           </div>
         </div></div>
@@ -150,11 +148,11 @@
             Постпечатная обработка:
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="lam" v-model="isLaminated">
-              <label class="form-check-label" for="lam">ламинация обложки</label>
+              <label class="form-check-label" for="lam">ламинация</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="corners" v-model="isCorners">
-              <label class="form-check-label" for="corners">скругление углов блока</label>
+              <label class="form-check-label" for="corners">скругление углов</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="biegen" v-model="isBiegen">
@@ -208,11 +206,11 @@
             Постпечатная обработка:
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="lam" v-model="isLaminated">
-              <label class="form-check-label" for="lam">ламинация обложки</label>
+              <label class="form-check-label" for="lam">ламинация</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="corners" v-model="isCorners">
-              <label class="form-check-label" for="corners">скругление углов блока</label>
+              <label class="form-check-label" for="corners">скругление углов</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="biegen" v-model="isBiegen">
@@ -269,11 +267,11 @@
             Постпечатная обработка:
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="lam" v-model="isLaminated">
-              <label class="form-check-label" for="lam">ламинация обложки</label>
+              <label class="form-check-label" for="lam">ламинация</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="corners" v-model="isCorners">
-              <label class="form-check-label" for="corners">скругление углов блока</label>
+              <label class="form-check-label" for="corners">скругление углов</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="biegen" v-model="isBiegen">
@@ -315,11 +313,11 @@
             Постпечатная обработка:
             <div class="form-check">
               <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
-              <label class="form-check-label" for="lam">ламинация обложки</label>
+              <label class="form-check-label" for="lam">ламинация</label>
             </div>
             <div class="form-check">
               <input type="checkbox" id="corners" name="corners" v-model="isCorners" class="form-check-input">
-              <label class="form-check-label" for="corners">скругление углов блока</label>
+              <label class="form-check-label" for="corners">скругление углов</label>
             </div>
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="biegen" checked disabled> <!-- v-model="isBiegen" -->
@@ -448,7 +446,7 @@
             Постпечатная обработка:
             <div class="form-check">
               <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
-              <label class="form-check-label" for="lam">ламинация обложки</label>
+              <label class="form-check-label" for="lam">ламинация</label>
             </div>
           </div>
         </div></div>
@@ -479,18 +477,6 @@
           <div class="form-group">
           <label for="edition">Тираж:</label>
           <input class="form-control form-control-sm" id="edition" v-model="edition" type="number" placeholder=""></input>
-          </div>
-        </div></div>
-        <div class="row mx-1"><div class="col mx-0 my-0">
-          <div class="form-group">
-          Постпечатная обработка:
-          <div class="form-check">
-            <input type="checkbox" id="lam" name="lam" v-model="isLaminated" class="form-check-input">
-            <label class="form-check-label" for="lam">ламинация обложки</label>
-          </div>
-          <div class="form-check">
-            <input type="checkbox" id="corners" name="corners" v-model="isCorners" class="form-check-input">
-            <label class="form-check-label" for="corners">скругление углов блока</label></div>
           </div>
         </div></div>
       </div>

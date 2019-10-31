@@ -1,5 +1,6 @@
 const { remote } = require('electron')
 // const axios = require('axios').default
+var rubSign = '\&#8381;' // 'руб'
 
 
 var navBar = new Vue({
@@ -733,6 +734,13 @@ var app = new Vue({
         output.innerHTML += `<li class="list-group-item"><b>Тип картона:</b> ${(cardboardType == 'dizcrd' ? 'дизайнерский картон' : 'обычный картон')}</li>`
         output.innerHTML += `<li class="list-group-item"><b>Бумага:</b> ${paper}</li>`
         output.innerHTML += `<li class="list-group-item"><b>Цветность:</b> ${color}</li>`
+        if (this.isLaminated) {
+          output.innerHTML += `<li class="list-group-item"><b>Ламинация:</b> ${lamCost} ${rubSign}</li>`
+        }
+        if (this.isCorners) {
+          output.innerHTML += `<li class="list-group-item"><b>Cкругление углов:</b> ${cornerCost} ${rubSign}</li>`
+        }
+        
 
       } else if (this.currentProduct == 'Листовки') {
         
@@ -771,9 +779,16 @@ var app = new Vue({
         output.innerHTML += '<li class="list-group-item"><b>Бумага:</b> '+paper+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Цветность:</b> '+color+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Формат:</b> '+format+'</li>'
-
-        // alert('товар: Листовки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
-
+        if (this.isLaminated) {
+          output.innerHTML += `<li class="list-group-item"><b>Ламинация:</b> ${lamCost} ${rubSign}</li>`
+        }
+        if (this.isCorners) {
+          output.innerHTML += `<li class="list-group-item"><b>Cкругление углов:</b> ${cornerCost} ${rubSign}</li>`
+        }
+        if (this.isBiegen) {
+          output.innerHTML += `<li class="list-group-item"><b>Биговка:</b> ${biegenCost} ${rubSign}</li>`
+        }
+        
       } else if (this.currentProduct == 'Бланки') {
           
         var paper = document.getElementById('blanks-paper').value
@@ -812,15 +827,21 @@ var app = new Vue({
         output.innerHTML += '<li class="list-group-item"><b>Бумага:</b> '+paper+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Заливка:</b> '+fill+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Цветность:</b> '+color+'</li>'
-        
-        // alert('товар: Бланки\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
+        if (this.isLaminated) {
+          output.innerHTML += `<li class="list-group-item"><b>Ламинация:</b> ${lamCost} ${rubSign}</li>`
+        }
+        if (this.isCorners) {
+          output.innerHTML += `<li class="list-group-item"><b>Cкругление углов:</b> ${cornerCost} ${rubSign}</li>`
+        }
+        if (this.isBiegen) {
+          output.innerHTML += `<li class="list-group-item"><b>Биговка:</b> ${biegenCost} ${rubSign}</li>`
+        }
 
       } else if (this.currentProduct == 'Буклеты и каталоги') {
 
         var cover = document.getElementById('booklets-cover').value
         var paper = document.getElementById('booklets-paper').value
         var format = document.getElementById('booklets-format').value
-
 
         console.log(cover, paper, format)
 
@@ -893,9 +914,13 @@ var app = new Vue({
         output.innerHTML += '<li class="list-group-item"><b>Бумага блока:</b> '+paper+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Формат полосы:</b> '+format+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Количество полос:</b> '+this.linesNumber+'</li>'
-
-        // alert('товар: Буклеты и каталоги\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
-
+        if (this.isLaminated) {
+          output.innerHTML += `<li class="list-group-item"><b>Ламинация:</b> ${lamCost} ${rubSign}</li>`
+        }
+        if (this.isCorners) {
+          output.innerHTML += `<li class="list-group-item"><b>Cкругление углов:</b> ${cornerCost} ${rubSign}</li>`
+        }
+        
       } else if (this.currentProduct == 'Евробуклеты') {
 
         var paper = document.getElementById('eurobooklets-paper').value
@@ -931,8 +956,13 @@ var app = new Vue({
 
         output.innerHTML += '<li class="list-group-item"><b>Бумага:</b> '+paper+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Цветность:</b> 4+4</li>'
-
-        // alert('товар: Евробуклеты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
+        if (this.isLaminated) {
+          output.innerHTML += `<li class="list-group-item"><b>Ламинация:</b> ${lamCost} ${rubSign}</li>`
+        }
+        if (this.isCorners) {
+          output.innerHTML += `<li class="list-group-item"><b>Cкругление углов:</b> ${cornerCost} ${rubSign}</li>`
+        }
+        output.innerHTML += `<li class="list-group-item"><b>Биговка:</b> ${biegenCost} ${rubSign}</li>`
 
       } else if (this.currentProduct == 'Календари') {
 
@@ -1049,6 +1079,10 @@ var app = new Vue({
         output.innerHTML += '<li class="list-group-item"><b>Цветность печати блока:</b> '+blockFill+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Цветность печати обложки:</b> '+coverFill+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Количество листов блока:</b> '+this.blockPages+'</li>'
+        if (this.isLaminated) {
+          output.innerHTML += `<li class="list-group-item"><b>Ламинация:</b> ${lamCost} ${rubSign}</li>`
+        }
+
 
       } else if (this.currentProduct == 'Конверты') {
           
@@ -1082,13 +1116,18 @@ var app = new Vue({
 
         output.innerHTML += '<li class="list-group-item"><b>Формат:</b> '+format+'</li>'
         output.innerHTML += '<li class="list-group-item"><b>Заливка:</b> '+fill+'</li>'
-        
-        // alert('товар: Конверты\nкол-во: '+this.edition+'\nстоимость: '+total+' ('+total/this.edition+' \u20BD/шт)')
+        if (this.isLaminated) {
+          output.innerHTML += `<li class="list-group-item"><b>Ламинация:</b> ${lamCost} ${rubSign}</li>`
+        }
+        if (this.isCorners) {
+          output.innerHTML += `<li class="list-group-item"><b>Cкругление углов:</b> ${cornerCost} ${rubSign}</li>`
+        }
+
       }
 
       
       output.innerHTML += `<li class="list-group-item"><b>Тираж:</b> ${this.edition}</li>`
-      output.innerHTML += `<li class="list-group-item"><b>Цена тиража:</b> ${(total * 1.05).toFixed(2)}руб (${((total * 1.05)/this.edition).toFixed(2)}руб/шт)</li>`
+      output.innerHTML += `<li class="list-group-item"><b>Цена тиража:</b> ${(total * 1.05).toFixed(2)} ${rubSign} (${((total * 1.05)/this.edition).toFixed(2)} ${rubSign}/шт)</li>`
       
       console.log(`>>>\nтовар: ${this.currentProduct}\nкол-во: ${this.edition}\nстоимость: ${total.toFixed(2)} (${(total/this.edition).toFixed(2)}/шт) [с наценкой: ${(total * 1.05).toFixed(2)}]`)
 

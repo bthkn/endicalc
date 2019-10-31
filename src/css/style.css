@@ -5,13 +5,16 @@
 html {
   border: 1px solid #d0d0d0;
   border-top: none;
+  user-select: none;
+}
+input {
+  user-select: unset;
 }
 
 body {
   background-color: #f7f7f7;
   padding-top: 64px;
 }
-
 
 li.nav-item.active {
   border-bottom: 2px solid #ff6600 !important;
@@ -27,9 +30,10 @@ button:focus {
   outline: none;
 }
 
+
 .app-titlebar {
   width: 100%;
-  height: 24px;
+  height: 28px;
   /* user-select: none; */
   /* -webkit-app-region: drag; */
   background-color: #343a40;
@@ -39,29 +43,20 @@ button:focus {
 .app-titlebar-caption {
   -webkit-app-region: drag;
   font-size: 14px;
-  color: #c0c0c1;
+  color: #f7f7f7;
   text-align: center;
   width: -webkit-fill-available;
-  padding: 0 0 0 88px; /*0 0 0 44*/
+  padding: 4px 0 0 44px;
 }
 
 .app-titlebar-button button {
   width: 44px;
-  height: 24px;
+  height: 28px;
   padding: 0 8px;
   /* background-color: transparent; */
   border: none;
   color: #ffffff;
 }
-
-/* .app-titlebar-button button:hover {
-  cursor: default;
-  width: 44px;
-  height: 24px;
-  padding: 0 8px;
-  border: none;
-  color: #ffffff;
-} */
 
 .app-titlebar-button button img {
   width: 22px;
@@ -70,10 +65,10 @@ button:focus {
   margin: 0;
 }
 
-.app-titlebar-button.sts button {
+.app-titlebar-button.mnu button {
   background-color: transparent;
 }
-.app-titlebar-button.sts button:hover {
+.app-titlebar-button.mnu button:hover {
   background-color: #5c6670;
 }
 
