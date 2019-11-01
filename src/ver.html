@@ -3,10 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/vue.min.js"></script>
 </head>
 <body>
-    Node <script>document.write(process.versions.node)</script>,
-    Chrome <script>document.write(process.versions.chrome)</script>,
-    Electron <script>document.write(process.versions.electron)</script>.
+
+    <div id="navBar" class="container-fluid px-0">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark shadow-sm" style="padding: 0!important;">
+            <div class="row w-100 mx-0">
+            <div class="w-100 mx-0 app-titlebar">
+                <div class="app-titlebar-button mnu">
+                <button id="titlebar-btn-mnu">
+                    <img src="../src/img/menu.svg" alt="*">
+                </button>
+                </div>
+                <div class="app-titlebar-caption">
+                    enDesign Calculator
+                </div>
+                <div class="app-titlebar-button min">
+                <button id="titlebar-btn-min">
+                    <img src="../src/img/minus.svg" alt="-">
+                </button>
+                </div>
+                <div class="app-titlebar-button cls">
+                <button id="titlebar-btn-cls">
+                    <img src="../src/img/x.svg" alt="x">
+                </button>
+                </div>
+            </div>
+            </div>
+        </nav>
+    </div>
+    
+    <main id="app-fs" class="container-fluid px-0">
+        <div id="files" class="row options mx-2 list-group-flush card m-auto p-4 w-50"></div>
+
+
+        <script>document.write(`Node ${process.versions.node} | Chrome ${process.versions.chrome} | Electron  ${process.versions.electron}`)</script>
+    </main>
+
+
+    <script>
+        var fsfrm = new Vue({
+            el: '#app-fs',
+            data: {},
+            methods: {},
+            beforeMount() {
+                require('fs').readdir('/Users/user/Saved Games/orders', (err, files) => {
+                    if (err) throw err
+
+                    console.log(files)
+                    
+                    var filesList = document.getElementById('files')
+
+                    for (f in files) {
+                        filesList.innerHTML += `<button type="button" class="list-group-item list-group-item-action" onclick="alert('${f}: ${files[f]}')">${files[f]}</button>`
+                    }
+                    
+                })
+            }
+        })
+    </script>
 </body>
 </html>

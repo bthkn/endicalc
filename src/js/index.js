@@ -1173,12 +1173,29 @@ var app = new Vue({
     saveOrder() {
       var fs = require('fs')
 
+      var product
+      for (var key in app._data.db["productTypes"]) {
+        if (app._data.db["productTypes"][key] === this.currentProduct) {
+          product = key
+        }
+      }
       var paper = this.db["paperTypes"].indexOf(document.getElementById('blanks-paper').value)
+      var fill = document.getElementById('blanks-fill').value
+      // var 
       
-      var out = { "p": paper, "e": parseInt(this.edition) }
+      var out = {
+        "prd": parseInt(product),
+        "ppr": paper,
+        "fll": fill,
+        // "clr": color, 
+        "edn": parseInt(this.edition),
+        "lns": this.linesNumber,
+        "pgs": this.blockPages,
+        "add": {"lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen}
+      }
       
       remote.dialog.showSaveDialog({
-        defaultPath: `order-${new Date().toLocaleDateString()}.json`
+        defaultPath: `order_${new Date().toLocaleDateString()}.json`
       }).then((p) => {
         if (!p.canceled) {
           const data = new Uint8Array(Buffer.from(JSON.stringify(out, null, '\t')))
@@ -1190,7 +1207,17 @@ var app = new Vue({
       })
     },
     loadOrder(order) {
-      var fs = require('fs')
+
+      require('fs').readdir('/Users/user/Saved Games/orders', (err, files) => {
+        if (err) throw err
+        document.appendChild('<div><ul id="files"></ul></div>')
+        var files = document.getElementById('files').innerHTML
+        for (file in files) {
+          files += `<li>${file}</li>`
+        }
+        console.log(files)
+      })
+
       document.getElementById('nav_'+app.currentProduct).classList.remove('active')
       this.currentProduct = order
       document.getElementById('nav_'+app.currentProduct).classList.add('active')
@@ -1201,8 +1228,11 @@ var app = new Vue({
         document.getElementById('blanks-color').value = "4+4"
         this.edition = 100
         this.isLaminated = true
-      }, 100)
+      }, 50)
       
+      setTimeout(() => {
+        this.getTotal()
+      }, 100)
     }
   },
   computed: {},

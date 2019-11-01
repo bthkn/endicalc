@@ -38,9 +38,9 @@ function createWindow () {
 
 app.on('ready', () => {
   createWindow()
-  // globalShortcut.register('CommandOrControl+V', () => {
-  //   win.loadFile('src/ver.html')
-  // })
+  globalShortcut.register('CommandOrControl+V', () => {
+    win.loadFile('src/ver.html')
+  })
 })
 
 app.on('window-all-closed', () => {
