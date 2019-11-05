@@ -1208,15 +1208,15 @@ var app = new Vue({
     },
     loadOrder(order) {
 
-      require('fs').readdir('/Users/user/Saved Games/orders', (err, files) => {
-        if (err) throw err
-        document.appendChild('<div><ul id="files"></ul></div>')
-        var files = document.getElementById('files').innerHTML
-        for (file in files) {
-          files += `<li>${file}</li>`
-        }
-        console.log(files)
-      })
+      // require('fs').readdir('/Users/user/Saved Games/orders', (err, files) => {
+      //   if (err) throw err
+      //   document.appendChild('<div><ul id="files"></ul></div>')
+      //   var files = document.getElementById('files').innerHTML
+      //   for (file in files) {
+      //     files += `<li>${file}</li>`
+      //   }
+      //   console.log(files)
+      // })
 
       document.getElementById('nav_'+app.currentProduct).classList.remove('active')
       this.currentProduct = order

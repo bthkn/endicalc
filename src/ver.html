@@ -48,7 +48,14 @@
         var fsfrm = new Vue({
             el: '#app-fs',
             data: {},
-            methods: {},
+            methods: {
+                openFile(path) {
+                    require('fs').open(path, (err, file) => {
+                        if (err) throw err
+                        console.log(file)
+                    })
+                }
+            },
             beforeMount() {
                 require('fs').readdir('/Users/user/Saved Games/orders', (err, files) => {
                     if (err) throw err
