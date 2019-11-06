@@ -1184,26 +1184,26 @@ var app = new Vue({
       // var 
       
       var out = {
+        // optional
         "prd": parseInt(product),
         "ppr": paper,
         "fll": fill,
-        // "clr": color, 
+        // "clr": color,
         "edn": parseInt(this.edition),
         "lns": this.linesNumber,
         "pgs": this.blockPages,
-        "add": {"lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen}
+        "add": {"lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen},
+        // required
+        "title": "",
+        "date": new Date().toLocaleTimeString()
       }
       
-      remote.dialog.showSaveDialog({
-        defaultPath: `order_${new Date().toLocaleDateString()}.json`
-      }).then((p) => {
-        if (!p.canceled) {
-          const data = new Uint8Array(Buffer.from(JSON.stringify(out, null, '\t')))
-          fs.writeFile(p.filePath, data, (err) => {
-            if (err) throw err
-            new Notification('enDesign Calculator', { body: 'Файл сохранен' })
-          })
-        }
+      var filePath = '/Users/user/Saved Games/orders/'
+      var fileName = `${Math.floor((Math.random()**Math.random())*1e8)}_${new Date().toLocaleTimeString().replace(':', '.').replace(':', '.')}.json`
+      const data = new Uint8Array(Buffer.from(JSON.stringify(out, null, '\t')))
+      fs.writeFile(filePath+fileName, data, (err) => {
+        if (err) throw err
+        new Notification('enDesign Calculator', { body: 'Файл сохранен' })
       })
     },
     loadOrder(order) {
@@ -1229,6 +1229,7 @@ var app = new Vue({
         this.edition = 100
         this.isLaminated = true
       }, 50)
+      
       
       setTimeout(() => {
         this.getTotal()

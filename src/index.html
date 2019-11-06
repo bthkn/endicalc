@@ -507,8 +507,30 @@
 
     <!-- modal & bg fade -->
     <div id="fade"></div>
+    <div id="saveModal" class="modal modal-lg" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 64%;">
+        <div class="modal-content" style="border: none">
+          <div class="modal-header">
+            <h5 class="modal-title"><!-- {{ currentProduct }} --></h5>
+            <button type="button" class="close d-none" @click="triggerCart">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul id="outputList" class="list-group list-group-flush">
+              <li class="list-group-item"> ... </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="saveOrder">Сохранить заказ</button>
+            <button type="button" class="btn btn-secondary mr-auto" @click="exportToFile">отмена</button>
+            <button type="button" class="btn btn-primary" @click="triggerCart">Сохранить</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="checkoutModal" class="modal modal-lg" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 64%;">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 84%;">
       <div class="modal-content" style="border: none">
         <div class="modal-header">
           <h5 class="modal-title"><!-- {{ currentProduct }} --></h5>
