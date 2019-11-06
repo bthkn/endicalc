@@ -23,7 +23,7 @@ function createWindow () {
     icon: 'src/img/icon.png'
   }) 
  
-  win.loadFile('src/ver.html') // ver index
+  win.loadFile('src/index.html') // ver index
 
   // win.webContents.openDevTools()
 

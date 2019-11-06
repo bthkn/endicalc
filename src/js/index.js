@@ -1147,6 +1147,20 @@ var app = new Vue({
         }
       })
     },
+    triggerSaveForm() {
+      var savemodal = document.getElementById("saveModal")
+      savemodal.classList.forEach(cls => {
+        if (cls == "show") {
+          savemodal.classList.remove("show")
+          document.getElementById("fade").style.zIndex = 9000
+          document.getElementById("fade").classList.remove("show")
+        } else {
+          savemodal.classList.add("show")
+          document.getElementById("fade").style.zIndex = 9950
+          document.getElementById("fade").classList.add("show")
+        }
+      })
+    },
     resetFields() {
       app.total = undefined
       app.isLaminated = undefined
