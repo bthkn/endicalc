@@ -580,34 +580,82 @@ var app = new Vue({
         new Notification('enDesign Calculator', { body: 'Файл сохранен' })
       })
     },
-    loadOrder(order) {
-
-      // fs.readdir('/Users/user/Saved Games/orders', (err, files) => {
-      //   if (err) throw err
-      //   document.appendChild('<div><ul id="files"></ul></div>')
-      //   var files = document.getElementById('files').innerHTML
-      //   for (file in files) {
-      //     files += `<li>${file}</li>`
-      //   }
-      //   console.log(files)
-      // })
+    loadOrder(orderObj) {
+      this.triggerOpenView()
 
       document.getElementById('nav_'+app.currentProduct).classList.remove('active')
-      this.currentProduct = order
+      this.currentProduct = this.db["productTypes"][orderObj["prd"]]
       document.getElementById('nav_'+app.currentProduct).classList.add('active')
 
-      setTimeout(() => {
-        document.getElementById('blanks-paper').value = "Delight gloss в упак C2S Art Board мел.картон 2 ст. 310"
-        document.getElementById('blanks-fill').value = "20"
-        document.getElementById('blanks-color').value = "4+4"
-        this.edition = 100
-        this.isLaminated = true
-      }, 50)
+      switch (this.db["productTypes"][orderObj["prd"]]) {
+        case "Визитки":
+          // visitCards-paper
+          // visitCards-color
+          // edition
+          // lam
+          // corners
+          break
+        case "Листовки":
+          // flyers-paper
+          // flyers-color
+          // flyers-format
+          // edition
+          // lam
+          // corners
+          // biegen
+          break
+        case "Бланки":
+          // blanks-paper
+          // blanks-fill
+          // blanks-color
+          // edition
+          // lam
+          // corners
+          // biegen
+          break
+        case "Буклеты и каталоги":
+          // booklets-cover
+          // booklets-paper
+          // booklets-format
+          // linesNumber
+          // edition
+          // lam
+          // corners
+          // biegen
+          break
+        case "Евробуклеты":
+          // eurobooklets-paper
+          // eurobooklets-color
+          // edition
+          // lam
+          // corners
+          // biegen
+          break
+        case "Календари":
+          // calendars-type
+          // calendars-cardboard
+          // edition
+          break
+        case "Блокноты":
+          break
+        case "Конверты":
+          break
+        default:
+          alert('Ошибка загрузки заказа.')
+      }
+
+      // setTimeout(() => {
+      //   document.getElementById('blanks-paper').value = "Delight gloss в упак C2S Art Board мел.картон 2 ст. 310"
+      //   document.getElementById('blanks-fill').value = "20"
+      //   document.getElementById('blanks-color').value = "4+4"
+      //   this.edition = 100
+      //   this.isLaminated = true
+      // }, 50)
       
       
-      setTimeout(() => {
-        this.getTotal()
-      }, 100)
+      // setTimeout(() => {
+      //   this.getTotal()
+      // }, 100)
     }
   },
   computed: {},
@@ -651,15 +699,12 @@ var fsfrm = new Vue({
     order: undefined
   },
   methods: {
-    triggerOpenView() {
-      console.log('ov - act')
-      app.triggerOpenView()
-    },
     openFile(file) {
       fs.readFile(ordersPath+file, 'utf-8', (err, data) => {
         if (err) throw err
         console.log(data)
         this.order = JSON.parse(data)
+        app.loadOrder(JSON.parse(data))
       })
     }
   },
@@ -670,12 +715,15 @@ var fsfrm = new Vue({
       console.log(files)
       
       var filesList = document.getElementById('files')
-
-      for (f in files) {
-        var fileName = files[f].replace('.json', '').replace('_', ' ')
-        filesList.innerHTML += `<button type="button" class="list-group-item list-group-item-action" onclick="fsfrm.openFile('${files[f]}')">${fileName}</button>`
+      filesList.innerHTML = ''
+      if (files.length == 0) {
+        filesList.innerHTML = '<p class="list-group-item">нет сохраненных заказов</p>'
+      } else {
+        for (f in files) {
+          var fileName = files[f].replace('.json', '').replace('_', ' ')
+          filesList.innerHTML += `<button type="button" class="list-group-item list-group-item-action" onclick="fsfrm.openFile('${files[f]}')">${fileName}</button>`
+        }
       }
-        
     })
   }
 })
