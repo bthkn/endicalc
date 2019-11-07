@@ -507,12 +507,29 @@
 
     <!-- modals & bg fade -->
     <div id="fade"></div>
-    <div id="saveModal" class="modal modal-lg" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 64%;">
+
+    <div id="openView" class="modal modal-lg" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content" style="border: none">
+          <div class="modal-header">
+            <h5 class="modal-title">Сохраненные заказы</h5>
+          </div>
+          <div class="modal-body">
+            <div id="files" class="row list-group-flush card flex-nowrap">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="triggerOpenView">Отмена</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="saveView" class="modal modal-lg" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content" style="border: none">
           <div class="modal-header">
             <h5 class="modal-title">Сохранение заказа</h5>
-            <button type="button" class="close d-none" @click="triggerCart">
+            <button type="button" class="close d-none" @click="triggerSaveView">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -523,18 +540,18 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="triggerSaveForm">Отмена</button>
-            <button type="button" class="btn btn-primary" @click="triggerSaveForm">Сохранить</button>
+            <button type="button" class="btn btn-secondary" @click="triggerSaveView">Отмена</button>
+            <button type="button" class="btn btn-primary" @click="triggerSaveView">Сохранить</button>
           </div>
         </div>
       </div>
     </div>
-    <div id="checkoutModal" class="modal modal-lg" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 84%;">
+    <div id="checkoutView" class="modal modal-lg" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document" style="min-width: 65%;">
       <div class="modal-content" style="border: none">
         <div class="modal-header">
           <h5 class="modal-title"><!-- {{ currentProduct }} --></h5>
-          <button type="button" class="close d-none" @click="triggerCart">
+          <button type="button" class="close d-none" @click="triggerCartView">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -544,9 +561,9 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="saveOrder">Сохранить заказ</button>
+          <button type="button" class="btn btn-secondary" @click="triggerSaveView">Сохранить заказ</button>
           <button type="button" class="btn btn-secondary mr-auto" @click="exportToFile">Экспорт</button>
-          <button type="button" class="btn btn-primary" @click="triggerCart">Готово</button>
+          <button type="button" class="btn btn-primary" @click="triggerCartView">Готово</button>
         </div>
       </div>
     </div>

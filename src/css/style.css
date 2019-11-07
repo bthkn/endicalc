@@ -155,7 +155,7 @@ input[type=checkbox]:focus, input[type=radio]:focus {
   background: rgba(0,0,0,0.4);
   display: none;
   position: fixed;
-  top: 0;
+  top: 28px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -190,9 +190,41 @@ input[type=checkbox]:focus, input[type=radio]:focus {
   margin-bottom: 5%; */
 }
 /*  */
-.modal#saveModal {
+.modal#saveView {
   z-index: 9999;
 }
+
+.modal#openView {
+  background-color: #f7f7f7;
+  margin-top: 28px;
+}
+
+.modal#openView .modal-dialog {
+  min-height: unset;
+  position: fixed;
+  top: 5%;
+  left: 25%;
+  width: 50%;
+  max-height: unset;
+  height: 85%;
+}
+
+.modal#openView .modal-content {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.modal#openView .modal-body {
+  padding: 0 1rem;
+}
+
+
+
+
+
+
+
+
+
 
 .nav-item.active .nav-link {
   color: #ff6600!important;
