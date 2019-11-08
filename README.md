@@ -1,6 +1,6 @@
 # ![endicalc](https://github.com/bthkn/bthkn.github.io/raw/master/m/img/calc-icon.png) enDesign Calculator
 
-![dev version](https://img.shields.io/github/package-json/v/bthkn/endicalc/beta?label=version)
+![dev version](https://img.shields.io/github/package-json/v/bthkn/endicalc/master?label=version)
 ![electron version](https://img.shields.io/github/package-json/dependency-version/bthkn/endicalc/dev/electron)
 
 ```bash
