@@ -205,15 +205,15 @@
           <div class="form-group">
             Постпечатная обработка:
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="lam" v-model="isLaminated">
+              <input class="form-check-input" type="checkbox" id="lam" v-model="isLaminated">
               <label class="form-check-label" for="lam">ламинация</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="corners" v-model="isCorners">
+              <input class="form-check-input" type="checkbox" id="corners" v-model="isCorners">
               <label class="form-check-label" for="corners">скругление углов</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="biegen" v-model="isBiegen">
+              <input class="form-check-input" type="checkbox" id="biegen" v-model="isBiegen">
               <label class="form-check-label" for="biegen">биговка</label>
             </div>
           </div>
@@ -266,15 +266,15 @@
           <div class="form-group">
             Постпечатная обработка:
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="lam" v-model="isLaminated">
+              <input class="form-check-input" type="checkbox" id="lam" v-model="isLaminated">
               <label class="form-check-label" for="lam">ламинация</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="corners" v-model="isCorners">
+              <input class="form-check-input" type="checkbox" id="corners" v-model="isCorners">
               <label class="form-check-label" for="corners">скругление углов</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="biegen" v-model="isBiegen">
+              <input class="form-check-input" type="checkbox" id="biegen" v-model="isBiegen">
               <label class="form-check-label" for="biegen">биговка</label>
             </div>
           </div>
@@ -515,7 +515,7 @@
             <h5 class="modal-title">Сохраненные заказы</h5>
           </div>
           <div class="modal-body">
-            <div id="files" class="row list-group-flush card flex-nowrap">
+            <div id="files" class="list-group-flush">
             </div>
           </div>
           <div class="modal-footer">
@@ -541,7 +541,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="triggerSaveView">Отмена</button>
-            <button type="button" class="btn btn-primary" @click="triggerSaveView">Сохранить</button>
+            <button type="button" class="btn btn-primary" @click="saveOrder">Сохранить</button>
           </div>
         </div>
       </div>

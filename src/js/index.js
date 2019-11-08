@@ -1,7 +1,7 @@
-const { BrowserWindow, remote } = require('electron')
+const { remote } = require('electron')
 const { Menu, MenuItem } = remote
 const fs = require('fs')
-const ordersPath = '/Users/user/Saved Games/orders/'
+const ordersPath = './orders/'
 // const axios = require('axios').default
 
 
@@ -42,6 +42,59 @@ var app = new Vue({
     db: {}
   },
   methods: {
+    getLamCost(ed) {
+      if (ed <= 100) {
+        return this.db['additional']['laminat'][50]
+      } else if ((ed >= 100) && (ed < 200)) {
+        return this.db['additional']['laminat'][100]
+      } else if ((ed >= 200) && (ed < 300)) {
+        return this.db['additional']['laminat'][200]
+      } else if ((ed >= 300) && (ed < 400)) {
+        return this.db['additional']['laminat'][300]
+      } else if ((ed >= 400) && (ed < 500)) {
+        return this.db['additional']['laminat'][400]
+      } else if (ed >= 500) {
+        return this.db['additional']['laminat'][500]
+      }
+    },
+    getCornersCost(ed) {
+      if (ed <= 100) {
+        return this.db['additional']['corners'][50]
+      } else if ((ed >= 100) && (ed < 200)) {
+        return this.db['additional']['corners'][100]
+      } else if ((ed >= 200) && (ed < 300)) {
+        return this.db['additional']['corners'][200]
+      } else if ((ed >= 300) && (ed < 400)) {
+        return this.db['additional']['corners'][300]
+      } else if ((ed >= 400) && (ed < 500)) {
+        return this.db['additional']['corners'][400]
+      } else if ((ed >= 500) && (ed < 1000)) {
+        return this.db['additional']['corners'][500]
+      } else if ((ed >= 1000) && (ed < 2000)) {
+        return this.db['additional']['corners'][1000]
+      } else if (ed >= 2000) {
+        return this.db['additional']['corners'][2000]
+      }
+    },
+    getBiegenCost(ed) {
+      if (ed <= 100) {
+        return this.db['additional']['biegen'][50]
+      } else if ((ed >= 100) && (ed < 200)) {
+        return this.db['additional']['biegen'][100]
+      } else if ((ed >= 200) && (ed < 300)) {
+        return this.db['additional']['biegen'][200]
+      } else if ((ed >= 300) && (ed < 400)) {
+        return this.db['additional']['biegen'][300]
+      } else if ((ed >= 400) && (ed < 500)) {
+        return this.db['additional']['biegen'][400]
+      } else if ((ed >= 500) && (ed < 1000)) {
+        return this.db['additional']['biegen'][500]
+      } else if ((ed >= 1000) && (ed < 2000)) {
+        return this.db['additional']['biegen'][1000]
+      } else if (ed >= 2000) {
+        return this.db['additional']['biegen'][2000]
+      }
+    },
     setProduct(pr) {
       document.getElementById('nav_'+this.currentProduct).classList.remove("active")
       this.currentProduct = pr
@@ -83,8 +136,8 @@ var app = new Vue({
         var paperCost = this.db['paperCosts'][paper]
         var printCost = this.db['printCosts'][color]['100']
         var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][editNum]
-        var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
-        var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
+        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
 
         var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
 
@@ -125,9 +178,9 @@ var app = new Vue({
         var paperCost = this.db['paperCosts'][paper]
         var printCost = this.db['printCosts'][color]['100']
         var kRent = this.db['kRentOf']['flyers'][format][""+color][editNum]
-        var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
-        var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
-        var biegenCost = this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
+        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
+        var biegenCost = this.isBiegen ? this.getBiegenCost(this.edition) : 0
         var flyerConst = this.db['flyerConst'][format]
         console.log(paperCost, printCost, kRent, lamCost, cornerCost, biegenCost, flyerConst)
         
@@ -174,9 +227,9 @@ var app = new Vue({
         var paperCost = this.db['paperCosts'][paper]
         var printCost = this.db['printCosts'][color][fill]
         var kRent = this.db['kRentOf']['blanks'][""+color][editNum]
-        var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
-        var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
-        var biegenCost = this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
+        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
+        var biegenCost = this.isBiegen ? this.getBiegenCost(this.edition) : 0
         console.log(paperCost, printCost, kRent, lamCost, cornerCost, biegenCost)
 
         var total = ((paperCost + printCost) / 2) * this.edition * kRent + lamCost + cornerCost + biegenCost
@@ -251,20 +304,21 @@ var app = new Vue({
         console.log(this.linesNumber, lines)
 
         var kRent = this.db['kRentOf']['booklets']["4+4"][lines][editNum]
-        var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
-        var cornerCost = this.isCorners ? this.db['additional']['corners'][editNum] : 0
+        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
+        var biegenCost = this.isBiegen ? this.getBiegenCost(this.edition) : 0
         var skoba = (this.linesNumber >= 4) ? 2.2 : 0
         
         console.log(kRent, lamCost, cornerCost, skoba)
 
         var total
         if (format == "A4") {
-          total = ( ((this.linesNumber - 4) / 4) * paperCost + (1 * coverCost)  + (this.linesNumber / 4) * printCost + (skoba * 2) ) * this.edition * kRent + lamCost + cornerCost
+          total = ( ((this.linesNumber - 4) / 4) * paperCost + (1 * coverCost)  + (this.linesNumber / 4) * printCost + (skoba * 2) ) * this.edition * kRent + lamCost + cornerCost + biegenCost
           // console.log(paperCost, coverCost, this.linesNumber, printCost, skoba, this.edition, kRent, lamCost, cornerCost)
         } else if (format == "A5") {
-          total = ( ((this.linesNumber - 4) / 4) * (paperCost/2) + (1 * coverCost/2) + ( ((this.linesNumber / 4) * printCost) / 2) + (skoba * 2) ) * this.edition * kRent + lamCost + cornerCost
+          total = ( ((this.linesNumber - 4) / 4) * (paperCost/2) + (1 * coverCost/2) + ( ((this.linesNumber / 4) * printCost) / 2) + (skoba * 2) ) * this.edition * kRent + lamCost + cornerCost + biegenCost
         } else if (format == "A6") {
-          total = ( ((this.linesNumber - 4) / 4) * (paperCost/2) + (1 * coverCost/4) + ( ((this.linesNumber / 4) * printCost) / 4) + (skoba * 2) ) * this.edition * kRent + lamCost + cornerCost
+          total = ( ((this.linesNumber - 4) / 4) * (paperCost/2) + (1 * coverCost/4) + ( ((this.linesNumber / 4) * printCost) / 4) + (skoba * 2) ) * this.edition * kRent + lamCost + cornerCost + biegenCost
         }
 
         output.innerHTML += '<li class="list-group-item"><b>Бумага обложки:</b> '+cover+'</li>'
@@ -303,9 +357,9 @@ var app = new Vue({
         var paperCost = this.db['paperCosts'][paper]
         var printCost = this.db['printCosts']["4+4"]['100']
         var kRent = this.db['kRentOf']['flyers']["A4"]["4+4"][editNum]
-        var lamCost = this.isLaminated ? this.db['additional']['laminat'][this.edition] : 0
-        var cornerCost = this.isCorners ? this.db['additional']['corners'][this.edition] : 0
-        var biegenCost = this.db['additional']['biegen'][editNum] // this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
+        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
+        var biegenCost = this.getBiegenCost(this.edition) // this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
         console.log(paperCost, printCost, kRent, lamCost, cornerCost, biegenCost)
 
         var total = ((paperCost + printCost) / 2) * this.edition * kRent + (lamCost / 2) + cornerCost + biegenCost
@@ -417,7 +471,7 @@ var app = new Vue({
         var springCost = this.db['springCost'] // 2.5
 
         var kRent = this.db['kRentOf']['notes'][format][editNum] // this.db['kRentOf']['notes'][format][blockColor][editNum] 
-        var lamCost = this.isLaminated ? this.db['additional']['laminat'][editNum] : 0
+        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
         
         console.log(coverCost, this.blockPages, blockCost, printCost_cover, this.blockPages, printCost_block, springCost, this.edition, kRent, lamCost)
 
@@ -521,6 +575,7 @@ var app = new Vue({
           openView.classList.remove("show")
         } else {
           openView.classList.add("show")
+          fsfrm.updateFileList()
         }
       })
     },
@@ -547,115 +602,172 @@ var app = new Vue({
       })
     },
     saveOrder() {
-      var product
+      var out = {}
+
       for (var key in app._data.db["productTypes"]) {
         if (app._data.db["productTypes"][key] === this.currentProduct) {
-          product = key
+          out["prd"] = parseInt(key)
         }
       }
-      var paper = this.db["paperTypes"].indexOf(document.getElementById('blanks-paper').value)
-      var fill = document.getElementById('blanks-fill').value
-      // var 
-      
-      var out = {
-        // optional
-        "prd": parseInt(product),
-        "ppr": paper,
-        "fll": fill,
-        // "clr": color,
-        "edn": parseInt(this.edition),
-        "lns": this.linesNumber,
-        "pgs": this.blockPages,
-        "add": {"lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen},
-        // required
-        "title": "",
-        "date": new Date().toLocaleTimeString()
+
+      switch (this.currentProduct) {
+        case "Визитки":
+          out["ppr"] = this.db["paperTypes"].indexOf(document.getElementById('visitCards-paper').value)
+          out["clr"] = document.getElementById('visitCards-color').value
+          out["edn"] = this.edition
+          out["add"] = { "lam": this.isLaminated, "crn": this.isCorners }
+          break
+        case "Листовки":
+          out["ppr"] = this.db["paperTypes"].indexOf(document.getElementById('flyers-paper').value)
+          out["clr"] = document.getElementById('flyers-color').value
+          out["fft"] = this.db["paperFormats"].indexOf(document.getElementById('flyers-format').value)
+          out["edn"] = this.edition
+          out["add"] = { "lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen }
+          break
+        case "Бланки":
+          out["ppr"] = this.db["paperTypes"].indexOf(document.getElementById('blanks-paper').value)
+          out["bfl"] = document.getElementById('blanks-fill').value
+          out["clr"] = document.getElementById('blanks-color').value
+          out["edn"] = this.edition
+          out["add"] = { "lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen }
+          break
+        case "Буклеты и каталоги":
+          out["bcr"] = this.db["paperTypes"].indexOf(document.getElementById('booklets-cover').value)
+          out["bpr"] = this.db["paperTypes"].indexOf(document.getElementById('booklets-paper').value)
+          out["bft"] = this.db["paperFormats"].indexOf(document.getElementById('booklets-format').value)
+          out["lns"] = this.linesNumber
+          out["edn"] = this.edition
+          out["add"] = { "lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen }
+          break
+        case "Евробуклеты":
+          out["ppr"] = this.db["paperTypes"].indexOf(document.getElementById('eurobooklets-paper').value)
+          out["clr"] = document.getElementById('eurobooklets-color').value
+          out["edn"] = this.edition
+          out["add"] = { "lam": this.isLaminated, "crn": this.isCorners, "bgn": this.isBiegen }
+          break
+        case "Календари":
+          out["ctp"] = this.db["calendarsTypes"].indexOf(document.getElementById('calendars-type').value)
+          out["ccd"] = 3 //this.db["paperFormats"].indexOf(document.getElementById('calendars-cardboard').value)
+          out["edn"] = this.edition
+          break
+        case "Блокноты":
+          out["ncr"] = this.db["paperTypes"].indexOf(document.getElementById('notes-cover').value)
+          out["npr"] = this.db["paperTypes"].indexOf(document.getElementById('notes-paper').value)
+          out["nft"] = /*this.db["paperFormats"].indexOf(*/ document.getElementById('notes-format').value //)
+          out["nbf"] = document.getElementById('notes-block-fill').value
+          out["nbc"] = document.getElementById('notes-block-color').value
+          out["ncf"] = document.getElementById('notes-cover-fill').value
+          out["ncc"] = document.getElementById('notes-cover-color').value
+          out["bps"] = this.blockPages
+          out["edn"] = this.edition
+          out["add"] = { "lam": this.isLaminated }
+          break
+        case "Конверты":
+          out["eft"] = this.db["envelopeFormats"].indexOf(document.getElementById('envelope-format').value)
+          out["efl"] = document.getElementById('envelope-fill').value
+          out["edn"] = this.edition
+          break
+        default:
+          alert('Ошибка загрузки заказа.')
       }
+
+      var orderName = document.getElementById('sf-fileName').value
+
+      out["title"] = orderName
+      out["date"] = new Date().getTime()
       
-      var filePath = '/Users/user/Saved Games/orders/'
-      var fileName = `${Math.floor((Math.random()**Math.random())*1e8)}_${new Date().toLocaleTimeString().replace(':', '.').replace(':', '.')}.json`
+      var fileName = `${orderName}_${new Date().toLocaleDateString()}.json`
       const data = new Uint8Array(Buffer.from(JSON.stringify(out, null, '\t')))
-      fs.writeFile(filePath+fileName, data, (err) => {
+      fs.writeFile(ordersPath+fileName, data, (err) => {
         if (err) throw err
         new Notification('enDesign Calculator', { body: 'Файл сохранен' })
       })
+
+      this.triggerSaveView()
     },
     loadOrder(orderObj) {
+      console.log(orderObj)
       this.triggerOpenView()
 
       document.getElementById('nav_'+app.currentProduct).classList.remove('active')
       this.currentProduct = this.db["productTypes"][orderObj["prd"]]
       document.getElementById('nav_'+app.currentProduct).classList.add('active')
 
-      switch (this.db["productTypes"][orderObj["prd"]]) {
-        case "Визитки":
-          // visitCards-paper
-          // visitCards-color
-          // edition
-          // lam
-          // corners
-          break
-        case "Листовки":
-          // flyers-paper
-          // flyers-color
-          // flyers-format
-          // edition
-          // lam
-          // corners
-          // biegen
-          break
-        case "Бланки":
-          // blanks-paper
-          // blanks-fill
-          // blanks-color
-          // edition
-          // lam
-          // corners
-          // biegen
-          break
-        case "Буклеты и каталоги":
-          // booklets-cover
-          // booklets-paper
-          // booklets-format
-          // linesNumber
-          // edition
-          // lam
-          // corners
-          // biegen
-          break
-        case "Евробуклеты":
-          // eurobooklets-paper
-          // eurobooklets-color
-          // edition
-          // lam
-          // corners
-          // biegen
-          break
-        case "Календари":
-          // calendars-type
-          // calendars-cardboard
-          // edition
-          break
-        case "Блокноты":
-          break
-        case "Конверты":
-          break
-        default:
-          alert('Ошибка загрузки заказа.')
-      }
-
-      // setTimeout(() => {
-      //   document.getElementById('blanks-paper').value = "Delight gloss в упак C2S Art Board мел.картон 2 ст. 310"
-      //   document.getElementById('blanks-fill').value = "20"
-      //   document.getElementById('blanks-color').value = "4+4"
-      //   this.edition = 100
-      //   this.isLaminated = true
-      // }, 50)
+      setTimeout(() => {
+        switch (this.db["productTypes"][orderObj["prd"]]) {
+          case "Визитки":
+            document.getElementById('visitCards-paper').value = this.db["paperTypes"][orderObj["ppr"]]
+            document.getElementById('visitCards-color').value = orderObj["clr"]
+            this.edition = orderObj["edn"]
+            this.isLaminated = orderObj["add"]["lam"]
+            this.isCorners = orderObj["add"]["crn"]
+            break
+          case "Листовки":
+            document.getElementById('flyers-paper').value = this.db["paperTypes"][orderObj["ppr"]]
+            document.getElementById('flyers-color').value = orderObj["clr"]
+            document.getElementById('flyers-format').value = this.db["paperFormats"][orderObj["fft"]]
+            this.edition = orderObj["edn"]
+            this.isLaminated = orderObj["add"]["lam"]
+            this.isCorners = orderObj["add"]["crn"]
+            this.isBiegen = orderObj["add"]["bgn"]
+            break
+          case "Бланки":
+            document.getElementById('blanks-paper').value = this.db["paperTypes"][orderObj["ppr"]]
+            document.getElementById('blanks-fill').value = orderObj["bfl"]
+            document.getElementById('blanks-color').value = orderObj["clr"]
+            this.edition = orderObj["edn"]
+            this.isLaminated = orderObj["add"]["lam"]
+            this.isCorners = orderObj["add"]["crn"]
+            this.isBiegen = orderObj["add"]["bgn"]
+            break
+          case "Буклеты и каталоги":
+            document.getElementById('booklets-cover').value = this.db["paperTypes"][orderObj["bcr"]]
+            document.getElementById('booklets-paper').value = this.db["paperTypes"][orderObj["bpr"]]
+            document.getElementById('booklets-format').value = this.db["paperFormats"][orderObj["bft"]]
+            this.linesNumber = orderObj["lns"]
+            this.edition = orderObj["edn"]
+            this.isLaminated = orderObj["add"]["lam"]
+            this.isCorners = orderObj["add"]["crn"]
+            this.isBiegen = orderObj["add"]["bgn"]
+            break
+          case "Евробуклеты":
+            document.getElementById('eurobooklets-paper').value = this.db["paperTypes"][orderObj["ppr"]]
+            document.getElementById('eurobooklets-color').value = orderObj["clr"]
+            this.edition = orderObj["edn"]
+            this.isLaminated = orderObj["add"]["lam"]
+            this.isCorners = orderObj["add"]["crn"]
+            this.isBiegen = orderObj["add"]["bgn"]
+            break
+          case "Календари":
+            document.getElementById('calendars-type').value = this.db["calendarsTypes"][orderObj["ctp"]]
+            document.getElementById('calendars-cardboard').value = this.db["paperTypes"][orderObj["ccd"]]
+            this.edition = orderObj["edn"]
+            break
+          case "Блокноты":
+            document.getElementById('notes-cover').value = this.db["paperTypes"][orderObj["ncr"]]
+            document.getElementById('notes-paper').value = this.db["paperTypes"][orderObj["npr"]]
+            document.getElementById('notes-format').value = /*this.db["paperFormats"][*/ orderObj["nft"] //]
+            document.getElementById('notes-block-fill').value = orderObj["nbf"]
+            document.getElementById('notes-block-color').value = orderObj["nbc"]
+            document.getElementById('notes-cover-fill').value = orderObj["ncf"]
+            document.getElementById('notes-cover-color').value = orderObj["ncc"]
+            this.blockPages = orderObj["bps"]
+            this.edition = orderObj["edn"]
+            this.isLaminated = orderObj["add"]["lam"]
+            break
+          case "Конверты":
+            document.getElementById('envelope-format').value = this.db["envelopeFormats"][orderObj["eft"]]
+            document.getElementById('envelope-fill').value = orderObj["efl"]
+            this.edition = orderObj["edn"]
+            break
+          default:
+            alert('Ошибка загрузки заказа.')
+        }
+      }, 50)
       
-      
-      // setTimeout(() => {
-      //   this.getTotal()
-      // }, 100)
+      setTimeout(() => {
+        this.getTotal()
+      }, 100)
     }
   },
   computed: {},
@@ -671,7 +783,6 @@ var app = new Vue({
       menu.append(new MenuItem({
         label: 'Открыть заказ',
         click() {
-          // app.loadOrder("Бланки")
           app.triggerOpenView()
         }
       }))
@@ -690,6 +801,12 @@ var app = new Vue({
       if (err) throw err
       this.db = JSON.parse(data)
     });
+  },
+  beforeCreate() {
+    fs.mkdir(ordersPath, (err) => {
+      if (err.code === 'EEXIST') return
+      throw err
+    })
   }
 })
 
@@ -699,31 +816,38 @@ var fsfrm = new Vue({
     order: undefined
   },
   methods: {
+    updateFileList() {
+      fs.readdir(ordersPath, (err, files) => {
+        if (err) throw err
+  
+        console.log(files)
+        
+        var filesList = document.getElementById('files')
+        filesList.innerHTML = ''
+        if (files.length == 0) {
+          filesList.innerHTML = '<p class="list-group-item">нет сохраненных заказов</p>'
+        } else {
+          for (f in files) {
+            var fileName = files[f].replace('.json', '').replace('_', ' ')
+            filesList.innerHTML += `<div class="list-group-item list-group-item-action d-flex m-0 row"><div class="col m-0" onclick="fsfrm.openFile('${files[f]}')">${fileName}</div><div class="col-1 m-0 p-0"><button type="button" class="btn btn-outline-danger py-0 m-0" onclick="fsfrm.removeFile('${files[f]}')">×</button></div></div>`
+            // filesList.innerHTML += `<button type="button" class="list-group-item list-group-item-action" onclick="fsfrm.openFile('${files[f]}')">${fileName}</button>`
+          }
+        }
+      })
+    },
     openFile(file) {
       fs.readFile(ordersPath+file, 'utf-8', (err, data) => {
         if (err) throw err
-        console.log(data)
         this.order = JSON.parse(data)
         app.loadOrder(JSON.parse(data))
       })
+    },
+    removeFile(file) {
+      fs.unlinkSync(ordersPath+file)
+      this.updateFileList()
     }
   },
   beforeMount() {
-    fs.readdir(ordersPath, (err, files) => {
-      if (err) throw err
-
-      console.log(files)
-      
-      var filesList = document.getElementById('files')
-      filesList.innerHTML = ''
-      if (files.length == 0) {
-        filesList.innerHTML = '<p class="list-group-item">нет сохраненных заказов</p>'
-      } else {
-        for (f in files) {
-          var fileName = files[f].replace('.json', '').replace('_', ' ')
-          filesList.innerHTML += `<button type="button" class="list-group-item list-group-item-action" onclick="fsfrm.openFile('${files[f]}')">${fileName}</button>`
-        }
-      }
-    })
+    this.updateFileList()
   }
 })
