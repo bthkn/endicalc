@@ -15,4 +15,4 @@ npm start
 ```
 
 ## TODO:
-* экспорт в .csv/.xls
+* экспорт в .csv
