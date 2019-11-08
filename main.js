@@ -3,11 +3,10 @@ const { app, BrowserWindow, globalShortcut } = require('electron')
 
 let win // important
 
-
 function createWindow () {
 
   win = new BrowserWindow({
-    width: 1020,
+    width: 1000,
     height: 580,
     center: true,
     resizable: false,
@@ -17,14 +16,14 @@ function createWindow () {
     frame: false,
     thickFrame: false,
     webPreferences: {
-      devTools: false,
+      // devTools: false,
       nodeIntegration: true,
       allowRunningInsecureContent: true
     },
     icon: 'src/img/icon.png'
   }) 
  
-  win.loadFile('src/index.html')
+  win.loadFile('src/index.html') // ver index
 
   // win.webContents.openDevTools()
 
@@ -36,7 +35,6 @@ function createWindow () {
     win = null
   })
 }
-
 
 app.on('ready', () => {
   createWindow()

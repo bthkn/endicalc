@@ -5,6 +5,10 @@
 html {
   border: 1px solid #d0d0d0;
   border-top: none;
+  user-select: none;
+}
+input {
+  user-select: unset;
 }
 
 body {
@@ -12,54 +16,47 @@ body {
   padding-top: 64px;
 }
 
-
 li.nav-item.active {
-  border-bottom: 2px solid #ff6600;
+  border-bottom: 2px solid #ff6600 !important;
 }
 li.nav-item {
   border-bottom: 2px solid transparent;
+}
+li.nav-item:hover {
+  border-bottom: 2px solid rgba(255,255,255,.75);
 }
 
 button:focus {
   outline: none;
 }
 
+
 .app-titlebar {
   width: 100%;
-  height: 24px;
+  height: 28px;
   /* user-select: none; */
   /* -webkit-app-region: drag; */
   background-color: #343a40;
   display: flex;
-  border-bottom: 1px solid #232323;
 }
 
 .app-titlebar-caption {
   -webkit-app-region: drag;
   font-size: 14px;
-  color: #c0c0c1;
+  color: #f7f7f7;
   text-align: center;
   width: -webkit-fill-available;
-  padding: 0 0 0 88px; /*0 0 0 44*/
+  padding: 4px 0 0 44px;
 }
 
 .app-titlebar-button button {
   width: 44px;
-  height: 24px;
+  height: 28px;
   padding: 0 8px;
   /* background-color: transparent; */
   border: none;
   color: #ffffff;
 }
-
-/* .app-titlebar-button button:hover {
-  cursor: default;
-  width: 44px;
-  height: 24px;
-  padding: 0 8px;
-  border: none;
-  color: #ffffff;
-} */
 
 .app-titlebar-button button img {
   width: 22px;
@@ -68,10 +65,10 @@ button:focus {
   margin: 0;
 }
 
-.app-titlebar-button.sts button {
+.app-titlebar-button.mnu button {
   background-color: transparent;
 }
-.app-titlebar-button.sts button:hover {
+.app-titlebar-button.mnu button:hover {
   background-color: #5c6670;
 }
 
@@ -90,12 +87,16 @@ button:focus {
 }
 
 
-
-
-
-
-
-
+.modal-body::-webkit-scrollbar {
+  width: 4px;
+  background-color: #efefef;
+}
+.modal-body::-webkit-scrollbar-button {
+  display: none;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.45);
+}
 
 
 
@@ -154,7 +155,7 @@ input[type=checkbox]:focus, input[type=radio]:focus {
   background: rgba(0,0,0,0.4);
   display: none;
   position: fixed;
-  top: 0;
+  top: 28px;
   right: 0;
   bottom: 0;
   left: 0;
@@ -171,7 +172,7 @@ input[type=checkbox]:focus, input[type=radio]:focus {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 9900;
   display: none;
   width: 100%;
   height: 100%;
@@ -189,6 +190,41 @@ input[type=checkbox]:focus, input[type=radio]:focus {
   margin-bottom: 5%; */
 }
 /*  */
+.modal#saveView {
+  z-index: 9999;
+}
+
+.modal#openView {
+  background-color: #f7f7f7;
+  margin-top: 28px;
+}
+
+.modal#openView .modal-dialog {
+  min-height: unset;
+  position: fixed;
+  top: 5%;
+  left: 25%;
+  width: 50%;
+  max-height: unset;
+  height: 85%;
+}
+
+.modal#openView .modal-content {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.modal#openView .modal-body {
+  padding: 0 1rem;
+}
+
+
+
+
+
+
+
+
+
 
 .nav-item.active .nav-link {
   color: #ff6600!important;
