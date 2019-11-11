@@ -13,6 +13,3 @@ npm install
 # Run the app
 npm start
 ```
-
-## TODO:
-* экспорт в .csv/.xls

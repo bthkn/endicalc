@@ -16,14 +16,14 @@ function createWindow () {
     frame: false,
     thickFrame: false,
     webPreferences: {
-      // devTools: false,
+      devTools: false,
       nodeIntegration: true,
       allowRunningInsecureContent: true
     },
     icon: 'src/img/icon.png'
   }) 
  
-  win.loadFile('src/index.html') // ver index
+  win.loadFile('src/index.html')
 
   // win.webContents.openDevTools()
 

@@ -214,11 +214,13 @@ input[type=checkbox]:focus, input[type=radio]:focus {
 }
 
 .modal#openView .modal-body {
-  padding: 0 1rem;
+  padding: 0;
 }
 
 
-
+#files .list-group-item-action:hover {
+  cursor: pointer;
+}
 
 
 

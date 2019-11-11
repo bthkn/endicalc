@@ -588,18 +588,36 @@ var app = new Vue({
       app.linesNumber = undefined
       app.blockPages = undefined
     },
-    exportToFile() {
+    exportToTXT() {
       remote.dialog.showSaveDialog({
-        defaultPath: "export.txt"
+        defaultPath: "/export.txt",
+        filters: [
+          { name: 'Text file', extensions: ['txt'] }
+        ]
       }).then((p) => {
         if (!p.canceled) {
-          const data = new Uint8Array(Buffer.from(document.getElementById('outputList').innerText))
-          fs.writeFile(p.filePath, data, (err) => {
+          var raw = "\uFEFF"
+          document.getElementById("outputList").querySelectorAll('li').forEach((e) => {
+            raw += e.textContent + require('os').EOL
+          })
+          fs.writeFile(p.filePath, new Uint8Array(Buffer.from(raw)), (err) => {
             if (err) throw err
             new Notification('enDesign Calculator', { body: 'Файл сохранен' })
           })
         }
       })
+    },
+    exportToCSV() {
+      var raw = 'data:text/csv;charset=utf-8,' + "\uFEFF"
+      document.getElementById("outputList").querySelectorAll('li').forEach((e) => {
+        var line = e.textContent.split(': ')
+        raw += line[0] + ';' + line[1] + require('os').EOL
+      })
+      
+      var link = document.createElement('a')
+      link.setAttribute('href', encodeURI(raw))
+      link.setAttribute('download', 'export.csv')
+      link.click()
     },
     saveOrder() {
       var out = {}
@@ -829,7 +847,7 @@ var fsfrm = new Vue({
         } else {
           for (f in files) {
             var fileName = files[f].replace('.json', '').replace('_', ' ')
-            filesList.innerHTML += `<div class="list-group-item list-group-item-action d-flex m-0 row"><div class="col m-0" onclick="fsfrm.openFile('${files[f]}')">${fileName}</div><div class="col-1 m-0 p-0"><button type="button" class="btn btn-outline-danger py-0 m-0" onclick="fsfrm.removeFile('${files[f]}')">×</button></div></div>`
+            filesList.innerHTML += `<div class="list-group-item list-group-item-action d-flex m-0 row"><div class="col m-0" onclick="fsfrm.openFile('${files[f]}')">${fileName}</div><div class="col-1 m-0 p-0"><button type="button" class="btn btn-outline-danger pt-0 m-0" style="padding-bottom: 1px;" onclick="fsfrm.removeFile('${files[f]}')">×</button></div></div>`
             // filesList.innerHTML += `<button type="button" class="list-group-item list-group-item-action" onclick="fsfrm.openFile('${files[f]}')">${fileName}</button>`
           }
         }
