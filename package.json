@@ -7,7 +7,7 @@
     "build": "electron-packager . endiCalc --platform=win32 --arch=x64,ia32 --overwrite"
   },
   "devDependencies": {
-    "electron": "^6.0.12",
+    "electron": "^9.1.0",
     "electron-packager": "^14.0.6"
   },
   "dependencies": {
