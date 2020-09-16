@@ -137,9 +137,11 @@ var app = new Vue({
         var printCost = this.db['printCosts'][color]['100']
         var kRent = this.db['kRentOf']['visitCards'][cardboardType][""+color][editNum]
         var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var lamCostNewFunc = this.getLamCost(50)
+        lamCostNewFunc = lamCostNewFunc / 50 / 12 * this.edition
         var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
 
-        var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCost + cornerCost
+        var total = ((paperCost + printCost) / 24) * this.edition * kRent + lamCostNewFunc + cornerCost
 
         output.innerHTML += `<li class="list-group-item"><b>Тип картона:</b> ${(cardboardType == 'dizcrd' ? 'дизайнерский картон' : 'обычный картон')}</li>`
         output.innerHTML += `<li class="list-group-item"><b>Бумага:</b> ${paper}</li>`
@@ -227,10 +229,13 @@ var app = new Vue({
         var paperCost = this.db['paperCosts'][paper]
         var printCost = this.db['printCosts'][color][fill]
         var kRent = this.db['kRentOf']['blanks'][""+color][editNum]
-        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        // var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0 // 1.2.1
+        var lamCost = this.isLaminated
+          ? (this.getLamCost(50) / 25 / this.db['flyerConst']['A4']) * this.edition 
+          : 0
         var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
         var biegenCost = this.isBiegen ? this.getBiegenCost(this.edition) : 0
-        console.log(paperCost, printCost, kRent, lamCost, cornerCost, biegenCost)
+        console.log(paperCost, printCost, this.edition, kRent, lamCost, this.edition, cornerCost, biegenCost)
 
         var total = ((paperCost + printCost) / 2) * this.edition * kRent + lamCost + cornerCost + biegenCost
 
@@ -304,7 +309,10 @@ var app = new Vue({
         console.log(this.linesNumber, lines)
 
         var kRent = this.db['kRentOf']['booklets']["4+4"][lines][editNum]
-        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        // var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0 // 1.2.1
+        var lamCost = this.isLaminated
+          ? (this.getLamCost(50) / 25 / this.db['flyerConst'][format]) * this.edition * 2
+          : 0
         var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
         var biegenCost = this.isBiegen ? this.getBiegenCost(this.edition) : 0
         var skoba = (this.linesNumber >= 4) ? 2.2 : 0
@@ -357,12 +365,15 @@ var app = new Vue({
         var paperCost = this.db['paperCosts'][paper]
         var printCost = this.db['printCosts']["4+4"]['100']
         var kRent = this.db['kRentOf']['flyers']["A4"]["4+4"][editNum]
-        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        // var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var lamCost = this.isLaminated
+          ? (this.getLamCost(50) / 50) * this.edition 
+          : 0
         var cornerCost = this.isCorners ? this.getCornersCost(this.edition) : 0
         var biegenCost = this.getBiegenCost(this.edition) // this.isBiegen ? this.db['additional']['biegen'][editNum] : 0
         console.log(paperCost, printCost, kRent, lamCost, cornerCost, biegenCost)
 
-        var total = ((paperCost + printCost) / 2) * this.edition * kRent + (lamCost / 2) + cornerCost + biegenCost
+        var total = ((paperCost + printCost) / 2) * this.edition * kRent + lamCost + cornerCost + biegenCost
         //     [(Стоимостьбумаги + стоимостьпечати) / 2] * Тираж * Крент + ламинация / 2 + скруг + биговка
 
         output.innerHTML += '<li class="list-group-item"><b>Бумага:</b> '+paper+'</li>'
@@ -469,18 +480,31 @@ var app = new Vue({
         var printCost_cover = this.db['printCosts'][coverColor][coverFill]
         var printCost_block = this.db['printCosts'][blockColor][blockFill] // this.db['printCosts'][blockColor][blockFill]
         var springCost = this.db['springCost'] // 2.5
+        
+        console.log('printCost_cover:', printCost_cover)
+        console.log('printCost_block:', printCost_block)
 
         var kRent = this.db['kRentOf']['notes'][format][editNum] // this.db['kRentOf']['notes'][format][blockColor][editNum] 
-        var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        // var lamCost = this.isLaminated ? this.getLamCost(this.edition) : 0
+        var lamCost = 0
         
-        console.log(coverCost, this.blockPages, blockCost, printCost_cover, this.blockPages, printCost_block, springCost, this.edition, kRent, lamCost)
+        console.log(this.getLamCost(50) / 25 / this.db["flyerConst"]["A4"] * this.edition * 2, lamCost)
 
         var total
         if (format == "А4") {
+          if (this.isLaminated) {
+            lamCost = this.getLamCost(50) / 25 / this.db["flyerConst"]["A4"] * this.edition * 2
+          }
           total = (1*coverCost + (this.blockPages * (blockCost/2)) + (0.5*printCost_cover) + (this.blockPages * (printCost_block/2)) + (1*springCost)) * this.edition * kRent + lamCost
         } else if (format == "А5") {
+          if (this.isLaminated) {
+            lamCost = this.getLamCost(50) / 25 / this.db["flyerConst"]["А5"] * this.edition * 2
+          }
           total = (0.5*coverCost + (this.blockPages * (blockCost/4)) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/4)) + (0.5*springCost)) * this.edition * kRent + lamCost
         } else if (format == "А6") {
+          if (this.isLaminated) {
+            lamCost = this.getLamCost(50) / 25 / this.db["flyerConst"]["А6"] * this.edition * 2
+          }
           total = (0.25*coverCost + (this.blockPages * (blockCost/8)) + (0.25*printCost_cover) + (this.blockPages * (printCost_block/8)) + (0.25*springCost)) * this.edition * kRent + lamCost
         }
 
@@ -814,8 +838,8 @@ var app = new Vue({
       menu.popup({ window: remote.getCurrentWindow(), x: 0, y: 28, })
     }
     
-    //load data
-    fs.readFile('resources/app/src/data.json', 'utf-8', (err, data) => {
+    //load data resources/app/src/data.json
+    fs.readFile('src/data.json', 'utf-8', (err, data) => {
       if (err) throw err
       this.db = JSON.parse(data)
     });

@@ -10,19 +10,11 @@
     "8": "Конверты"
   },
   "paperTypes": [ 
-    "Офсетная 80 гр",
-    "Maxigloss 130гр",
-    "Maxigloss 170гр./м.кв",
-    "Delight gloss в упак C2S Art Board мел.картон 2 ст. 310",
-    "Arconvert",
-    "Тач кавер 300",
-    "ICELASER Лен",
-    "Comet брилиант 300 гр",
-    "Acquerello 300 гр",
-    "Nettuno 300 гр",
-    "Sirio pearl 300 гр",
-    "Splendorgel 300 гр",
-    "TintoRetto 300 гр"
+    "Maxigloss (130гр./м2)",
+    "Maxigloss (170гр./м2)",
+    "High point C2S Art Board Китай (300гр./м2)",
+    "Bravo 300гр./м2",
+    "Svetocopy (80гр./м2)"
   ],
   "paperFormats": [
     "A3",
@@ -34,40 +26,36 @@
     "100x70"
   ],
   "paperCosts": {
-    "Офсетная 80 гр": 1.84,
-    "Maxigloss 130гр": 2.21,
-    "Maxigloss 170гр./м.кв": 2.89,
-    "Delight gloss в упак C2S Art Board мел.картон 2 ст. 310": 6.85,
-    "Arconvert": 9.5,
-    "Тач кавер 300": 86.62,
-    "ICELASER Лен": 27.41,
-    "Comet брилиант 300 гр": 44.73,
-    "Acquerello 300 гр": 33.3,
-    "Nettuno 300 гр": 34.5,
-    "Sirio pearl 300 гр": 48.6,
-    "Splendorgel 300 гр": 25.5,
-    "TintoRetto 300 гр": 27.7
+    "Maxigloss (130гр./м2)": 1.32,
+    "Maxigloss (170гр./м2)": 1.8,
+    "High point C2S Art Board Китай (300гр./м2)": 13.13,
+    "Bravo 300гр./м2": 3.58,
+    "Svetocopy (80гр./м2)": 0.6
   },
   "printCosts": {
     "4+0": {
       "20": 1.6,
-      "100": 8
+      "100": 8.0
     },
     "4+4": {
       "20": 3.2,
-      "100": 16
+      "100": 16.0
+    },
+    "0+0": {
+      "20": 0.3,
+      "100": 1.5
     },
     "1+0": {
-      "20": 1.6,
-      "100": 8
+      "20": 0.3,
+      "100": 1.5
     },
     "1+1": {
-      "20": 3.2,
-      "100": 16
+      "20": 0.6,
+      "100": 3.0
     },
     "4+1": {
-      "20": 3.2,
-      "100": 16
+      "20": 1.9,
+      "100": 9.5
     }
   },
   "additional": {
@@ -562,12 +550,12 @@
     "С5": 0.99,
     "С4": 2.36
   },
-  "springCost": 2.5,
-  "grommetCost": 0.3,
-  "block_std": 25,
+  "springCost": 1.17,
+  "grommetCost": 0.13,
+  "block_std": 12.0,
   "block_85": 7.6,
-  "skoba": 2.2,
-  "begunok": 3,
+  "skoba": 2.0,
+  "begunok": 1.12,
   "calendars": {
     "Домик самосборный": {
       "картон": 0.5,
