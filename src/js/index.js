@@ -839,7 +839,7 @@ var app = new Vue({
     }
     
     //load data resources/app/src/data.json
-    fs.readFile('src/data.json', 'utf-8', (err, data) => {
+    fs.readFile('resources/app/src/data.json', 'utf-8', (err, data) => {
       if (err) throw err
       this.db = JSON.parse(data)
     });
